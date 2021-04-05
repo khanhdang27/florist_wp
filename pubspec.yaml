@@ -1,0 +1,83 @@
+name: gut7
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.0
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.0
+  flutter_xlider: ^3.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/speaker.png
+    - assets/images/car-outline.png
+    - assets/images/facebook.png
+    - assets/images/gmail.png
+    - assets/images/logo.png
+    - assets/images/app_icon.png
+    - assets/images/instagram.png
+    - assets/images/mewe.png
+    - assets/images/wechat.png
+    - assets/images/whatsapp.png
+    - assets/images/header_bg.png
+    - assets/images/background.png
+    - assets/images/banner1.png
+    - assets/images/bong.png
+    - assets/images/bong2.png
+    - assets/images/icons/icon_flower.png
+    - assets/images/icons/icon_user.png
+    - assets/images/icons/icon_bag.png
+    - assets/images/icons/icon_bag2.png
+    - assets/images/icons/icon_bag_white.png
+    - assets/images/icons/icon_search.png
+    - assets/images/icons/icon_favou.png
+    - assets/images/icons/icon_star.png
+    - assets/images/icons/icon_tim.png
+    - assets/images/icons/icon_setting.png
+    - assets/images/icons/icon_setting_w.png
+    - assets/images/icons/icon_X.png
+    - assets/images/icons/icon_3cham.png
+    - assets/images/icons/icon_share.png
+    - assets/images/icons/icon_thungrac.png
+    - assets/images/icons/icon_3chamxam.png
+    - assets/images/lastRecom1.png
+    - assets/images/avatar.png
+    - assets/images/paidSuccess.png
+    - assets/images/check_flower.png
+    - assets/lang/
+
+  fonts:
+    - family: LiGoThic
+      fonts:
+        - asset: assets/fonts/LiGoThic.ttf
+    - family: PingFang SC
+      fonts:
+        - asset: assets/fonts/PingFangSC.ttf
+    - family: PingFang TC
+      fonts:
+        - asset: assets/fonts/PingFangTC.ttf
+    - family: PingFang HK
+      fonts:
+        - asset: assets/fonts/PingFangHK.ttf
+    - family: Avenir-Book
+      fonts:
+        - asset: assets/fonts/Avenir-Book.otf
+    - family: AppIcon
+      fonts:
+        - asset: assets/fonts/AppIcon.ttf
