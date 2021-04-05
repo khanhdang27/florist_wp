@@ -26,6 +26,7 @@ class AppColor {
   static Color pinkCard = Color.fromRGBO(255, 179, 189, 0.5);
   static Color whiteMain = Color(0xFFFFFFFF);
   static Color white20per = Color(0x33FFFFFF);
+  static Color white40per = Color(0x66FFFFFF);
   static Color whiteF8 = Color(0x85F8F8F8);
   static Color whiteF3 = Color(0xFFF3F2F8);
   static Color black8F = Color(0xFF8F8F8F);

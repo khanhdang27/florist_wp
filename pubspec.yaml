@@ -60,6 +60,7 @@ flutter:
     - assets/images/avatar.png
     - assets/images/paidSuccess.png
     - assets/images/check_flower.png
+    - assets/images/mail_flower.png
     - assets/lang/
 
   fonts:

@@ -9,3 +9,4 @@ export 'search/search_screen.dart';
 export 'bag/bag_screen.dart';
 export 'bag/paid_screen.dart';
 export 'bag/checkout_screen.dart';
+export 'setting/setting_screen.dart';

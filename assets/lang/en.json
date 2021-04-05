@@ -1,5 +1,6 @@
 {
   "signIn": "Sign In",
+  "signOut": "Sign Out",
   "enterPhoneOrNumber": "Please enter your email or phone number",
   "enterPassword": "Please enter your password",
   "register": "Register Account",
@@ -67,5 +68,14 @@
   "subtotal": "Subtotal",
   "confirmOrder": "Confirm Order",
   "checkOrder": "Check order status",
-  "skip": "Skip"
+  "skip": "Skip",
+  "discountPoint": "Discount Points",
+  "editProfile": "Edit Profile",
+  "contactInfo": "Contact Information",
+  "orderRecord": "Order Record",
+  "setUp": "Setup",
+  "language": "Language",
+  "on": "On",
+  "creditInfo": "Credit cart information",
+  "accountNum": "Account Number"
 }

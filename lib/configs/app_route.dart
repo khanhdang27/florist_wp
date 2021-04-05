@@ -15,6 +15,7 @@ class AppRoute {
   static const String bag = '/bag';
   static const String checkout = '/checkout';
   static const String paid = '/paid';
+  static const String setting = '/setting';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -76,6 +77,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return PaidScreen();
+          },
+        );
+        case AppRoute.setting:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SettingScreen();
           },
         );
 

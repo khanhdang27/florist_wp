@@ -27,11 +27,20 @@ class BottomMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildBtn(context,AppRoute.bag, AppIcon.icon_bag_1),
-          _buildBtn(context,AppRoute.wishList, AppIcon.icon_tim),
-          _buildBtn(context,AppRoute.filter,  AppIcon.icon_flower),
-          _buildBtn(context,AppRoute.search,  AppIcon.icon_search),
           _buildBtn(context,AppRoute.home,  AppIcon.icon_flower),
+          _buildBtn(context,AppRoute.wishList, AppIcon.icon_tim),
+          _buildBtn(context,AppRoute.setting,  AppIcon.icon_user),
+          _buildBtn(context,AppRoute.search,  AppIcon.icon_search),
+          Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Container(
+                child: _buildBtn(context,AppRoute.bag, AppIcon.icon_bag_1),
+              ),
+              num(context, 3),
+            ],
+          ),
+
       //    _buildIconBtn(Icons.list_sharp, AppRoute.category),
        //   _buildIconBtn(Icons.favorite, AppRoute.favorite),
       /*    BlocBuilder(
@@ -112,5 +121,19 @@ class BottomMenu extends StatelessWidget {
         );
    /*   },
     );*/
+  }
+  Widget num(context, num) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.only(top: 3),
+      decoration: BoxDecoration(
+        color: AppColor.greenMain,
+        shape: BoxShape.circle,
+      ),
+      child: Text(
+        '$num',
+        style: TextStyle(color: Colors.white, fontSize: 14),
+      ),
+    );
   }
 }

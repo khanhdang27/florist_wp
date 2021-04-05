@@ -1,5 +1,6 @@
 {
   "signIn": "登入",
+  "signOut": "登出",
   "enterPhoneOrNumber": "請輸入您的電郵或電話號碼",
   "enterPassword": "請輸入您的密碼",
   "register": "註冊帳號",
@@ -67,5 +68,14 @@
   "subtotal": "小計",
   "confirmOrder": "確認訂單",
   "checkOrder": "查看訂購狀態",
-  "skip": "略過"
+  "skip": "略過",
+  "discountPoint": "優惠積分",
+  "editProfile": "編輯個人資料",
+  "contactInfo": "聯絡資訊",
+  "orderRecord": "訂購記錄",
+  "setUp": "設定",
+  "language": "語言",
+  "on": "關於",
+  "creditInfo": "信用卡資料",
+  "accountNum": "帳號"
 }
