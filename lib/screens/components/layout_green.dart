@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
+import 'package:gut7/screens/home/banner_header_bar.dart';
 
 class Layout extends StatelessWidget {
   final Widget child;
+  final Widget header;
 
-  const Layout({Key key, this.child}) : super(key: key);
+  const Layout({Key key, this.child, this.header}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,17 @@ class Layout extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Scaffold(
-          backgroundColor: AppColor.transparentWhite,
-          body: SingleChildScrollView(
-            child: Container(
-              child: SafeArea(
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: AppColor.transparentWhite,
+            appBar: header,
+            body: SingleChildScrollView(
+              child: Container(
                 child: child,
               ),
             ),
+            bottomNavigationBar: BottomMenu(),
           ),
-          bottomNavigationBar: BottomMenu(),
         ),
       ),
     );

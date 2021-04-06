@@ -32,7 +32,7 @@ class SearchScreenState extends State<SearchScreen>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                AppLocalizations.t(context, 'searchFor'),
+                AppLocalizations.t(context, 'search'),
                 style: TextStyle(
                   fontSize: 25,
                   color: AppColor.whiteMain,

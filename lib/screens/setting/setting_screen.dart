@@ -13,6 +13,7 @@ class SettingScreenState extends State<SettingScreen>{
     return Layout(
       child: Column(
         children: [
+          SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -122,7 +123,7 @@ class SettingScreenState extends State<SettingScreen>{
                   padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
                   margin: EdgeInsets.only(left: 30),
                   decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per), top: BorderSide(color: AppColor.black10per))
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +144,7 @@ class SettingScreenState extends State<SettingScreen>{
                   padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
                   margin: EdgeInsets.only(left: 30),
                   decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per), top: BorderSide(color: AppColor.black10per))
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,7 +170,191 @@ class SettingScreenState extends State<SettingScreen>{
                   ),
                 ),
 
+                SizedBox(height: 40,),
+                Text(
+                  AppLocalizations.t(context, 'setUp'),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: AppFont.fAvenir,
+                      fontWeight: AppFont.wMedium
+                  ),
+                ),
 
+                SizedBox(height: 20,),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                  margin: EdgeInsets.only(left: 30),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'language'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: AppFont.fAvenir,
+                          fontWeight: AppFont.wMedium,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '中文',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColor.greenMain,
+                              fontFamily: AppFont.fAvenir,
+                              fontWeight: AppFont.wMedium,
+                            ),
+                          ),
+                          SizedBox(width: 10,),
+                          Icon(Icons.arrow_forward_ios, size: 16,),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                  margin: EdgeInsets.only(left: 30),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'on'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: AppFont.fAvenir,
+                          fontWeight: AppFont.wMedium,
+                        ),
+                      ),
+                      Icon(Icons.arrow_forward_ios, size: 16,)
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                  margin: EdgeInsets.only(left: 30),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'creditInfo'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: AppFont.fAvenir,
+                          fontWeight: AppFont.wMedium,
+                        ),
+                      ),
+                      Icon(Icons.arrow_forward_ios, size: 16,)
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                  margin: EdgeInsets.only(left: 30),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'deliveryInfo'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: AppFont.fAvenir,
+                          fontWeight: AppFont.wMedium,
+                        ),
+                      ),
+                      Icon(Icons.arrow_forward_ios, size: 16,)
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                  margin: EdgeInsets.only(left: 30),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'shareIt'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: AppFont.fAvenir,
+                          fontWeight: AppFont.wMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 40,),
+                Text(
+                  AppLocalizations.t(context, 'accountNum'),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: AppFont.fAvenir,
+                      fontWeight: AppFont.wMedium
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                  margin: EdgeInsets.only(left: 30),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'forgotPass'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: AppFont.fAvenir,
+                          fontWeight: AppFont.wMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.login);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.t(context, 'signOut'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: AppFont.fAvenir,
+                            fontWeight: AppFont.wMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 40,),
               ],
             ),
           )

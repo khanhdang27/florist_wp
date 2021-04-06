@@ -10,3 +10,8 @@ export 'bag/bag_screen.dart';
 export 'bag/paid_screen.dart';
 export 'bag/checkout_screen.dart';
 export 'setting/setting_screen.dart';
+export 'login/login_screen.dart';
+export 'login/register_screen.dart';
+export 'login/sms_screen.dart';
+export 'login/forgot_pass_screen.dart';
+export 'login/check_mail_screen.dart';

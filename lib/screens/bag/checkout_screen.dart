@@ -25,12 +25,9 @@ class CheckoutScreenState extends State<CheckoutScreen>{
   @override
   Widget build(BuildContext context) {
     return LayoutF3(
+      header: CheckoutHeader(),
       child: Column(
         children: [
-          SizedBox(height: 5,),
-          CheckoutHeader(),
-          SizedBox(height: 20,),
-
           Container(
             padding: EdgeInsets.only(left: 20,top: 25, bottom: 25),
             margin: EdgeInsets.only(left: 15, top: 10),
@@ -320,19 +317,14 @@ class CheckoutScreenState extends State<CheckoutScreen>{
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: TextField(
-                          textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
-                            hoverColor: AppColor.whiteMain,
-                            focusColor: AppColor.whiteMain,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7),
+                            border: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only( top: 15, left:15),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only( top: 15),
+                              child: Icon(Icons.arrow_forward,color: AppColor.greenMain),
                             ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7),
-                            ),
-                            suffixIcon: Icon(Icons.arrow_forward,color: AppColor.greenMain),
                           ),
                         ),
                       ),
@@ -390,19 +382,10 @@ class CheckoutScreenState extends State<CheckoutScreen>{
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: TextField(
-                          textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
-                            hoverColor: AppColor.whiteMain,
-                            focusColor: AppColor.whiteMain,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7),
-                            ),
-                           
+                            border: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only( top: 15, left:15),
                           ),
                         ),
                       ),

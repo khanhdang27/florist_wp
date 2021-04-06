@@ -8,52 +8,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout(
+      header: headerHome(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: Text(
-                  AppLocalizations.t(context, 'store'),
-                  style: TextStyle(
-                      color: AppColor.whiteMain,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900),
-                ),
-              ),
-              Expanded(
-                  child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                        color: AppColor.whiteF8,
-                        borderRadius: BorderRadius.circular(35),
-                      ),
-                      padding: EdgeInsets.all(15),
-                      child: Row(
-                        children: [
-                          Icon(AppIcon.icon_search2,size: 20, color: AppColor.black52per),
-                          Expanded(
-                            child: Container(
-                              height: 20,
-                              margin: EdgeInsets.only(left: 10, right: 5),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText:  AppLocalizations.t(context, 'searchFor'),
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  contentPadding: EdgeInsets.only( top: 30)
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )))
-            ],
-          ),
           GestureDetector(
             child: _buildBanner(context, AppAsset.banner1, 'titleBanner1', 'contentBanner1'),
             onTap: () {
@@ -326,6 +284,57 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+class headerHome extends StatelessWidget with PreferredSizeWidget{
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 30, right: 30),
+          child: Text(
+            AppLocalizations.t(context, 'store'),
+            style: TextStyle(
+                color: AppColor.whiteMain,
+                fontSize: 25,
+                fontWeight: FontWeight.w900),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              color: AppColor.whiteF8,
+              borderRadius: BorderRadius.circular(35),
+            ),
+            padding: EdgeInsets.all(15),
+            child: Row(
+              children: [
+                Icon(AppIcon.icon_search2,size: 20, color: AppColor.black52per),
+                Expanded(
+                  child: Container(
+                    height: 20,
+                    margin: EdgeInsets.only(left: 10, right: 5),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          hintText:  AppLocalizations.t(context, 'searchFor'),
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.only( top: 30)
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )))
+      ],
     );
   }
 }

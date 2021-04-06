@@ -35,6 +35,9 @@ class AppAsset {
   static String paidSuccess = "assets/images/paidSuccess.png";
   static String checkFlower = "assets/images/check_flower.png";
   static String mailFlower = "assets/images/mail_flower.png";
+  static String name = "assets/images/name.png";
+  static String iconLogo = "assets/images/icon_logo.png";
+  static String address = "assets/images/address.png";
 
   //Singleton factory
   static final AppAsset _instance = AppAsset._internal();

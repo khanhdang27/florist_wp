@@ -18,9 +18,9 @@ class PaidScreen extends StatelessWidget{
               ),
             ],
           ),
-          SizedBox(height: 80,),
-          Image.asset(AppAsset.checkFlower, width: 150,),
-          SizedBox(height: 20,),
+          SizedBox(height: 50,),
+          Image.asset(AppAsset.checkFlower, width: 170,),
+          SizedBox(height: 30,),
           Text(
             AppLocalizations.t(context, 'orderComplete'),
             style: TextStyle(

@@ -8,11 +8,11 @@ class ProductListScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Layout(
+      header: BannerHeaderBar(press: (){
+        Navigator.pushNamed(context, AppRoute.home);
+      },),
       child: Column(
         children: [
-          BannerHeaderBar(press: (){
-            Navigator.pushNamed(context, AppRoute.home);
-          },),
           Row(
             children: [
               SizedBox(width: 30,),

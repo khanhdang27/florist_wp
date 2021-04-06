@@ -123,16 +123,21 @@ class BottomMenu extends StatelessWidget {
     );*/
   }
   Widget num(context, num) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.only(top: 3),
-      decoration: BoxDecoration(
-        color: AppColor.greenMain,
-        shape: BoxShape.circle,
-      ),
-      child: Text(
-        '$num',
-        style: TextStyle(color: Colors.white, fontSize: 14),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushReplacementNamed(context, AppRoute.bag);
+      },
+      child: Container(
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.only(top: 3),
+        decoration: BoxDecoration(
+          color: AppColor.greenMain,
+          shape: BoxShape.circle,
+        ),
+        child: Text(
+          '$num',
+          style: TextStyle(color: Colors.white, fontSize: 14),
+        ),
       ),
     );
   }

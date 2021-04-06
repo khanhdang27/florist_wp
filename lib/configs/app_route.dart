@@ -16,6 +16,11 @@ class AppRoute {
   static const String checkout = '/checkout';
   static const String paid = '/paid';
   static const String setting = '/setting';
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String sms = '/sms';
+  static const String forgot = '/forgot';
+  static const String checkmail = '/checkmail';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -83,6 +88,36 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return SettingScreen();
+          },
+        );
+        case AppRoute.login:
+        return MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        );
+        case AppRoute.register:
+        return MaterialPageRoute(
+          builder: (context) {
+            return RegisterScreen();
+          },
+        );
+        case AppRoute.sms:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SMSScreen();
+          },
+        );
+        case AppRoute.forgot:
+        return MaterialPageRoute(
+          builder: (context) {
+            return ForgotPassScreen();
+          },
+        );
+        case AppRoute.checkmail:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CheckMailScreen();
           },
         );
 

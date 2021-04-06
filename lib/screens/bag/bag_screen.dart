@@ -14,17 +14,10 @@ class BagScreenState extends State<BagScreen>{
   @override
   Widget build(BuildContext context) {
     return LayoutF3(
+      header: headerBag(),
       child: Column(
         children: [
-          SizedBox(height: 10,),
-          Text(
-            AppLocalizations.t(context, 'shoppingBag'),
-            style: TextStyle(
-              color: AppColor.blackMain,
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(height: 20,),
+
           BagProduct(name: '求婚花束 生日花束',
               image: AppAsset.bong,
               id: 'BO102',
@@ -350,3 +343,27 @@ class _BagProduct extends State<BagProduct>{
 
 }
 
+class headerBag extends StatelessWidget with PreferredSizeWidget{
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            AppLocalizations.t(context, 'shoppingBag'),
+            style: TextStyle(
+            color: AppColor.blackMain,
+            fontSize: 25,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+}

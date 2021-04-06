@@ -9,97 +9,67 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutWhite(
+      header: headerFilter(),
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 1,
-              child: SizedBox(width: 1),
+            SizedBox(
+              height: 50,
             ),
-            Expanded(
-              flex: 7,
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  AppLocalizations.t(context, 'filter'),
-                  style: TextStyle(
-                    color: AppColor.blackMain,
-                    fontSize: 20,
-                    fontWeight: AppFont.wSemiBold,
-                  ),
+            Container(
+              margin: EdgeInsets.only(left: 30),
+              child: Text(
+                AppLocalizations.t(context, 'sort'),
+                style: TextStyle(
+                  color: AppColor.blackMain,
+                  fontSize: 20,
+                  fontFamily: AppFont.fAvenir,
                 ),
               ),
             ),
-            Flexible(
-              flex: 1,
-              fit: FlexFit.loose,
-              child: Image.asset(
-                AppAsset.iconX,
-                width: 15.5,
+            _builtBtnSort(props: 'price', type: 'lth'),
+            _builtBtnSort(props: 'score', type: 'lth'),
+            _builtBtnSort(props: 'leaveComment', type: 'ltm'),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 30),
+              child: Text(
+                AppLocalizations.t(context, 'priceRange'),
+                style: TextStyle(
+                  color: AppColor.blackMain,
+                  fontSize: 20,
+                  fontFamily: AppFont.fAvenir,
+                ),
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            RangeCustom(),
+            SizedBox(
+              height: 50,
+            ),
+            GestureDetector(
+              onTap: (){},
+              child: _builtBtn(
+                  btnColor: AppColor.greenMain,
+                  contColor: AppColor.whiteMain,
+                  content: 'perform'),
+            ),
+            GestureDetector(
+              onTap: (){},
+              child: _builtBtn(
+                  btnColor: AppColor.black7C16,
+                  contColor: AppColor.black7C,
+                  content: 'empty'),
+            ),
           ],
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 30),
-          child: Text(
-            AppLocalizations.t(context, 'sort'),
-            style: TextStyle(
-              color: AppColor.blackMain,
-              fontSize: 20,
-              fontFamily: AppFont.fAvenir,
-            ),
-          ),
-        ),
-        _builtBtnSort(props: 'price', type: 'lth'),
-        _builtBtnSort(props: 'score', type: 'lth'),
-        _builtBtnSort(props: 'leaveComment', type: 'ltm'),
-        SizedBox(
-          height: 50,
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 30),
-          child: Text(
-            AppLocalizations.t(context, 'priceRange'),
-            style: TextStyle(
-              color: AppColor.blackMain,
-              fontSize: 20,
-              fontFamily: AppFont.fAvenir,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        RangeCustom(),
-        SizedBox(
-          height: 50,
-        ),
-        GestureDetector(
-          onTap: (){},
-          child: _builtBtn(
-              btnColor: AppColor.greenMain,
-              contColor: AppColor.whiteMain,
-              content: 'perform'),
-        ),
-        GestureDetector(
-          onTap: (){},
-          child: _builtBtn(
-              btnColor: AppColor.black7C16,
-              contColor: AppColor.black7C,
-              content: 'empty'),
-        ),
-      ],
-    ));
+        ));
   }
 }
 
@@ -361,4 +331,44 @@ class _RangeCustom extends State<RangeCustom> {
           },
         ));
   }
+}
+class headerFilter extends StatelessWidget with PreferredSizeWidget{
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: SizedBox(width: 1),
+        ),
+        Expanded(
+          flex: 7,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              AppLocalizations.t(context, 'filter'),
+              style: TextStyle(
+                color: AppColor.blackMain,
+                fontSize: 20,
+                fontWeight: AppFont.wSemiBold,
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Image.asset(
+            AppAsset.iconX,
+            width: 15.5,
+          ),
+        ),
+      ],
+    );
+  }
+
+
 }
