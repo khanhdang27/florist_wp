@@ -66,6 +66,8 @@ flutter:
     - assets/images/icon_logo.png
     - assets/images/name.png
     - assets/images/address.png
+    - assets/images/noCoupon.png
+    - assets/images/visa.png
     - assets/lang/
 
   fonts:
@@ -87,3 +89,6 @@ flutter:
     - family: AppIcon
       fonts:
         - asset: assets/fonts/AppIcon.ttf
+    - family: ConsolaB
+      fonts:
+        - asset: assets/fonts/consolab.ttf

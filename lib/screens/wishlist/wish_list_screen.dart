@@ -2,16 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
-import 'package:gut7/screens/screens.dart';
+import 'package:gut7/screens/wishlist/header_wishlist.dart';
 
 class WishListScreen extends StatefulWidget{
-  final int quantity;
-
-  const WishListScreen({Key key, this.quantity=1}) : super(key: key);
-
   @override
   WishListScreenState createState() => WishListScreenState();
-
 }
 
 class WishListScreenState extends State<WishListScreen>{
@@ -19,154 +14,113 @@ class WishListScreenState extends State<WishListScreen>{
   Widget build(BuildContext context) {
     return Layout(
       header: headerWishlist(),
-      child: widget.quantity==0 ? noWishlist() : ShowWishList(),
-    );
-  }
-}
-class ShowWishList extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        WishList(name: '求婚花束 生日花束',
-            image: AppAsset.bong,
-            id: 'BO102',
-            review: '4.5分 (354)',
-            price: '\$400'),
-        WishList(name: '求婚花束 生日花束',
-            image: AppAsset.bong,
-            id: 'BO102',
-            review: '4.5分 (354)',
-            price: '\$400'),
+      child:Column(
+        children: [
+          WishList(name: '求婚花束 生日花束',
+              image: AppAsset.bong,
+              id: 'BO102',
+              review: '4.5分 (354)',
+              price: '\$400'),
+          WishList(name: '求婚花束 生日花束',
+              image: AppAsset.bong,
+              id: 'BO102',
+              review: '4.5分 (354)',
+              price: '\$400'),
+          WishList(name: '求婚花束 生日花束',
+              image: AppAsset.bong,
+              id: 'BO102',
+              review: '4.5分 (354)',
+              price: '\$400'),
 
-        SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.all(20),
-          height: 202,
-          margin: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            color: AppColor.whiteMain,
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppLocalizations.t(context, 'total'),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: AppFont.wSemiBold,
-                    ),
-                  ),
-                  Text(
-                    '\$2150',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: AppFont.wSemiBold,
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: 200,
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.all(20),
+            height: 202,
+            margin: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              color: AppColor.whiteMain,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
-                      AppAsset.iconBag2,
-                      height: 20,
-                    ),
-                    SizedBox(width: 10),
                     Text(
-                      AppLocalizations.t(context, 'addAllToCart'),
+                      AppLocalizations.t(context, 'total'),
                       style: TextStyle(
-                          color: AppColor.greenMain,
-                          fontWeight: AppFont.wMedium,
-                          fontSize: 14),
-                    )
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(
-                    vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: AppColor.blackF4),
-              ),
-              SizedBox(height: 20,),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(top: BorderSide(color: AppColor.black6per))
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 10,),
-                    Text(
-                      AppLocalizations.t(context, 'shareIt'),
-                      style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 20,
                         fontWeight: AppFont.wSemiBold,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _buildIcon(context, AppIcon.icon_facebook),
-                        _buildIcon(context, AppIcon.icon_call),
-                        _buildIcon(context, AppIcon.icon_tinnhan),
-                        _buildIcon(context, AppIcon.icon_upload),
-                      ],
+                    Text(
+                      '\$2150',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: AppFont.wSemiBold,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class headerWishlist extends StatelessWidget with PreferredSizeWidget{
-  @override
-  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 1,
-          child: SizedBox(width: 1),
-        ),
-        Expanded(
-          flex: 7,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              AppLocalizations.t(context, 'favourite'),
-              style: TextStyle(
-                color: AppColor.whiteMain,
-                fontSize: 25,
-                fontWeight: AppFont.wSemiBold,
-              ),
+                Container(
+                  width: 200,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        AppAsset.iconBag2,
+                        height: 20,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        AppLocalizations.t(context, 'addAllToCart'),
+                        style: TextStyle(
+                            color: AppColor.greenMain,
+                            fontWeight: AppFont.wMedium,
+                            fontSize: 14),
+                      )
+                    ],
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10, horizontal: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: AppColor.blackF4),
+                ),
+                SizedBox(height: 20,),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border(top: BorderSide(color: AppColor.black6per))
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 10,),
+                      Text(
+                        AppLocalizations.t(context, 'shareIt'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: AppFont.wSemiBold,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildIcon(context, AppIcon.icon_facebook),
+                          _buildIcon(context, AppIcon.icon_call),
+                          _buildIcon(context, AppIcon.icon_tinnhan),
+                          _buildIcon(context, AppIcon.icon_upload),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          fit: FlexFit.loose,
-          child: Image.asset(
-            AppAsset.icon3cham,
-            width: 21,
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -186,28 +140,7 @@ Widget _buildIcon(context,icon) {
     );
 }
 
-class noWishlist extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: AppColor.redMain,
-        child: Column(
-          children: [
-            Icon(AppIcon.icon_tim, color: AppColor.whiteMain, size: 40,),
-            Text(
-              AppLocalizations.t(context, 'noWishlist'),
-              style: TextStyle(
-                  fontSize: 20,
-                  color: AppColor.whiteMain
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+
 
 class WishList extends StatefulWidget{
   final String name;

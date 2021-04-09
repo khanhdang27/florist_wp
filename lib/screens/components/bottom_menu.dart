@@ -28,7 +28,7 @@ class BottomMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildBtn(context,AppRoute.home,  AppIcon.icon_flower),
-          _buildBtn(context,AppRoute.wishList, AppIcon.icon_tim),
+          _buildBtn(context,AppRoute.wishListEmpty, AppIcon.icon_tim),
           _buildBtn(context,AppRoute.setting,  AppIcon.icon_user),
           _buildBtn(context,AppRoute.search,  AppIcon.icon_search),
           Stack(

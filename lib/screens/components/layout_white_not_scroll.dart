@@ -3,25 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
 
-class LayoutGreenNotScroll extends StatelessWidget {
+class LayoutWhiteNotScroll extends StatelessWidget {
   final Widget child;
   final Widget header;
 
-  const LayoutGreenNotScroll({Key key, this.child, this.header}) : super(key: key);
+  const LayoutWhiteNotScroll({Key key, this.child, this.header}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppScreen(
       child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppAsset.background),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: AppColor.transparentWhite,
+            backgroundColor: AppColor.whiteMain,
             appBar: header,
             body: Container(
               child: child,

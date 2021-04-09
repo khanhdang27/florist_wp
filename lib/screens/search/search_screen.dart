@@ -10,6 +10,7 @@ class SearchScreen extends StatefulWidget{
 }
 
 class SearchScreenState extends State<SearchScreen>{
+ /*
   FocusNode _focus = new FocusNode();
 
   TextEditingController _controller = new TextEditingController();
@@ -22,6 +23,8 @@ class SearchScreenState extends State<SearchScreen>{
   void _onFocusChange(){
     print("Focus: "+_focus.hasFocus.toString());
   }
+*/
+bool empty = true;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,12 @@ class SearchScreenState extends State<SearchScreen>{
                     height: 20,
                     margin: EdgeInsets.only(left: 10, right: 5),
                     child: TextField(
-                      focusNode: _focus,
+                      onChanged: (T){
+                          setState(() {
+                            empty = T==''? true:false;
+                          });
+                      },
+
                       decoration: InputDecoration(
                         hintText:  AppLocalizations.t(context, 'enterKey'),
                         hintStyle: TextStyle(
@@ -74,7 +82,7 @@ class SearchScreenState extends State<SearchScreen>{
               ],
             )
           ),
-          nonSearch(),
+          empty?nonSearch():hasSearch(),
         ],
       )
     );
@@ -89,6 +97,45 @@ class nonSearch extends StatelessWidget{
         popuSearch(content: '百合',type: 'recentSearch'),
         popuSearch(content: '生日花',type: 'recentSearch')
       ],
+    );
+  }
+}
+
+class hasSearch extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        searchWidget(content: '玫瑰花束',),
+        searchWidget(content: '玫瑰生日花束',),
+        searchWidget(content: '玫瑰畢業花束',),
+      ],
+    );
+  }
+}
+
+class searchWidget extends StatelessWidget{
+  final String content;
+
+  const searchWidget({Key key, this.content}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 30),
+      padding: EdgeInsets.symmetric(vertical: 15),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: AppColor.white20per, width: 1))
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.search_outlined,size: 25,color: AppColor.whiteMain,),
+          SizedBox(width: 10,),
+          Text(content,style: TextStyle(
+            color: AppColor.whiteMain,
+            fontSize: 16,
+          ),)
+        ],
+      ),
     );
   }
 }

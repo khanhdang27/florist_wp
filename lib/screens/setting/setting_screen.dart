@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gut7/configs/app_route.dart';
 import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
 
@@ -98,25 +99,56 @@ class SettingScreenState extends State<SettingScreen>{
                   ),
                 ),
                 SizedBox(height: 40,),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
-                  margin: EdgeInsets.only(left: 30),
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per), top: BorderSide(color: AppColor.black10per))
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.t(context, 'orderRecord'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: AppFont.fAvenir,
-                          fontWeight: AppFont.wMedium,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.purchaseHistory);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: AppColor.black10per), top: BorderSide(color: AppColor.black10per))
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.t(context, 'orderRecord'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: AppFont.fAvenir,
+                            fontWeight: AppFont.wMedium,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.arrow_forward_ios, size: 16,)
-                    ],
+                        Icon(Icons.arrow_forward_ios, size: 16,)
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.coupon);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.t(context, 'coupon'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: AppFont.fAvenir,
+                            fontWeight: AppFont.wMedium,
+                          ),
+                        ),
+                        Icon(Icons.arrow_forward_ios, size: 16,)
+                      ],
+                    ),
                   ),
                 ),
                 Container(
@@ -129,28 +161,7 @@ class SettingScreenState extends State<SettingScreen>{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppLocalizations.t(context, 'coupon'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: AppFont.fAvenir,
-                          fontWeight: AppFont.wMedium,
-                        ),
-                      ),
-                      Icon(Icons.arrow_forward_ios, size: 16,)
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
-                  margin: EdgeInsets.only(left: 30),
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.t(context, 'coupon'),
+                        AppLocalizations.t(context, 'discountPoint'),
                         style: TextStyle(
                           fontSize: 16,
                           fontFamily: AppFont.fAvenir,
@@ -216,67 +227,82 @@ class SettingScreenState extends State<SettingScreen>{
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
-                  margin: EdgeInsets.only(left: 30),
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.t(context, 'on'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: AppFont.fAvenir,
-                          fontWeight: AppFont.wMedium,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.about);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.t(context, 'about'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: AppFont.fAvenir,
+                            fontWeight: AppFont.wMedium,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.arrow_forward_ios, size: 16,)
-                    ],
+                        Icon(Icons.arrow_forward_ios, size: 16,)
+                      ],
+                    ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
-                  margin: EdgeInsets.only(left: 30),
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.t(context, 'creditInfo'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: AppFont.fAvenir,
-                          fontWeight: AppFont.wMedium,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.creditCard);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.t(context, 'creditInfo'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: AppFont.fAvenir,
+                            fontWeight: AppFont.wMedium,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.arrow_forward_ios, size: 16,)
-                    ],
+                        Icon(Icons.arrow_forward_ios, size: 16,)
+                      ],
+                    ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
-                  margin: EdgeInsets.only(left: 30),
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColor.black10per),)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.t(context, 'deliveryInfo'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: AppFont.fAvenir,
-                          fontWeight: AppFont.wMedium,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.shippingInfo);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20, right:25, left: 10, top: 15),
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: AppColor.black10per),)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.t(context, 'deliveryInfo'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: AppFont.fAvenir,
+                            fontWeight: AppFont.wMedium,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.arrow_forward_ios, size: 16,)
-                    ],
+                        Icon(Icons.arrow_forward_ios, size: 16,)
+                      ],
+                    ),
                   ),
                 ),
                 Container(

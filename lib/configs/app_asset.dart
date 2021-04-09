@@ -38,6 +38,8 @@ class AppAsset {
   static String name = "assets/images/name.png";
   static String iconLogo = "assets/images/icon_logo.png";
   static String address = "assets/images/address.png";
+  static String noCoupon = "assets/images/noCoupon.png";
+  static String visa = "assets/images/visa.png";
 
   //Singleton factory
   static final AppAsset _instance = AppAsset._internal();

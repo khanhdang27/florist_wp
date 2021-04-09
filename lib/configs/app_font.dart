@@ -7,6 +7,7 @@ class AppFont {
   static String fPingFangSC = "PingFang SC";
   static String fLiGoThic = "LiGoThic";
   static String fAvenir = "Avenir-Book";
+  static String fConsolaB = "ConsolaB ";
 
   //Font weight
   static FontWeight wLight = FontWeight.w300;

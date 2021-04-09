@@ -11,6 +11,7 @@ class AppRoute {
   static const String productDetail = '/productDetail';
   static const String filter = '/filter';
   static const String wishList = '/wishList';
+  static const String wishListEmpty = '/wishListEmpty';
   static const String search = '/search';
   static const String bag = '/bag';
   static const String checkout = '/checkout';
@@ -21,6 +22,14 @@ class AppRoute {
   static const String sms = '/sms';
   static const String forgot = '/forgot';
   static const String checkmail = '/checkmail';
+  static const String purchaseHistory = '/purchaseHistory';
+  static const String purchaseDetail = '/purchaseDetail';
+  static const String coupon = '/coupon';
+  static const String couponAdd = '/couponAdd';
+  static const String creditCard = '/creditCard';
+  static const String creditEditCard = '/creditEditCard';
+  static const String shippingInfo = '/shippingInfo';
+  static const String about = '/about';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -58,6 +67,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return WishListScreen();
+          },
+        );
+        case AppRoute.wishListEmpty:
+        return MaterialPageRoute(
+          builder: (context) {
+            return WishListEmptyScreen();
           },
         );
         case AppRoute.search:
@@ -118,6 +133,54 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return CheckMailScreen();
+          },
+        );
+        case AppRoute.purchaseHistory:
+        return MaterialPageRoute(
+          builder: (context) {
+            return PurchaseHistoryScreen();
+          },
+        );
+        case AppRoute.purchaseDetail:
+        return MaterialPageRoute(
+          builder: (context) {
+            return PurchaseDetailScreen();
+          },
+        );
+        case AppRoute.coupon:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CouponScreen();
+          },
+        );
+        case AppRoute.couponAdd:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CouponAddScreen();
+          },
+        );
+        case AppRoute.creditCard:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CreditScreen();
+          },
+        );
+        case AppRoute.creditEditCard:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CreditEditScreen();
+          },
+        );
+        case AppRoute.shippingInfo:
+        return MaterialPageRoute(
+          builder: (context) {
+            return ShippingInfoScreen();
+          },
+        );
+        case AppRoute.about:
+        return MaterialPageRoute(
+          builder: (context) {
+            return AboutScreen();
           },
         );
 
