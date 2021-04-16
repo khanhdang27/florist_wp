@@ -20,6 +20,7 @@ class SettingScreenState extends State<SettingScreen>{
             children: [
               Text(
                 'Cherry Li',
+
                 style: TextStyle(
                   fontSize: 25,
                   color: AppColor.whiteMain,

@@ -33,151 +33,152 @@ class AppRoute {
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case AppRoute.home:
-        return MaterialPageRoute(
-          builder: (context) {
-            return HomeScreen();
-          },
-        );
-        case AppRoute.productList:
-        return MaterialPageRoute(
-          builder: (context) {
-            return ProductListScreen();
-          },
-        );
-        case AppRoute.productDetail:
-        return MaterialPageRoute(
-          builder: (context) {
-            return ProductDetailScreen();
-          },
-        );
-        case AppRoute.filter:
-        return MaterialPageRoute(
-          builder: (context) {
-            return FilterScreen();
-          },
-        );
-        case AppRoute.banner:
-        return MaterialPageRoute(
-          builder: (context) {
-            return BannerScreen();
-          },
-        );
-        case AppRoute.wishList:
-        return MaterialPageRoute(
-          builder: (context) {
-            return WishListScreen();
-          },
-        );
-        case AppRoute.wishListEmpty:
-        return MaterialPageRoute(
-          builder: (context) {
-            return WishListEmptyScreen();
-          },
-        );
-        case AppRoute.search:
-        return MaterialPageRoute(
-          builder: (context) {
-            return SearchScreen();
-          },
-        );
-        case AppRoute.bag:
-        return MaterialPageRoute(
-          builder: (context) {
-            return BagScreen();
-          },
-        );
-        case AppRoute.checkout:
-        return MaterialPageRoute(
-          builder: (context) {
-            return CheckoutScreen();
-          },
-        );
-        case AppRoute.paid:
-        return MaterialPageRoute(
-          builder: (context) {
-            return PaidScreen();
-          },
-        );
-        case AppRoute.setting:
-        return MaterialPageRoute(
-          builder: (context) {
-            return SettingScreen();
-          },
-        );
-        case AppRoute.login:
+      case AppRoute.login:
         return MaterialPageRoute(
           builder: (context) {
             return LoginScreen();
           },
         );
-        case AppRoute.register:
+      case AppRoute.home:
+        return MaterialPageRoute(
+          builder: (context) {
+            return HomeScreen();
+          },
+          settings: settings,
+        );
+      case AppRoute.productList:
+        return MaterialPageRoute(
+          builder: (context) {
+            return ProductListScreen();
+          },
+        );
+      case AppRoute.productDetail:
+        return MaterialPageRoute(
+          builder: (context) {
+            return ProductDetailScreen();
+          },
+        );
+      case AppRoute.filter:
+        return MaterialPageRoute(
+          builder: (context) {
+            return FilterScreen();
+          },
+        );
+      case AppRoute.banner:
+        return MaterialPageRoute(
+          builder: (context) {
+            return BannerScreen();
+          },
+        );
+      case AppRoute.wishList:
+        return MaterialPageRoute(
+          builder: (context) {
+            return WishListScreen();
+          },
+        );
+      case AppRoute.wishListEmpty:
+        return MaterialPageRoute(
+          builder: (context) {
+            return WishListEmptyScreen();
+          },
+        );
+      case AppRoute.search:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SearchScreen();
+          },
+        );
+      case AppRoute.bag:
+        return MaterialPageRoute(
+          builder: (context) {
+            return BagScreen();
+          },
+        );
+      case AppRoute.checkout:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CheckoutScreen();
+          },
+        );
+      case AppRoute.paid:
+        return MaterialPageRoute(
+          builder: (context) {
+            return PaidScreen();
+          },
+        );
+      case AppRoute.setting:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SettingScreen();
+          },
+        );
+      case AppRoute.register:
         return MaterialPageRoute(
           builder: (context) {
             return RegisterScreen();
           },
         );
-        case AppRoute.sms:
+      case AppRoute.sms:
         return MaterialPageRoute(
           builder: (context) {
             return SMSScreen();
           },
         );
-        case AppRoute.forgot:
+      case AppRoute.forgot:
         return MaterialPageRoute(
           builder: (context) {
             return ForgotPassScreen();
           },
         );
-        case AppRoute.checkmail:
+      case AppRoute.checkmail:
         return MaterialPageRoute(
           builder: (context) {
             return CheckMailScreen();
           },
         );
-        case AppRoute.purchaseHistory:
+      case AppRoute.purchaseHistory:
         return MaterialPageRoute(
           builder: (context) {
             return PurchaseHistoryScreen();
           },
         );
-        case AppRoute.purchaseDetail:
+      case AppRoute.purchaseDetail:
         return MaterialPageRoute(
           builder: (context) {
             return PurchaseDetailScreen();
           },
         );
-        case AppRoute.coupon:
+      case AppRoute.coupon:
         return MaterialPageRoute(
           builder: (context) {
             return CouponScreen();
           },
         );
-        case AppRoute.couponAdd:
+      case AppRoute.couponAdd:
         return MaterialPageRoute(
           builder: (context) {
             return CouponAddScreen();
           },
         );
-        case AppRoute.creditCard:
+      case AppRoute.creditCard:
         return MaterialPageRoute(
           builder: (context) {
             return CreditScreen();
           },
         );
-        case AppRoute.creditEditCard:
+      case AppRoute.creditEditCard:
         return MaterialPageRoute(
           builder: (context) {
             return CreditEditScreen();
           },
         );
-        case AppRoute.shippingInfo:
+      case AppRoute.shippingInfo:
         return MaterialPageRoute(
           builder: (context) {
             return ShippingInfoScreen();
           },
         );
-        case AppRoute.about:
+      case AppRoute.about:
         return MaterialPageRoute(
           builder: (context) {
             return AboutScreen();

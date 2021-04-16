@@ -10,7 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GUT7',
+      title: 'James Wong Florist',
       theme: ThemeData(fontFamily: AppFont.fPingFangSC),
       home: HomeScreen(),
       onGenerateRoute: AppRoute().generateRoute,
