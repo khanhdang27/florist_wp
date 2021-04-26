@@ -30,6 +30,7 @@ class Layout extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: BottomMenu(),
+            extendBody: true,
           ),
         ),
       ),

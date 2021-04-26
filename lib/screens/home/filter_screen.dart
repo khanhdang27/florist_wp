@@ -68,6 +68,7 @@ class FilterScreen extends StatelessWidget {
                   contColor: AppColor.black7C,
                   content: 'empty'),
             ),
+            SizedBox(height: 80),
           ],
         ));
   }
@@ -361,9 +362,14 @@ class headerFilter extends StatelessWidget with PreferredSizeWidget{
         Flexible(
           flex: 1,
           fit: FlexFit.loose,
-          child: Image.asset(
-            AppAsset.iconX,
-            width: 15.5,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset(
+              AppAsset.iconX,
+              width: 15.5,
+            ),
           ),
         ),
       ],

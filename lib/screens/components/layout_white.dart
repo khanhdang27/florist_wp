@@ -22,6 +22,7 @@ class LayoutWhite extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: BottomMenu(),
+            extendBody: true,
           ),
         ),
       ),

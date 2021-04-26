@@ -9,7 +9,7 @@ class AboutScreen extends StatelessWidget {
     return LayoutWhite(
       header: headerAbout(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 40),
+        padding: const EdgeInsets.only(left: 35, right:35, top: 40, bottom: 100),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

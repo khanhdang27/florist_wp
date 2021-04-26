@@ -10,7 +10,7 @@ class RegisterScreen extends StatefulWidget{
 class RegisterScreenState extends State<RegisterScreen>{
   @override
   Widget build(BuildContext context) {
-    return LayoutWhite(
+    return LayoutWhiteNotMenu(
       child: Column(
         children: [
           SizedBox(height: 40,),

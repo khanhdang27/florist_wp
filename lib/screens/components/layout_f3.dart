@@ -22,6 +22,7 @@ class LayoutF3 extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: BottomMenu(),
+            extendBody: true,
           ),
         ),
       ),

@@ -81,7 +81,7 @@ class PaidScreen extends StatelessWidget{
               ),
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 110,),
         ],
       ),
     );

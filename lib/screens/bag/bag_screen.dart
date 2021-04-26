@@ -256,6 +256,7 @@ class BagScreenState extends State<BagScreen>{
               ],
             ),
           ),
+          SizedBox(height: 80,),
         ],
       ),
     );

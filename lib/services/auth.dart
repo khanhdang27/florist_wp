@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
 import 'package:gut7/models/models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dio.dart';
 
@@ -16,17 +17,20 @@ class Auth extends ChangeNotifier{
   Future<String> login({Map creds}) async{
     try{
       Dio.Response response = await dio().post('/login', data: creds);
-      print(response.data.toString());
+      String token = response.data['token'];
+      Member member = Member.fromJson(response.data['member']);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
+      prefs.setInt('member_id', member.id);
 
-      String token = response.data.toString();
-      this.tryToken(token: token);
+ //     this.tryToken(token: token);
       return token;
     } catch (e){
       print(e);
     }
   }
 
-  void tryToken({String token}) async{
+  /*void tryToken({String token}) async{
     if (token == null){
       return;
     }else {
@@ -36,14 +40,11 @@ class Auth extends ChangeNotifier{
         this._isLoggedIn = true;
         this._member = Member.fromJson(response.data);
         notifyListeners();
-
-        print(_member);
-
       } catch (e) {
         print(e);
       }
     }
-  }
+  }*/
 
   void logout(){
     _isLoggedIn = false;

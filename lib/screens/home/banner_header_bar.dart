@@ -44,7 +44,7 @@ class _BannerHeaderBar extends State<BannerHeaderBar> {
                         icon: Image.asset(AppAsset.iconBagWhite, height: 24),
                         color: AppColor.whiteMain,
                         onPressed: () {
-                          print("Pressed");
+                          Navigator.pushReplacementNamed(context, AppRoute.bag);
                         }),
                   ),
                   num(context, 3),

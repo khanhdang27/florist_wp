@@ -6,7 +6,7 @@ import 'package:gut7/screens/components/components.dart';
 class ForgotPassScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return LayoutWhite(
+    return LayoutWhiteNotMenu(
       child: Column(
         children: [
           Row(

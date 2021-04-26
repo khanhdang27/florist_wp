@@ -24,6 +24,7 @@ class WishListEmptyScreen extends StatelessWidget{
                       color: AppColor.whiteMain
                   ),
                 ),
+                SizedBox(height: 100,),
               ],
             ),
           ],

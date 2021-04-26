@@ -20,6 +20,11 @@ dependencies:
   provider: ^5.0.0
   dio: ^4.0.0
   http: ^0.13.1
+  get: ^4.1.4
+  carousel_slider: ^3.0.0
+  flutter_swiper: ^1.1.6
+  intl: ^0.17.0
+  shared_preferences: ^2.0.5
 
 
 dev_dependencies:
@@ -79,13 +84,13 @@ flutter:
     - family: LiGoThic
       fonts:
         - asset: assets/fonts/LiGoThic.ttf
-    - family: PingFang SC
+    - family: PingFang-SC
       fonts:
         - asset: assets/fonts/PingFangSC.ttf
-    - family: PingFang TC
+    - family: PingFang-TC
       fonts:
         - asset: assets/fonts/PingFangTC.ttf
-    - family: PingFang HK
+    - family: PingFang-HK
       fonts:
         - asset: assets/fonts/PingFangHK.ttf
     - family: Avenir-Book
@@ -97,3 +102,6 @@ flutter:
     - family: ConsolaB
       fonts:
         - asset: assets/fonts/consolab.ttf
+    - family: Poppins-Regular
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf

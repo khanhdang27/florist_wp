@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gut7/configs/app_route.dart';
 import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget{
   SettingScreenState createState() => SettingScreenState();
@@ -356,7 +357,9 @@ class SettingScreenState extends State<SettingScreen>{
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.remove('token');
                     Navigator.pushNamed(context, AppRoute.login);
                   },
                   child: Container(
@@ -381,10 +384,10 @@ class SettingScreenState extends State<SettingScreen>{
                   ),
                 ),
 
-                SizedBox(height: 40,),
+                SizedBox(height: 120,),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

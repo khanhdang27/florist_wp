@@ -4,12 +4,13 @@ import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
 import 'package:gut7/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatefulWidget{
+class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen>{
+class LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -30,7 +31,7 @@ class LoginScreenState extends State<LoginScreen>{
 
   @override
   Widget build(BuildContext context) {
-    return LayoutWhite(
+    return LayoutWhiteNotMenu(
       child: Form(
         key: _formKey,
         child: Column(
@@ -39,8 +40,8 @@ class LoginScreenState extends State<LoginScreen>{
             Text(
               AppLocalizations.t(context, 'signIn'),
               style: TextStyle(
-                fontSize: 25,
-                fontWeight: AppFont.wMedium
+                  fontSize: 25,
+                  fontWeight: AppFont.wMedium
               ),
             ),
             SizedBox(height: 40,),
@@ -49,13 +50,13 @@ class LoginScreenState extends State<LoginScreen>{
               child: Image.asset(AppAsset.name,),
             ),
             Padding(
-              padding: const EdgeInsets.only(left:80, right:80, top: 15),
+              padding: const EdgeInsets.only(left: 80, right: 80, top: 15),
               child: Image.asset(AppAsset.address,),
             ),
             SizedBox(height: 80,),
 
             Container(
-              height:50,
+              height: 50,
               margin: EdgeInsets.symmetric(horizontal: 30),
               decoration: BoxDecoration(
                 color: AppColor.blackF852per,
@@ -63,7 +64,10 @@ class LoginScreenState extends State<LoginScreen>{
               ),
               child: TextFormField(
                 controller: _emailController,
-                validator: (value) => value.isEmpty ? 'Please enter valid email':null,
+                validator: (value) =>
+                value.isEmpty
+                    ? 'Please enter valid email'
+                    : null,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.t(context, 'emailOrPhone'),
                   hintStyle: TextStyle(
@@ -71,13 +75,13 @@ class LoginScreenState extends State<LoginScreen>{
                   ),
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.only( left:15),
+                  contentPadding: EdgeInsets.only(left: 15),
                 ),
               ),
             ),
             SizedBox(height: 18,),
             Container(
-              height:50,
+              height: 50,
               margin: EdgeInsets.symmetric(horizontal: 30),
               decoration: BoxDecoration(
                 color: AppColor.blackF852per,
@@ -85,7 +89,10 @@ class LoginScreenState extends State<LoginScreen>{
               ),
               child: TextFormField(
                 controller: _passwordController,
-                validator: (value) => value.isEmpty ? 'Please enter password':null,
+                validator: (value) =>
+                value.isEmpty
+                    ? 'Please enter password'
+                    : null,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.t(context, 'pass'),
@@ -94,7 +101,7 @@ class LoginScreenState extends State<LoginScreen>{
                   ),
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.only( left:15),
+                  contentPadding: EdgeInsets.only(left: 15),
                 ),
               ),
             ),
@@ -118,18 +125,18 @@ class LoginScreenState extends State<LoginScreen>{
                       Text(
                         AppLocalizations.t(context, 'rememberMe'),
                         style: TextStyle(
-                          fontFamily: AppFont.fAvenir
+                            fontFamily: AppFont.fAvenir
                         ),
                       ),
                     ],
                   ),
 
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pushNamed(context, AppRoute.forgot);
                     },
                     child: Text(
-                      AppLocalizations.t(context, 'forgotPass')+"?",
+                      AppLocalizations.t(context, 'forgotPass') + "?",
                       style: TextStyle(
                           fontFamily: AppFont.fAvenir
                       ),
@@ -140,38 +147,40 @@ class LoginScreenState extends State<LoginScreen>{
             ),
             SizedBox(height: 30,),
             GestureDetector(
-              onTap: (){
+              onTap: () async {
+   //             SharedPreferences prefs = await SharedPreferences.getInstance();
                 Map creds = {
-                  'email' : _emailController.text,
-                  'pass' : _passwordController.text,
-                  'device_name' : 'mobile',
+                  'email': _emailController.text,
+                  'pass': _passwordController.text,
+                  'device_name': 'mobile',
                 };
-                if (_formKey.currentState.validate()){
-                  var response = Provider.of<Auth>(context,listen: false).login(creds: creds);
+                if (_formKey.currentState.validate()) {
+                  var response = Provider.of<Auth>(context, listen: false)
+                      .login(creds: creds);
                   response.then((value) => {
-                    if (value!=null) {
-                      Navigator.pushNamed(context, AppRoute.home)
-                    }else{
-                      print('jbjhdsf')
-                    }
-                  });
-
+                  if (value!=null) {
+                    Navigator.pushNamed(context, AppRoute.home)
+                } else {
+                  print('Login failed')
                 }
+              });
+
+              }
               },
               child: Container(
                 alignment: Alignment.center,
                 width: 260,
                 height: 48,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: AppColor.greenMain
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: AppColor.greenMain
                 ),
                 child: Text(
                   AppLocalizations.t(context, 'signIn'),
                   style: TextStyle(
-                    fontFamily: AppFont.fAvenir,
-                    fontSize: 15,
-                    color: AppColor.whiteMain
+                      fontFamily: AppFont.fAvenir,
+                      fontSize: 15,
+                      color: AppColor.whiteMain
                   ),
                 ),
               ),
@@ -216,7 +225,7 @@ class LoginScreenState extends State<LoginScreen>{
             ),
 
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.pushNamed(context, AppRoute.register);
               },
               child: Padding(
@@ -224,8 +233,8 @@ class LoginScreenState extends State<LoginScreen>{
                 child: Text(
                   AppLocalizations.t(context, 'noAcc'),
                   style: TextStyle(
-                      fontFamily: AppFont.fAvenir,
-                      fontSize: 14,
+                    fontFamily: AppFont.fAvenir,
+                    fontSize: 14,
                   ),
                 ),
               ),

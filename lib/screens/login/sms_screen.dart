@@ -20,7 +20,7 @@ class SMSScreenState extends State<SMSScreen>{
       startTimer();
       resend = false;
     }
-    return LayoutWhite(
+    return LayoutWhiteNotMenu(
       child: Column(
         children: [
           Row(

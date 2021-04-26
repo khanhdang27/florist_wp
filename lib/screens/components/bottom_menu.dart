@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gut7/configs/configs.dart';
 
 class BottomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(23),
+      height: 80,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -27,23 +26,35 @@ class BottomMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildBtn(context,AppRoute.home,  AppIcon.icon_flower),
-          _buildBtn(context,AppRoute.wishListEmpty, AppIcon.icon_tim),
-          _buildBtn(context,AppRoute.setting,  AppIcon.icon_user),
-          _buildBtn(context,AppRoute.search,  AppIcon.icon_search),
+          buildBtn(
+              path: AppRoute.home, icon: AppIcon.icon_flower, title: 'store'),
+
+          buildBtn(
+              path: AppRoute.gate, icon: AppIcon.icon_tim, title: 'favourite'),
+          buildBtn(
+              path: AppRoute.setting,
+              icon: AppIcon.icon_user,
+              title: 'myAccount'),
+          buildBtn(
+              path: AppRoute.search,
+              icon: AppIcon.icon_search,
+              title: 'searchFor'),
           Stack(
             alignment: Alignment.topRight,
             children: [
               Container(
-                child: _buildBtn(context,AppRoute.bag, AppIcon.icon_bag_1),
+                child: buildBtn(
+                    path: AppRoute.bag,
+                    icon: AppIcon.icon_bag_1,
+                    title: 'shoppingBag'),
               ),
               num(context, 3),
             ],
           ),
 
-      //    _buildIconBtn(Icons.list_sharp, AppRoute.category),
-       //   _buildIconBtn(Icons.favorite, AppRoute.favorite),
-      /*    BlocBuilder(
+          //    _buildIconBtn(Icons.list_sharp, AppRoute.category),
+          //   _buildIconBtn(Icons.favorite, AppRoute.favorite),
+          /*    BlocBuilder(
             bloc: AppBloc.favoriteBloc,
             builder: (context, state) {
               if (state is FavoriteFetchSuccess && state.numOf > 0) {
@@ -55,36 +66,36 @@ class BottomMenu extends StatelessWidget {
               return _cartBtn();
             },
           ),*/
-      //    _buildIconBtn(Icons.person, AppRoute.user),
+          //    _buildIconBtn(Icons.person, AppRoute.user),
         ],
       ),
     );
   }
 
-  List<Widget> _cart(int numOf) {
-    List<Widget> cart = [
-      _cartBtn(),
-      Container(
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Colors.redAccent,
-          shape: BoxShape.circle,
-        ),
-        child: Text(
-          '$numOf',
-          style: TextStyle(color: Colors.white, fontSize: 12),
-        ),
-      ),
-    ];
-    return cart;
-  }
-
-  Widget _cartBtn() {
-  //  return _buildIconBtn(Icons.shopping_cart_outlined, AppRoute.cart);
-  }
+  // List<Widget> _cart(int numOf) {
+  //   List<Widget> cart = [
+  //     _cartBtn(),
+  //     Container(
+  //       padding: EdgeInsets.all(5),
+  //       decoration: BoxDecoration(
+  //         color: Colors.redAccent,
+  //         shape: BoxShape.circle,
+  //       ),
+  //       child: Text(
+  //         '$numOf',
+  //         style: TextStyle(color: Colors.white, fontSize: 12),
+  //       ),
+  //     ),
+  //   ];
+  //   return cart;
+  // }
+  //
+  // Widget _cartBtn() {
+  //     return _buildIconBtn(Icons.shopping_cart_outlined, AppRoute.cart);
+  // }
 
   Widget _buildIconBtn(AppIcon icon, String path) {
-  /*  return BlocBuilder(
+    /*  return BlocBuilder(
       bloc: AppBloc.authBloc,
       builder: (context, state) {
         String defaultPath = AppRoute.login;
@@ -101,27 +112,37 @@ class BottomMenu extends StatelessWidget {
     );*/
   }
 
-  Widget _buildBtn(context,path,icon) {
-  /*  return BlocBuilder(
-      bloc: AppBloc.authBloc,
-      builder: (context, state) {
-        String defaultPath = AppRoute.login;
-        if (state is AuthSuccess) {
-          defaultPath = AppRoute.home;
-        }*/
-        return GestureDetector(
-          child: Container(
-            height: 30,
-            width: 30,
-            child: Icon(icon,color: AppColor.black60per,),
-          ),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, path);
-          },
-        );
-   /*   },
-    );*/
-  }
+  // Widget _buildBtn(context, path, icon) {
+  //   /*  return BlocBuilder(
+  //     bloc: AppBloc.authBloc,
+  //     builder: (context, state) {
+  //       String defaultPath = AppRoute.login;
+  //       if (state is AuthSuccess) {
+  //         defaultPath = AppRoute.home;
+  //       }*/
+  //   String currentRoute = ModalRoute.of(context).settings.name;
+  //   return GestureDetector(
+  //     child: Column(
+  //       children: [
+  //         Container(
+  //           height: 30,
+  //           width: 30,
+  //           child: Icon(
+  //             icon,
+  //             color: currentRoute == path ? AppColor.greenMain : AppColor.black60per,
+  //           ),
+  //         ),
+  //         Text(title),
+  //       ],
+  //     ),
+  //     onTap: () {
+  //       Navigator.pushReplacementNamed(context, path);
+  //     },
+  //   );
+  //   /*   },
+  //   );*/
+  // }
+
   Widget num(context, num) {
     return GestureDetector(
       onTap: () {
@@ -129,7 +150,7 @@ class BottomMenu extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.all(5),
-        margin: EdgeInsets.only(top: 3),
+        margin: EdgeInsets.only(top: 5, right: 3),
         decoration: BoxDecoration(
           color: AppColor.greenMain,
           shape: BoxShape.circle,
@@ -139,6 +160,52 @@ class BottomMenu extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 14),
         ),
       ),
+    );
+  }
+}
+
+class buildBtn extends StatelessWidget {
+  IconData icon;
+  String path;
+  String title;
+
+  buildBtn({this.icon, this.path, this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    String currentRoute = ModalRoute.of(context).settings.name;
+    return GestureDetector(
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 13),
+            height: 30,
+            width: 50,
+            child: Icon(
+              icon,
+              color: currentRoute == path
+                  ? AppColor.greenMain
+                  : AppColor.black60per,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Text(
+              AppLocalizations.t(context, title),
+              style: TextStyle(
+                fontSize: 8,
+                fontFamily: AppFont.fPoppins,
+                color: currentRoute == path
+                    ? AppColor.greenMain
+                    : AppColor.black93,
+              ),
+            ),
+          ),
+        ],
+      ),
+      onTap: () {
+        Navigator.pushReplacementNamed(context, path);
+      },
     );
   }
 }

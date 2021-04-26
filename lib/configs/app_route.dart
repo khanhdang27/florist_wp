@@ -30,6 +30,7 @@ class AppRoute {
   static const String creditEditCard = '/creditEditCard';
   static const String shippingInfo = '/shippingInfo';
   static const String about = '/about';
+  static const String gate = '/gate';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -38,6 +39,7 @@ class AppRoute {
           builder: (context) {
             return LoginScreen();
           },
+          settings: settings,
         );
       case AppRoute.home:
         return MaterialPageRoute(
@@ -51,138 +53,168 @@ class AppRoute {
           builder: (context) {
             return ProductListScreen();
           },
+          settings: settings,
         );
       case AppRoute.productDetail:
         return MaterialPageRoute(
           builder: (context) {
             return ProductDetailScreen();
           },
+          settings: settings,
         );
       case AppRoute.filter:
         return MaterialPageRoute(
           builder: (context) {
             return FilterScreen();
           },
+          settings: settings,
         );
       case AppRoute.banner:
         return MaterialPageRoute(
           builder: (context) {
             return BannerScreen();
           },
+          settings: settings,
         );
       case AppRoute.wishList:
         return MaterialPageRoute(
           builder: (context) {
             return WishListScreen();
           },
+          settings: settings,
         );
       case AppRoute.wishListEmpty:
         return MaterialPageRoute(
           builder: (context) {
             return WishListEmptyScreen();
           },
+          settings: settings,
+        );
+      case AppRoute.gate:
+        return MaterialPageRoute(
+          builder: (context) {
+            return Gate();
+          },
+          settings: settings,
         );
       case AppRoute.search:
         return MaterialPageRoute(
           builder: (context) {
             return SearchScreen();
           },
+          settings: settings,
         );
       case AppRoute.bag:
         return MaterialPageRoute(
           builder: (context) {
             return BagScreen();
           },
+          settings: settings,
         );
       case AppRoute.checkout:
         return MaterialPageRoute(
           builder: (context) {
             return CheckoutScreen();
           },
+          settings: settings,
         );
       case AppRoute.paid:
         return MaterialPageRoute(
           builder: (context) {
             return PaidScreen();
           },
+          settings: settings,
         );
       case AppRoute.setting:
         return MaterialPageRoute(
           builder: (context) {
             return SettingScreen();
           },
+          settings: settings,
         );
       case AppRoute.register:
         return MaterialPageRoute(
           builder: (context) {
             return RegisterScreen();
           },
+          settings: settings,
         );
       case AppRoute.sms:
         return MaterialPageRoute(
           builder: (context) {
             return SMSScreen();
           },
+          settings: settings,
         );
       case AppRoute.forgot:
         return MaterialPageRoute(
           builder: (context) {
             return ForgotPassScreen();
           },
+          settings: settings,
         );
       case AppRoute.checkmail:
         return MaterialPageRoute(
           builder: (context) {
             return CheckMailScreen();
           },
+          settings: settings,
         );
       case AppRoute.purchaseHistory:
         return MaterialPageRoute(
           builder: (context) {
             return PurchaseHistoryScreen();
           },
+          settings: settings,
         );
       case AppRoute.purchaseDetail:
         return MaterialPageRoute(
           builder: (context) {
             return PurchaseDetailScreen();
           },
+          settings: settings,
         );
       case AppRoute.coupon:
         return MaterialPageRoute(
           builder: (context) {
             return CouponScreen();
           },
+          settings: settings,
         );
       case AppRoute.couponAdd:
         return MaterialPageRoute(
           builder: (context) {
             return CouponAddScreen();
           },
+          settings: settings,
         );
       case AppRoute.creditCard:
         return MaterialPageRoute(
           builder: (context) {
             return CreditScreen();
           },
+          settings: settings,
         );
       case AppRoute.creditEditCard:
         return MaterialPageRoute(
           builder: (context) {
             return CreditEditScreen();
           },
+          settings: settings,
         );
       case AppRoute.shippingInfo:
         return MaterialPageRoute(
           builder: (context) {
             return ShippingInfoScreen();
           },
+          settings: settings,
         );
       case AppRoute.about:
         return MaterialPageRoute(
           builder: (context) {
             return AboutScreen();
           },
+          settings: settings,
         );
 
       default:

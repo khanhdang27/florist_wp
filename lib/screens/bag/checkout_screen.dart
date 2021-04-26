@@ -506,7 +506,7 @@ class CheckoutScreenState extends State<CheckoutScreen>{
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 100,),
               ],
             ),
           ),

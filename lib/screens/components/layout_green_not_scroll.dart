@@ -27,6 +27,7 @@ class LayoutGreenNotScroll extends StatelessWidget {
               child: child,
             ),
             bottomNavigationBar: BottomMenu(),
+            extendBody: true,
           ),
         ),
       ),

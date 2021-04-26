@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gut7/blocs/app_bloc.dart';
+import 'package:gut7/blocs/blocs.dart';
 import 'package:gut7/configs/configs.dart';
 import 'package:gut7/screens/components/components.dart';
 import 'package:gut7/screens/components/layout_green.dart';
@@ -8,29 +11,67 @@ import 'package:gut7/screens/home/banner_header_bar.dart';
 import 'product_widget.dart';
 
 class BannerScreen extends StatelessWidget {
+  final int Id;
+  final int categoryId;
 
-  const BannerScreen({Key key}) : super(key: key);
+  BannerScreen({this.Id, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      header: BannerHeaderBar(press: (){
-        Navigator.pushNamed(context, AppRoute.home);
-      },),
-      child: Column(
-        children: [
-          _Banner(
-            image: AppAsset.banner1,
-            title: 'titleBanner1',
-            content: 'contentBanner1',
-          ),
-          ProductWidget(name:'求婚花束 生日花束', image: AppAsset.bong, id:'BO102',review: '4.5分 (354)', price:'\$400'),
-          ProductWidget(name:'求婚花束 生日花束', image: AppAsset.bong, id:'BO102',review: '4.5分 (354)', price:'\$400'),
-          ProductWidget(name:'求婚花束 生日花束', image: AppAsset.bong, id:'BO102',review: '4.5分 (354)', price:'\$400'),
-          ProductWidget(name:'求婚花束 生日花束', image: AppAsset.bong, id:'BO102',review: '4.5分 (354)', price:'\$400'),
-        ],
-      )
-    );
+        header: BannerHeaderBar(
+          press: () {
+            Navigator.pushNamed(context, AppRoute.home);
+          },
+        ),
+        child: Column(
+          children: [
+            BlocBuilder(
+              builder: (context, state) {
+                if (state is BannerGetOneSuccess) {
+                  return _Banner(
+                    image: state.item.image,
+                    title: state.item.name,
+                    content: state.item.description,
+                  );
+                }
+
+                return CircularProgressIndicator();
+              },
+              bloc: AppBloc.bannerBloc,
+            ),
+            BlocBuilder(
+              builder: (context, state) {
+                if (state is ProductGetOfCateSuccess) {
+                  return Column(
+                    children: state.items.map((e) {
+                      return GestureDetector(
+                        child: ProductWidget(
+                            name: e.name,
+                            image: Globals().urlImage + e.image,
+                            id: e.model,
+                            review: e.rating + '分 (${e.countRate})',
+                            price: '\$${e.price}' ),
+                        onTap: () {
+                          AppBloc.productBloc.add(ProductGetOne(Id: e.id));
+                          AppBloc.reviewBloc.add(ReviewGetAll(productId: e.id));
+                          Navigator.pushNamed(
+                              context, AppRoute.productDetail);
+                        },
+                      );
+                    }).toList(),
+                  );
+                }
+                return CircularProgressIndicator();
+              },
+              bloc: AppBloc.productBloc,
+              buildWhen: (previous, current) {
+                return current is ProductGetOfCateSuccess;
+              },
+            ),
+            SizedBox(height: 100),
+          ],
+        ));
   }
 }
 
@@ -57,11 +98,10 @@ class _Banner extends StatelessWidget {
             flex: 3,
             child: Container(
               width: 121,
-              height: 180,
+              height: 160,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: AssetImage(image), fit: BoxFit.cover),
+                image: DecorationImage(image: NetworkImage(image)),
               ),
             ),
           ),
@@ -82,14 +122,14 @@ class _Banner extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.t(context, title),
+                      title,
                       style: TextStyle(
                           fontSize: 21,
                           fontWeight: AppFont.wBold,
                           color: AppColor.blackMain),
                     ),
                     Text(
-                      AppLocalizations.t(context, content),
+                      content,
                       style:
                           TextStyle(fontSize: 11, color: AppColor.black70per),
                     ),
@@ -101,9 +141,18 @@ class _Banner extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                margin: EdgeInsets.only(right: 20, bottom: 30),
-                child: Icon(AppIcon.icon_setting, size: 14,),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.only(right: 20, bottom: 30),
+                  child: Icon(
+                    AppIcon.icon_setting,
+                    size: 14,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, AppRoute.filter);
+                },
               )
             ],
           ),

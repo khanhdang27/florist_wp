@@ -1,23 +1,68 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:gut7/blocs/blocs.dart';
 import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/layout_green.dart';
-import 'package:gut7/screens/home/banner_screen.dart';
+import 'package:gut7/screens/components/components.dart';
 
 class HomeScreen extends StatelessWidget {
+  HomeScreen() {
+    AppBloc.categoryBloc.add(CategoryGetAll());
+    AppBloc.productBloc.add(ProductGetRecom());
+    AppBloc.bannerBloc.add(BannerGetAll());
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Layout(
       header: headerHome(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            child: _buildBanner(context, AppAsset.banner1, 'titleBanner1', 'contentBanner1'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, AppRoute.banner);
+          SizedBox(
+            height: 20,
+          ),
+
+          BlocBuilder(
+            builder: (context, state) {
+              if (state is BannerGetAllSuccess) {
+                List bannerList = state.items.map((e) {
+                  return GestureDetector(
+                    child: _buildBanner(context, Globals().urlImage + e.image, e.name, e.description),
+                    onTap: (){
+                      AppBloc.bannerBloc.add(BannerGetOne(Id: e.id));
+                      AppBloc.productBloc.add(ProductGetOfCate(categoryId: e.categoryId));
+                      Navigator.pushReplacementNamed(context, AppRoute.banner);
+                    },
+                  );
+                }).toList();
+                return Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Swiper(
+                    layout: SwiperLayout.STACK,
+                    itemBuilder: (context, index) {
+                      return bannerList[index];
+                    },
+                    itemCount: bannerList.length,
+                    itemWidth: MediaQuery.of(context).size.width * 0.88,
+                    itemHeight: 200.0,
+                    pagination: SwiperPagination(
+                      margin: EdgeInsets.only(top: 220, left: 20),
+                      alignment: Alignment.bottomLeft,
+                    ),
+                  ),
+                );
+              }
+              return CircularProgressIndicator();
+            },
+            bloc: AppBloc.bannerBloc,
+            buildWhen: (previous, current) {
+              return current is BannerGetAllSuccess;
             },
           ),
+
           Container(
             margin: EdgeInsets.only(top: 50, left: 30),
             child: Text(
@@ -29,17 +74,42 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildRecom(context, '求婚花束 生日花束', AppAsset.lastRecom1, 'BO102', '4.5分 (354)', '\$400'),
-                _buildRecom(context, '求婚花束 生日花束', AppAsset.lastRecom1, 'BO102', '4.5分 (354)', '\$400'),
-                _buildRecom(context, '求婚花束 生日花束', AppAsset.lastRecom1, 'BO102', '4.5分 (354)', '\$400'),
-                _buildRecom(context, '求婚花束 生日花束', AppAsset.lastRecom1, 'BO102', '4.5分 (354)', '\$400'),
-              ],
-            ),
+
+          BlocBuilder(
+            builder: (context, state) {
+              if (state is ProductGetRecomSuccess) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: state.items.map((e) {
+                      return GestureDetector(
+                        onTap: () {
+                          AppBloc.productBloc.add(ProductGetOne(Id: e.id));
+                          AppBloc.reviewBloc.add(ReviewGetAll(productId: e.id));
+                          Navigator.pushNamed(
+                              context, AppRoute.productDetail);
+                        },
+                        child: _buildRecom(
+                            context,
+                            e.id,
+                            e.name,
+                            Globals().urlImage + e.image,
+                            e.model,
+                            e.rating + '分 (${e.countRate})',
+                            '\$${e.price}'),
+                      );
+                    }).toList(),
+                  ),
+                );
+              }
+              return CircularProgressIndicator();
+            },
+            bloc: AppBloc.productBloc,
+            buildWhen: (previous, current) {
+              return current is ProductGetRecomSuccess;
+            },
           ),
+
           Container(
             margin: EdgeInsets.all(30),
             child: Text(
@@ -50,36 +120,47 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.w900),
             ),
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(child: _buildCate(context, AppAsset.bong, "玫瑰花")),
-              Expanded(child: _buildCate(context, AppAsset.bong, "玫瑰花")),
-              SizedBox(width: 5),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 5),
+            child: BlocBuilder(
+              builder: (context, state) {
+                if (state is CategoryGetAllSuccess) {
+                  return GridView.count(
+                    childAspectRatio: 2.65,
+                    crossAxisCount: 2,
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    children: state.items.map((e) {
+                      return GestureDetector(
+                        onTap: () {
+                          AppBloc.productBloc.add(ProductGetOfCate(categoryId: e.id));
+                          Navigator.pushReplacementNamed(context, AppRoute.productList);
+                        },
+                        child: _buildCate(
+                            context, Globals().urlImage + e.image, e.name),
+                      );
+                    }).toList(),
+                  );
+                }
+                return CircularProgressIndicator();
+              },
+              bloc: AppBloc.categoryBloc,
+              buildWhen: (previous, current) {
+                return current is CategoryGetAllSuccess;
+              },
+            ),
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(child: _buildCate(context, AppAsset.bong, "玫瑰花")),
-              Expanded(child: _buildCate(context, AppAsset.bong, "玫瑰花")),
-              SizedBox(width: 5),
-            ],
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(child: _buildCate(context, AppAsset.bong, "玫瑰花")),
-              Expanded(child: _buildCate(context, AppAsset.bong, "玫瑰花")),
-              SizedBox(width: 5),
-            ],
-          ),
+          SizedBox(height: 80),
+
+          ///////////////////////////////////////////// POST
+
+          /* ElevatedButton(
+            onPressed: () {
+              AppBloc.categoryBloc.add(ThemCate(name: textController.text));
+            },
+            child: Text('Bam'),
+          ),*/
+          ///////////////////////////////////////////// POST
         ],
       ),
     );
@@ -98,12 +179,13 @@ class HomeScreen extends StatelessWidget {
   Widget _buildBanner(context, image, title, content) {
     return Container(
       height: 200,
-      margin: EdgeInsets.only(left: 25, top: 40, right: 50),
+      margin: EdgeInsets.only(
+        top: 40,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColor.banner1,
       ),
-
       child: Row(
         children: [
           Expanded(
@@ -114,7 +196,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                    image: AssetImage(image), fit: BoxFit.cover),
+                    image: NetworkImage(image), fit: BoxFit.cover),
               ),
             ),
           ),
@@ -129,14 +211,14 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.t(context, title),
+                      title,
                       style: TextStyle(
                           fontSize: 21,
                           fontWeight: AppFont.wSemiBold,
                           color: AppColor.blackMain),
                     ),
                     Text(
-                      AppLocalizations.t(context, content),
+                      content,
                       style:
                           TextStyle(fontSize: 11, color: AppColor.black70per),
                     ),
@@ -150,7 +232,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecom(context, name, image, id, review, price) {
+  Widget _buildRecom(context, id, name, image, model, review, price) {
     return Container(
       width: 280,
       decoration: BoxDecoration(
@@ -159,10 +241,15 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          new Image.asset(
-            image,
+          Container(
+            margin: EdgeInsets.all(8),
             height: 202,
-            fit: BoxFit.cover,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(image),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -185,7 +272,16 @@ class HomeScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(AppIcon.icon_tim, size: 24, color: AppColor.greenMain,),
+                          GestureDetector(
+                            onTap: (){
+                              AppBloc.wishlistItemBloc.add(AddWishlist(wishlist_id: 2, product_id: id));
+                            },
+                            child: Icon(
+                              AppIcon.icon_tim,
+                              size: 24,
+                              color: AppColor.greenMain,
+                            ),
+                          ),
                           Padding(padding: EdgeInsets.only(right: 5))
                         ],
                       ),
@@ -196,11 +292,12 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'BO102',
+                      model,
                       style: TextStyle(color: AppColor.black8F, fontSize: 12),
                     ),
                     SizedBox(width: 40),
-                    Icon(AppIcon.icon_star, size: 15, color: AppColor.greenMain),
+                    Icon(AppIcon.icon_star,
+                        size: 15, color: AppColor.greenMain),
                     SizedBox(width: 10),
                     Text(
                       review,
@@ -260,7 +357,7 @@ class HomeScreen extends StatelessWidget {
   Widget _buildCate(context, image, text) {
     return Container(
       //width: 180,
-      margin: EdgeInsets.only(left: 15, bottom: 10),
+      margin: EdgeInsets.only(left: 10, bottom: 10),
       decoration: BoxDecoration(
           color: AppColor.whiteMain, borderRadius: BorderRadius.circular(35)),
       child: Row(
@@ -272,22 +369,29 @@ class HomeScreen extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(AppAsset.bong),
+                image: NetworkImage(image),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SizedBox(width: 5),
-          Text(
-            text,
-            style: TextStyle(fontSize: 14, color: AppColor.black80per),
+          Container(
+            width: 100,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 14, color: AppColor.black80per),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 }
-class headerHome extends StatelessWidget with PreferredSizeWidget{
+
+class headerHome extends StatelessWidget with PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 
@@ -306,34 +410,35 @@ class headerHome extends StatelessWidget with PreferredSizeWidget{
           ),
         ),
         Expanded(
-          child: Container(
-            margin: EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              color: AppColor.whiteF8,
-              borderRadius: BorderRadius.circular(35),
-            ),
-            padding: EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Icon(AppIcon.icon_search2,size: 20, color: AppColor.black52per),
-                Expanded(
-                  child: Container(
-                    height: 20,
-                    margin: EdgeInsets.only(left: 10, right: 5),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          hintText:  AppLocalizations.t(context, 'searchFor'),
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.only( top: 30)
+            child: Container(
+                margin: EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  color: AppColor.whiteF8,
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                padding: EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Icon(AppIcon.icon_search2,
+                        size: 20, color: AppColor.black52per),
+                    Expanded(
+                      child: Container(
+                        height: 20,
+                        margin: EdgeInsets.only(left: 10, right: 5),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText:
+                                  AppLocalizations.t(context, 'searchFor'),
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              contentPadding: EdgeInsets.only(top: 30)),
+                        ),
                       ),
-                    ),
-                  ),
-                )
-              ],
-            )))
+                    )
+                  ],
+                )))
       ],
     );
   }

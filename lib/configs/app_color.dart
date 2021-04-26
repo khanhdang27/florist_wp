@@ -12,6 +12,7 @@ class AppColor {
   static Color black60per = Color(0x99000000);
   static Color black70per = Color(0xB3000000);
   static Color black80per = Color(0xCC000000);
+  static Color black90per = Color(0xE6000000);
   static Color blackTitle = Color(0xFF191919);
   static Color black676870 = Color(0xFF676870);
   static Color black272833 = Color(0xFF272833);
@@ -24,6 +25,7 @@ class AppColor {
   static Color black7C = Color(0xFF7C7C7C);
   static Color black7C16 = Color(0x297C7C7C);
   static Color black70= Color(0xFF707070);
+  static Color black70_20per= Color(0x33707070);
   static Color greyPlaceholder = Color(0xFF808080);
   static Color greyBorder = Color(0xFF707070);
   static Color redMain = Color(0xFFFF0000);
@@ -34,6 +36,7 @@ class AppColor {
   static Color whiteF8 = Color(0x85F8F8F8);
   static Color whiteF3 = Color(0xFFF3F2F8);
   static Color black8F = Color(0xFF8F8F8F);
+  static Color black93 = Color(0xFF939393);
   static Color whiteGrey = Color(0xFFCCCCCC);
   static Color greenMain = Color(0xFF6BAF9F);
   static Color silverMain = Color(0xFFF3F2F8);

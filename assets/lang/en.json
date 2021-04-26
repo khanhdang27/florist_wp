@@ -8,7 +8,7 @@
   "signInInternal": "Sign in with another account",
   "back": "Go Back",
   "store": "Store",
-  "searchFor": "Search for",
+  "searchFor": "Search",
   "titleBanner1": "Birthday bouquet selection",
   "contentBanner1": "Create unforgettable surprises for your partner",
   "lastRecommend": "Latest recommendationr",
@@ -28,11 +28,11 @@
   "empty": "Empty",
   "perform": "Perform",
   "boxReview": "Write public reviews and ratings",
-  "favourite": "Favourite",
+  "favourite": "Wish list",
   "noWishlist": "No products have been added",
   "total": "Total",
   "shareIt": "Shart It",
-  "shoppingBag": "Shopping Bag",
+  "shoppingBag": "Bag",
   "delivery": "Delivery Method",
   "seltColection": "Self-collection",
   "deliveryTime": "Estimated delivery time, freight",
@@ -56,7 +56,7 @@
   "orderNumberIs": "The order is complete, your order number is",
   "checkPurchase": "You can check the status of the order at any time in the \"Purchase History\""
   "store": "Store",
-  "myAccount": "MyAccount",
+  "myAccount": "Account",
   "enterKey": "Please enter key words",
   "popularSearch": "Popular Search",
   "recentSearch": "Recent Search",
@@ -127,5 +127,8 @@
   "address": "Address",
   "newTerritories": "New Territories",
   "privacyPolicy": "Privacy Policy",
-  "privacyPolicyContent": "When you start using this service, it means that you trust our handling of your personal information.\n\nThis \"Privacy Policy\" aims to help you understand the types of data collected on this website, the reasons for collecting such data, and the purpose of these data. These items are very important, so please take the time to read them carefully.\n\nYou can use our services in many different ways: you can search and share information, communicate with others, or create new content.\n\nThe information you share with us can help this website make the service better, display more relevant search results and advertisements, help you communicate with other people, or share various content faster and more conveniently.\n\nWhen you use the service, we hope you have a clear understanding of the way we use information and our various measures to protect your privacy.\n\nOur \"Privacy Policy\" explains the following: The type of information we collect and the reason for collection. The way we use information. The options we provide include methods for accessing and updating information.\n\nWe try our best to express in simple and understandable words, but if you are not familiar with terms such as \"cookie\", \"IP address\", \"pixel tag\" and \"browser\", please read the description of these keywords first.\n\nWe take your privacy very seriously, so whether you have just started using this website or have been using it for a period of time, please take the time to understand our practices; if you have any questions, please feel free to contact us."
+  "privacyPolicyContent": "When you start using this service, it means that you trust our handling of your personal information.\n\nThis \"Privacy Policy\" aims to help you understand the types of data collected on this website, the reasons for collecting such data, and the purpose of these data. These items are very important, so please take the time to read them carefully.\n\nYou can use our services in many different ways: you can search and share information, communicate with others, or create new content.\n\nThe information you share with us can help this website make the service better, display more relevant search results and advertisements, help you communicate with other people, or share various content faster and more conveniently.\n\nWhen you use the service, we hope you have a clear understanding of the way we use information and our various measures to protect your privacy.\n\nOur \"Privacy Policy\" explains the following: The type of information we collect and the reason for collection. The way we use information. The options we provide include methods for accessing and updating information.\n\nWe try our best to express in simple and understandable words, but if you are not familiar with terms such as \"cookie\", \"IP address\", \"pixel tag\" and \"browser\", please read the description of these keywords first.\n\nWe take your privacy very seriously, so whether you have just started using this website or have been using it for a period of time, please take the time to understand our practices; if you have any questions, please feel free to contact us.",
+  "remindDelivery": "If the delivery date is a holiday or public holiday, please order before 4 o'clock the previous working day",
+  "point": "pts",
+  "bundle": "bundle"
 }
