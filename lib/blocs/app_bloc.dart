@@ -1,10 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gut7/blocs/category/category_bloc.dart';
-import 'package:gut7/blocs/product/product_bloc.dart';
-import 'package:gut7/blocs/banner/banner_bloc.dart';
-import 'package:gut7/blocs/review/review_bloc.dart';
-import 'package:gut7/blocs/wishlist/wishlist_bloc.dart';
-import 'package:gut7/blocs/wishlist_item/wishlist_item_bloc.dart';
+import 'package:gut7/blocs/blocs.dart';
+
 
 
 class AppBloc {
@@ -14,6 +10,7 @@ class AppBloc {
   static final reviewBloc = ReviewBloc();
   static final wishlistBloc = WishlistBloc();
   static final wishlistItemBloc = WishlistItemBloc();
+  static final memberBloc = MemberBloc();
 
   static final List<BlocProvider> providers = [
     BlocProvider<CategoryBloc>(
@@ -34,6 +31,9 @@ class AppBloc {
     BlocProvider<WishlistItemBloc>(
       create: (context) => wishlistItemBloc,
     ),
+    BlocProvider<MemberBloc>(
+      create: (context) => memberBloc,
+    ),
   ];
 
   static void dispose() {
@@ -43,6 +43,7 @@ class AppBloc {
     reviewBloc.close();
     wishlistBloc.close();
     wishlistItemBloc.close();
+    memberBloc.close();
   }
 
   //Singleton factory

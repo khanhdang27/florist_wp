@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:gut7/blocs/blocs.dart';
 import 'package:gut7/configs/configs.dart';
+import 'package:gut7/library/shared_preferences.dart';
 import 'package:gut7/screens/components/components.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +16,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Layout(
       header: headerHome(),
       child: Column(

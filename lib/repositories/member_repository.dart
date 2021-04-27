@@ -10,7 +10,7 @@ class MemberRepository extends Repository{
     Member results = Member(
       id: data['id'],
       name: data['name'],
-      point: data['model'],
+      point: data['point'],
       phone: data['phone'],
       email: data['email'],
       pass: data['pass'],

@@ -13,7 +13,7 @@ class SMSScreenState extends State<SMSScreen>{
   Timer _timer;
   int _start = 59;
   bool resend = true;
-  final String requiredNumber = '1206';
+  final String requiredNumber = '120698';
   @override
   Widget build(BuildContext context) {
     if(resend){
@@ -21,107 +21,130 @@ class SMSScreenState extends State<SMSScreen>{
       resend = false;
     }
     return LayoutWhiteNotMenu(
-      child: Column(
-        children: [
-          Row(
-            children: [
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios,size: 25,),
+                  color: AppColor.blackMain,
+                  onPressed: (){
+                    Navigator.pushNamed(context, AppRoute.register);
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 50,),
+            Text(
+              AppLocalizations.t(context, 'enterPhoneOrNumber'),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: AppFont.fAvenir
+              ),
+            ),
+            Text(
+              '('+AppLocalizations.t(context,'code')+' 1042) '+AppLocalizations.t(context, 'verifiCode'),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: AppFont.fAvenir
+              ),
+            ),
+            SizedBox(height: 30,),
 
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios,size: 25,),
-                color: AppColor.blackMain,
-                onPressed: (){
-                  Navigator.pushNamed(context, AppRoute.register);
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: PinCodeTextField(
+                appContext: context,
+                length: 6,
+                onChanged: (value){
+                  
+                },
+                textStyle: TextStyle(
+                  fontFamily: AppFont.fAvenir,
+                  fontSize: 24,
+                  fontWeight: AppFont.wMedium,
+                ),
+                keyboardType: TextInputType.number,
+                cursorColor: AppColor.greenMain,
+                pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.box,
+                  fieldWidth: 50,
+                  fieldHeight: 50,
+                  borderRadius: BorderRadius.circular(15),
+                  activeColor: AppColor.greenMain,
+                  selectedColor: AppColor.greenMain,
+                  inactiveColor: AppColor.black30per,
+                ),
+                onCompleted: (value){
+                  if(value == requiredNumber){
+                    print("<====Hello may cung====>");
+                    print(value);
+                    print('valid pin');
+                  }else{
+                    print('invalid pin');
+                  }
                 },
               ),
-            ],
-          ),
-          Text(
-            AppLocalizations.t(context, 'enterPhoneOrNumber'),
-            style: TextStyle(
-                fontSize: 20,
-                fontFamily: AppFont.fAvenir
             ),
-          ),
-          Text(
-            '('+AppLocalizations.t(context, 'code')+' 1042) '+AppLocalizations.t(context, 'verifiCode'),
-            style: TextStyle(
-                fontSize: 20,
-                fontFamily: AppFont.fAvenir
-            ),
-          ),
-          SizedBox(height: 30,),
-
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: PinCodeTextField(
-              appContext: context,
-              length: 4,
-              onChanged: (value){
-                print(value);
-              },
-              textStyle: TextStyle(
+            SizedBox(height: 140,),
+            Text(
+              AppLocalizations.t(context, 'notReceive'),
+              style: TextStyle(
+                fontSize: 14,
                 fontFamily: AppFont.fAvenir,
-                fontSize: 24,
-                fontWeight: AppFont.wMedium,
+                color: AppColor.black676870
               ),
-              keyboardType: TextInputType.number,
-              cursorColor: AppColor.greenMain,
-              pinTheme: PinTheme(
-                shape: PinCodeFieldShape.box,
-                fieldWidth: 75,
-                fieldHeight: 72,
-                borderRadius: BorderRadius.circular(15),
-                activeColor: AppColor.greenMain,
-                selectedColor: AppColor.greenMain,
-                inactiveColor: AppColor.black30per,
-              ),
-              onCompleted: (value){
-                if(value == requiredNumber){
-                  print('valid pin');
-                }else{
-                  print('invalid pin');
-                }
-              },
             ),
-          ),
-          SizedBox(height: 140,),
-          Text(
-            AppLocalizations.t(context, 'notReceive'),
-            style: TextStyle(
-              fontSize: 14,
-              fontFamily: AppFont.fAvenir,
-              color: AppColor.black676870
-            ),
-          ),
 
-          Text(
-          (() {
-            if(_start<10){
-              return AppLocalizations.t(context, 'youCan')+' 00:0$_start';
-            }else{
-              return AppLocalizations.t(context, 'youCan')+' 00:$_start';
-            }
-          }()),
-            style: TextStyle(
-              fontSize: 14,
-              fontFamily: AppFont.fAvenir,
-              color: AppColor.black272833
+            Text(
+            (() {
+              if(_start<10){
+                return AppLocalizations.t(context, 'youCan')+' 00:0$_start';
+              }else{
+                return AppLocalizations.t(context, 'youCan')+' 00:$_start';
+              }
+            }()),
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: AppFont.fAvenir,
+                color: AppColor.black272833
+              ),
             ),
-          ),
-          SizedBox(height: 20,),
-          (() {
-            if(_start==0){
-              return GestureDetector(
-                onTap: (){
-                  print('ye');
-                },
-                child: Container(
+            SizedBox(height: 20,),
+            (() {
+              if(_start==0){
+                return GestureDetector(
+                  onTap: (){
+                    print('ye');
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 260,
+                    height: 48,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: AppColor.greenMain
+                    ),
+                    child: Text(
+                      AppLocalizations.t(context, 'resendCode'),
+                      style: TextStyle(
+                          fontFamily: AppFont.fAvenir,
+                          fontSize: 15,
+                          color: AppColor.whiteMain
+                      ),
+                    ),
+                  ),
+                );
+              }else{
+                return Container(
                   alignment: Alignment.center,
                   width: 260,
                   height: 48,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: AppColor.greenMain
+                      color: AppColor.black30per
                   ),
                   child: Text(
                     AppLocalizations.t(context, 'resendCode'),
@@ -131,30 +154,12 @@ class SMSScreenState extends State<SMSScreen>{
                         color: AppColor.whiteMain
                     ),
                   ),
-                ),
-              );
-            }else{
-              return Container(
-                alignment: Alignment.center,
-                width: 260,
-                height: 48,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: AppColor.black30per
-                ),
-                child: Text(
-                  AppLocalizations.t(context, 'resendCode'),
-                  style: TextStyle(
-                      fontFamily: AppFont.fAvenir,
-                      fontSize: 15,
-                      color: AppColor.whiteMain
-                  ),
-                ),
-              );
-            }
-          }()),
+                );
+              }
+            }()),
 
-        ],
+          ],
+        ),
       ),
     );
   }

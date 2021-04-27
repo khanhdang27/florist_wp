@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
+import 'package:gut7/library/shared_preferences.dart';
 import 'package:gut7/models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,9 +20,11 @@ class Auth extends ChangeNotifier{
       Dio.Response response = await dio().post('/login', data: creds);
       String token = response.data['token'];
       Member member = Member.fromJson(response.data['member']);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      /*SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
-      prefs.setInt('member_id', member.id);
+      prefs.setInt('member_id', member.id);*/
+      await SharedPrefs.setToken(token);
+      await SharedPrefs.setMemberId(member.id);
 
  //     this.tryToken(token: token);
       return token;
