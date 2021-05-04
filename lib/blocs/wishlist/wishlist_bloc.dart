@@ -20,7 +20,11 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   Stream<WishlistState> mapEventToState(WishlistEvent event) async* {
     if (event is WishlistGetOne) {
       Map result = await wishlistRepository.getOne(id: event.id);
-      appWishlist.appWishlistContainer = [];
+      Wishlist wishlist = result['wishlist'];
+      appWishlist.appWishlistContainer.clear();
+      for (WishlistItem item in wishlist.wishListItem) {
+        appWishlist.appWishlistContainer.add(item.productId);
+      }
       if (true) {
         yield WishlistGetOneSuccess(
           item: result['wishlist'],
@@ -30,6 +34,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         yield WishlistGetOneFailed();
       }
     }
+
     if (event is WishlistDelete) {
       var currentState = state; //WishlistGetOneSuccess
       if (currentState is WishlistGetOneSuccess) {

@@ -8,3 +8,10 @@ class ReviewGetAll extends ReviewEvent {
 
   ReviewGetAll({this.productId});
 }
+class ReviewAdd extends ReviewEvent {
+  final int member_id;
+  final int product_id;
+  final String content;
+
+  ReviewAdd({this.member_id, this.product_id, this.content });
+}

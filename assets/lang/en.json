@@ -31,7 +31,7 @@
   "favourite": "Wish list",
   "noWishlist": "No products have been added",
   "total": "Total",
-  "shareIt": "Shart It",
+  "shareIt": "Share It",
   "shoppingBag": "Bag",
   "delivery": "Delivery Method",
   "selfColection": "Self-collection",
@@ -138,5 +138,7 @@
   "pleasePhone": "Please enter a valid phone number",
   "pleaseEmail": "Please enter a valid email",
   "pleasePass": "Please enter a valid password",
-  "confirmPass": "Confirm password does not match"
+  "confirmPass": "Confirm password does not match",
+  "couponError": "Coupon code does not exist",
+  "couponComplete": "Coupon has been added successfully"
 }

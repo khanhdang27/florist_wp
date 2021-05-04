@@ -18,4 +18,13 @@ class ReviewRepository extends Repository{
 
     return results;
   }
+
+  Future<int> addReview({int member_id, int product_id, String content,}) async {
+    var response = await httpManager.post(url: '/api/review', data: {
+      'member_id': member_id,
+      'product_id': product_id,
+      'content': content,
+    });
+    return 1;
+  }
 }

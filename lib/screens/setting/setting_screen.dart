@@ -359,6 +359,7 @@ class SettingScreenState extends State<SettingScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          AppBloc.shippingBloc.add(ShippingGetOne(Id: SharedPrefs.getMemberId()));
                           Navigator.pushNamed(context, AppRoute.shippingInfo);
                         },
                         child: Container(

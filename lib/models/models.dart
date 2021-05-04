@@ -7,3 +7,6 @@ export 'wishlist.dart';
 export 'wishlist_item.dart';
 export 'bag.dart';
 export 'bag_item.dart';
+export 'coupon.dart';
+export 'coupon_member.dart';
+export 'shipping.dart';

@@ -138,5 +138,7 @@
   "pleasePhone" : "请输入有效电话号码",
   "pleaseEmail" : "请输入有效电子邮件",
   "pleasePass" : "请输入有效密码",
-  "confirmPass" : "确认密码不匹配"
+  "confirmPass" : "确认密码不匹配",
+  "couponError": "优惠券代码不存在",
+  "couponComplete": "优惠券已成功添加"
 }

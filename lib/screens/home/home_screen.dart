@@ -15,8 +15,10 @@ class HomeScreen extends StatelessWidget {
     AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
   }
 
+
   @override
   Widget build(BuildContext context) {
+
     return Layout(
       header: headerHome(),
       child: Column(
@@ -92,14 +94,14 @@ class HomeScreen extends StatelessWidget {
                           Navigator.pushNamed(context, AppRoute.productDetail);
                         },
                         child: _buildRecom(
-                          id: e.id,
-                          name: e.name,
-                          image: Globals().urlImage + e.image,
-                          model: e.model,
-                          review: e.rating + '分 (${e.countRate})',
-                          price: '\$${e.price}',
-                          fav: appWishlist.appWishlistContainer.contains(e.id),
-                        ),
+                              id: e.id,
+                              name: e.name,
+                              image: Globals().urlImage + e.image,
+                              model: e.model,
+                              review: e.rating + '分 (${e.countRate})',
+                              price: '\$${e.price}',
+                              fav:  appWishlist.appWishlistContainer.contains(e.id),
+                            ),
                       );
                     }).toList(),
                   ),
@@ -341,9 +343,13 @@ class __buildRecomState extends State<_buildRecom> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
+                                if (widget.fav){
+                                  appWishlist.appWishlistContainer.remove(this.widget.id);
+                                }else{
+                                  appWishlist.appWishlistContainer.add(this.widget.id);
+                                }
                                 widget.fav = !widget.fav;
                               });
-                              appWishlist.appWishlistContainer.remove(this.id);
                               AppBloc.wishlistItemBloc.add(AddWishlist(
                                   wishlist_id: SharedPrefs.getWishlistId(),
                                   product_id: widget.id));
@@ -399,12 +405,21 @@ class __buildRecomState extends State<_buildRecom> {
                                   height: 20,
                                 ),
                                 SizedBox(width: 10),
-                                Text(
-                                  AppLocalizations.t(context, 'addToCart'),
-                                  style: TextStyle(
-                                      color: AppColor.greenMain,
-                                      fontWeight: AppFont.wRegular,
-                                      fontSize: 14),
+                                GestureDetector(
+                                  onTap: (){
+                                    AppBloc.bagItemBloc.add(AddBagItem(
+                                        bag_id: SharedPrefs.getBagId(),
+                                        product_id: widget.id,
+                                        quantity: 1));
+                                    Navigator.pushReplacementNamed(context, AppRoute.bag);
+                                  },
+                                  child: Text(
+                                    AppLocalizations.t(context, 'addToCart'),
+                                    style: TextStyle(
+                                        color: AppColor.greenMain,
+                                        fontWeight: AppFont.wRegular,
+                                        fontSize: 14),
+                                  ),
                                 )
                               ],
                             ),

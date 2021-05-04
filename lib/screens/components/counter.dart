@@ -7,9 +7,10 @@ import 'package:florist/configs/configs.dart';
 
 class counter extends StatefulWidget {
   int quantity;
+  int product_id;
   int id;
 
-  counter({Key key, this.quantity = 1, this.id}) : super(key: key);
+  counter({Key key, this.quantity = 1, this.id, this.product_id}) : super(key: key);
 
   @override
   _counter createState() => _counter();
@@ -35,9 +36,10 @@ class _counter extends State<counter> {
                   });
 
                 }else{
+
                   if (_debounce?.isActive ?? false) _debounce.cancel();
                   _debounce = Timer(const Duration(milliseconds: 500), () {
-                    AppBloc.wishlistItemBloc.add(DeleteItem(id: widget.id));
+                    AppBloc.wishlistItemBloc.add(DeleteItem(id: widget.id,product_id: widget.product_id));
                   });
                 }
               },

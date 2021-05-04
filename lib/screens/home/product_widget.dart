@@ -1,14 +1,17 @@
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/library/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:florist/configs/configs.dart';
 
 class ProductWidget extends StatefulWidget{
   final String name;
   final String image;
-  final String id;
+  final int id;
   final String review;
   final String price;
+  final String model;
 
-  const ProductWidget({Key key, this.name, this.image, this.id, this.review, this.price}) : super(key: key);
+  const ProductWidget({Key key, this.name, this.image, this.id, this.review, this.price, this.model}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -73,7 +76,7 @@ class _ProductWidget extends State<ProductWidget>{
                     Row(
                       children: [
                         Text(
-                          'BO102',
+                          widget.model,
                           style: TextStyle(color: AppColor.black8F, fontSize: 12),
                         ),
                         SizedBox(width: 40),
@@ -105,12 +108,21 @@ class _ProductWidget extends State<ProductWidget>{
                                       height: 20,
                                     ),
                                     SizedBox(width: 10),
-                                    Text(
-                                      AppLocalizations.t(context, 'addToCart'),
-                                      style: TextStyle(
-                                          color: AppColor.greenMain,
-                                          fontWeight: AppFont.wRegular,
-                                          fontSize: 14),
+                                    GestureDetector(
+                                      onTap: (){
+                                        AppBloc.bagItemBloc.add(AddBagItem(
+                                            bag_id: SharedPrefs.getBagId(),
+                                            product_id: widget.id,
+                                            quantity: 1));
+                                        Navigator.pushReplacementNamed(context, AppRoute.bag);
+                                      },
+                                      child: Text(
+                                        AppLocalizations.t(context, 'addToCart'),
+                                        style: TextStyle(
+                                            color: AppColor.greenMain,
+                                            fontWeight: AppFont.wRegular,
+                                            fontSize: 14),
+                                      ),
                                     )
                                   ],
                                 ),

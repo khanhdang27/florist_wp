@@ -20,6 +20,7 @@ class ChangeQuantity extends WishlistItemEvent {
 
 class DeleteItem extends WishlistItemEvent {
   final int id;
+  final int product_id;
 
-  DeleteItem({this.id});
+  DeleteItem({this.id,this.product_id});
 }

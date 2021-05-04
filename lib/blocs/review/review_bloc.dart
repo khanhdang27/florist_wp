@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:florist/blocs/app_bloc.dart';
 import 'package:florist/models/models.dart';
 import 'package:florist/repositories/review_repository.dart';
 import 'package:meta/meta.dart';
@@ -23,6 +24,19 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
         );
       } else {
         yield ReviewGetAllFailed();
+      }
+    }
+    if (event is ReviewAdd) {
+      int stt = await reviewRepository.addReview(
+          member_id: event.member_id,
+          content: event.content,
+          product_id: event.product_id,
+      );
+      if (stt == 1) {
+        yield AddReviewSuccess();
+        AppBloc.reviewBloc.add(ReviewGetAll(productId: event.product_id));
+      } else {
+        yield AddReviewFailed();
       }
     }
   }

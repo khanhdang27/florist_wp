@@ -1,3 +1,4 @@
+import 'package:florist/library/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,21 +8,41 @@ import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  final int Id;
 
-  ProductDetailScreen({this.Id});
+  ProductDetailScreen(){
+    AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
+  }
 
   @override
   _ProductDetailScreen createState() => _ProductDetailScreen();
 }
 
 class _ProductDetailScreen extends State<ProductDetailScreen> {
+  bool fav = false;
+
+  final TextEditingController contentController = new TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+
+    contentController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutWhite(
       child: BlocBuilder(
         builder: (context, state) {
           if (state is ProductGetOneSuccess) {
+            fav = appWishlist.appWishlistContainer.contains(state.item.id);
             return Column(
               children: [
                 Container(
@@ -236,11 +257,33 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                 width: 50,
                                 height: 50,
                                 margin: EdgeInsets.only(right: 10),
-                                child: Icon(
-                                  AppIcon.icon_tim,
-                                  color: AppColor.greenMain,
-                                  size: 20,
+                                child:
+
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (fav){
+                                        appWishlist.appWishlistContainer.remove(state.item.id);
+                                      }else{
+                                        appWishlist.appWishlistContainer.add(state.item.id);
+                                      }
+                                      fav = !fav;
+                                    });
+                                    AppBloc.wishlistItemBloc.add(AddWishlist(
+                                        wishlist_id: SharedPrefs.getWishlistId(),
+                                        product_id: state.item.id));
+                                  },
+                                  child: Icon(
+                                    fav
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    size: 30,
+                                    color: AppColor.greenMain,
+                                  ),
                                 ),
+
+
+
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(15),
@@ -258,12 +301,21 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        AppLocalizations.t(
-                                            context, 'addToCart'),
-                                        style: TextStyle(
-                                          color: AppColor.whiteMain,
-                                          fontWeight: AppFont.wMedium,
+                                      GestureDetector(
+                                        onTap: () {
+                                          AppBloc.bagItemBloc.add(AddBagItem(
+                                              bag_id: SharedPrefs.getBagId(),
+                                              product_id: state.item.id,
+                                              quantity: counterProduct().quantity));
+                                          Navigator.pushReplacementNamed(context, AppRoute.bag);
+                                        },
+                                        child: Text(
+                                          AppLocalizations.t(
+                                              context, 'addToCart'),
+                                          style: TextStyle(
+                                            color: AppColor.whiteMain,
+                                            fontWeight: AppFont.wMedium,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -331,7 +383,17 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                   ),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 15),
-                                  child: TextField(
+                                  child: TextFormField(
+                                    controller: contentController,
+
+                                    onFieldSubmitted: (value) {
+                                        AppBloc.reviewBloc.add(ReviewAdd(
+                                          member_id: SharedPrefs.getMemberId(),
+                                          product_id: state.item.id,
+                                          content: value.trim(),
+                                        ));
+                                        contentController.clear();
+                                    },
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.t(
                                           context, 'boxReview'),
@@ -358,6 +420,9 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
           return CircularProgressIndicator();
         },
         bloc: AppBloc.productBloc,
+        buildWhen: (previous, current) {
+          return current is ProductGetOneSuccess;
+        },
       ),
     );
   }
@@ -399,6 +464,7 @@ class review extends StatelessWidget {
                         width: 20,
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             e.member.name,
@@ -480,6 +546,9 @@ class review extends StatelessWidget {
         return CircularProgressIndicator();
       },
       bloc: AppBloc.reviewBloc,
+      buildWhen: (previous, current) {
+        return current is ReviewGetAllSuccess;
+      },
     );
   }
 }

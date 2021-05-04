@@ -49,8 +49,9 @@ class BannerScreen extends StatelessWidget {
                         child: ProductWidget(
                             name: e.name,
                             image: Globals().urlImage + e.image,
-                            id: e.model,
+                            id: e.id,
                             review: e.rating + '分 (${e.countRate})',
+                            model: e.model,
                             price: '\$${e.price}' ),
                         onTap: () {
                           AppBloc.productBloc.add(ProductGetOne(Id: e.id));

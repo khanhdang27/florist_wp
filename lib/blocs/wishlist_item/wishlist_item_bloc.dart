@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/app_wishlist.dart';
 import 'package:florist/models/models.dart';
 import 'package:florist/repositories/wishlist_item_repository.dart';
 import 'package:meta/meta.dart';
@@ -44,18 +45,15 @@ class WishlistItemBloc extends Bloc<WishlistItemEvent, WishlistItemState> {
     }
 
     if (event is DeleteItem) {
-      Map wishList = await wishlistItemRepository.deleteItem(wishlist_item_id: event.id);//item con lai, total
+      Map wishList = await wishlistItemRepository.deleteItem(
+          wishlist_item_id: event.id); //item con lai, total
       WishlistState wishlistState = AppBloc.wishlistBloc.state;
       if (wishlistState is WishlistGetOneSuccess) {
-        AppBloc.wishlistBloc.add(WishlistDelete(id: event.id, total: wishList['total']));
+        appWishlist.appWishlistContainer.remove(event.product_id);
+        AppBloc.wishlistBloc
+            .add(WishlistDelete(id: event.id, total: wishList['total']));
       }
-      // if (wishList != null ) {
-      // yield DeleteItemSuccess(
-      //   item: wishList,
-      // );
-      // } else {
-      //   yield DeleteItemFailed();
-      // }
+      yield DeleteItemSuccess();
     }
   }
 }

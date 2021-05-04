@@ -1,21 +1,43 @@
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/library/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
 import 'package:florist/screens/components/layout_white_not_scroll.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CouponScreen extends StatefulWidget {
+
+  CouponScreen(){
+    AppBloc.couponMemberBloc.add(CouponMemberGetAll(member_id: SharedPrefs.getMemberId()));
+  }
 
   @override
   _CouponScreenState createState() => _CouponScreenState();
 }
 
 class _CouponScreenState extends State<CouponScreen> {
-  final int quantity = 1;
+  bool hasCoupon = false;
   @override
   Widget build(BuildContext context) {
-    return LayoutWhiteNotScroll(
+    return LayoutWhite(
       header: headerCoupon(),
-      child: quantity==0 ? noCoupon() : ShowCoupon(),
+      //child: hasCoupon ? ShowCoupon() : noCoupon(),
+      child: BlocBuilder(
+        builder: (context, state) {
+          if (state is CouponMemberGetAllSuccess) {
+            if(state.items.length == 0){
+              return noCoupon();
+            }
+            return ShowCoupon();
+          }
+          return CircularProgressIndicator();
+        },
+        bloc: AppBloc.couponMemberBloc,
+        buildWhen: (previous, current) {
+          return current is CouponMemberGetAllSuccess;
+        },
+      ),
     );
   }
 }
@@ -65,6 +87,7 @@ class noCoupon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height*0.8,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -92,13 +115,34 @@ class noCoupon extends StatelessWidget {
 class ShowCoupon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        coupon(name:'求婚花束 -\$100', image: AppAsset.bong, title:'購買任何求婚花束可減 \$100',exp: '2021年11月11日',),
-        coupon(name:'求婚花束 -\$100', image: AppAsset.bong, title:'購買任何求婚花束可減 \$100',exp: '2021年11月11日',),
-        coupon(name:'求婚花束 -\$100', image: AppAsset.bong, title:'購買任何求婚花束可減 \$100',exp: '2021年11月11日',),
-      ],
-    );
+        return Column(
+          children: [
+            BlocBuilder(
+              builder: (context, state) {
+                if (state is CouponMemberGetAllSuccess) {
+                  return Column(
+                    children: state.items.map((e) {
+                      return GestureDetector(
+                          child: coupon(
+                            name: e.coupon.name,
+                            image: e.coupon.image,
+                            title: e.coupon.content,
+                            exp: e.coupon.expiry,
+                          ));
+                    }).toList(),
+                  );
+                }
+                return CircularProgressIndicator();
+              },
+              bloc: AppBloc.couponMemberBloc,
+              buildWhen: (previous, current) {
+                return current is CouponMemberGetAllSuccess;
+              },
+            ),
+            SizedBox(height:100),
+          ],
+        );
+
   }
 }
 
@@ -135,7 +179,7 @@ class coupon extends StatelessWidget{
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
                 image: DecorationImage(
-                    image: AssetImage(image),fit: BoxFit.fill),
+                    image: NetworkImage(image),fit: BoxFit.fill),
               ),
             ),
           ),
@@ -166,7 +210,7 @@ class coupon extends StatelessWidget{
                     ),
                     SizedBox(height: 5),
                     Text(
-                      AppLocalizations.t(context, 'expDay')+' :'+exp,
+                      AppLocalizations.t(context, 'expDay')+': '+exp,
                       style: TextStyle(color: AppColor.black70per, fontSize: 12, fontFamily: AppFont.fAvenir),
                     ),
                   ],

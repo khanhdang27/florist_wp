@@ -1,7 +1,7 @@
 final AppWishlist appWishlist = AppWishlist();
 
 class AppWishlist {
-  List<String> appWishlistContainer = [];
+  List<int> appWishlistContainer = [];
 
   static final AppWishlist _instance = AppWishlist._internal();
 

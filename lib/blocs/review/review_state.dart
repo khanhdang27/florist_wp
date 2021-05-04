@@ -12,3 +12,6 @@ class ReviewGetAllSuccess extends ReviewState{
 }
 
 class ReviewGetAllFailed extends ReviewState{}
+
+class AddReviewSuccess extends ReviewState{}
+class AddReviewFailed extends ReviewState{}

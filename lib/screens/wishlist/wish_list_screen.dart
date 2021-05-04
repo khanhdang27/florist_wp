@@ -91,7 +91,13 @@ class WishListScreenState extends State<WishListScreen> {
                                 ),
                               );
                             }
-                            return Text('----');
+                            return Text(
+                              '----',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFont.fAvenir,
+                              ),
+                            );
                           },
                           bloc: AppBloc.wishlistItemBloc,
                         );
@@ -100,30 +106,39 @@ class WishListScreenState extends State<WishListScreen> {
                     ),
                   ],
                 ),
-                Container(
-                  width: 200,
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        AppAsset.iconBag2,
-                        height: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        AppLocalizations.t(context, 'addAllToCart'),
-                        style: TextStyle(
-                            color: AppColor.greenMain,
-                            fontWeight: AppFont.wMedium,
-                            fontSize: 14),
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    AppBloc.bagItemBloc.add(AddAllBagItem(
+                        bag_id: SharedPrefs.getBagId(),
+                        wishlist_id: SharedPrefs.getWishlistId(),
+                    ));
+                    Navigator.pushReplacementNamed(context, AppRoute.bag);
+                  },
+                  child: Container(
+                    width: 200,
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          AppAsset.iconBag2,
+                          height: 20,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          AppLocalizations.t(context, 'addAllToCart'),
+                          style: TextStyle(
+                              color: AppColor.greenMain,
+                              fontWeight: AppFont.wMedium,
+                              fontSize: 14),
+                        )
+                      ],
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: AppColor.blackF4),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: AppColor.blackF4),
                 ),
                 SizedBox(
                   height: 20,
@@ -213,98 +228,107 @@ class WishList extends StatefulWidget {
 class _WishList extends State<WishList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 158,
-      margin: EdgeInsets.only(left: 15, top: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
-        color: AppColor.whiteMain,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.horizontal(left: Radius.circular(10)),
-                image: DecorationImage(
-                    image: NetworkImage(widget.image), fit: BoxFit.fill),
+    return GestureDetector(
+      onTap: () {
+        AppBloc.productBloc.add(ProductGetOne(Id: widget.productId));
+        AppBloc.reviewBloc.add(ReviewGetAll(productId: widget.productId));
+        Navigator.pushNamed(context, AppRoute.productDetail);
+      },
+      child: Container(
+        height: 158,
+        margin: EdgeInsets.only(left: 15, top: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
+          color: AppColor.whiteMain,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.horizontal(left: Radius.circular(10)),
+                  image: DecorationImage(
+                      image: NetworkImage(widget.image), fit: BoxFit.fill),
+                ),
               ),
             ),
-          ),
-          Expanded(
-              flex: 6,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 135,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          widget.name,
-                          style: TextStyle(
-                              color: AppColor.greenMain,
-                              fontSize: 16,
-                              fontWeight: AppFont.wMedium),
+            Expanded(
+                flex: 6,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 135,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            widget.name,
+                            style: TextStyle(
+                                color: AppColor.greenMain,
+                                fontSize: 16,
+                                fontWeight: AppFont.wMedium),
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      widget.price,
-                      style: TextStyle(color: AppColor.blackMain, fontSize: 16),
-                    ),
-                    SizedBox(height: 3),
-                    counter(
-                      id: widget.id,
-                      quantity: widget.quantity,
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                AppAsset.iconBag2,
-                                height: 20,
+                      Text(
+                        widget.price,
+                        style: TextStyle(color: AppColor.blackMain, fontSize: 16),
+                      ),
+                      SizedBox(height: 3),
+                      counter(
+                        product_id: widget.productId,
+                        id: widget.id,
+                        quantity: widget.quantity,
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              AppBloc.bagItemBloc.add(AddBagItem(
+                                  bag_id: SharedPrefs.getBagId(),
+                                  product_id: widget.productId,
+                                  quantity: widget.quantity));
+                              Navigator.pushReplacementNamed(context, AppRoute.bag);
+                            },
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    AppAsset.iconBag2,
+                                    height: 20,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    AppLocalizations.t(context, 'addToCart'),
+                                    style: TextStyle(
+                                        color: AppColor.greenMain,
+                                        fontWeight: AppFont.wRegular,
+                                        fontSize: 14),
+                                  )
+                                ],
                               ),
-                              SizedBox(width: 10),
-                              GestureDetector(
-                                onTap: () {
-                                  AppBloc.bagItemBloc.add(AddBagItem(
-                                      bag_id: SharedPrefs.getBagId(),
-                                      product_id: widget.productId,
-                                      quantity: widget.quantity));
-                                },
-                                child: Text(
-                                  AppLocalizations.t(context, 'addToCart'),
-                                  style: TextStyle(
-                                      color: AppColor.greenMain,
-                                      fontWeight: AppFont.wRegular,
-                                      fontSize: 14),
-                                ),
-                              )
-                            ],
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: AppColor.blackF4),
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: AppColor.blackF4),
-                        ),
-                        Image.asset(AppAsset.icon3chamXam, width: 21),
-                      ],
-                    ),
-                  ],
-                ),
-              )),
-        ],
+                          Image.asset(AppAsset.icon3chamXam, width: 21),
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          ],
+        ),
       ),
     );
   }
