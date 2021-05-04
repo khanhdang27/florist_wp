@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/screens/components/components.dart';
 
 class ForgotPassScreen extends StatelessWidget{
   @override
@@ -15,7 +15,7 @@ class ForgotPassScreen extends StatelessWidget{
                 icon: Icon(Icons.arrow_back_ios,size: 25,),
                 color: AppColor.blackMain,
                 onPressed: (){
-                  Navigator.pushNamed(context, AppRoute.register);
+                  Navigator.pushNamed(context, AppRoute.login);
                 },
               ),
             ],

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/member_repository.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/member_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'member_event.dart';
@@ -22,6 +22,19 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
         );
       } else {
         yield MemberGetOneFailed();
+      }
+    }
+
+    if (event is MemberRegister) {
+      int stt = await memberRepository.memberRegister(
+          name: event.name,
+          phone: event.phone,
+          email: event.email,
+          pass: event.pass);
+      if (stt == 1) {
+        yield MemberRegisterSuccess();
+      } else {
+        yield MemberRegisterFailed();
       }
     }
   }

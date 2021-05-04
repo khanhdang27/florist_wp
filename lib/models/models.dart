@@ -5,3 +5,5 @@ export 'banner_db.dart';
 export 'review.dart';
 export 'wishlist.dart';
 export 'wishlist_item.dart';
+export 'bag.dart';
+export 'bag_item.dart';

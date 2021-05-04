@@ -1,6 +1,6 @@
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/repository.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/repository.dart';
+import 'package:florist/screens/components/components.dart';
 
 class MemberRepository extends Repository{
   Future<Member> getOne({int Id}) async {
@@ -22,5 +22,15 @@ class MemberRepository extends Repository{
       updatedAt: data['updated_at'],
     );
     return results;
+  }
+
+  Future<int> memberRegister({String name, String phone, String email, String pass}) async {
+    var response = await httpManager.post(url: '/api/member', data: {
+      'name': name,
+      'phone': phone,
+      'email': email,
+      'pass': pass,
+    });
+    return 1;
   }
 }

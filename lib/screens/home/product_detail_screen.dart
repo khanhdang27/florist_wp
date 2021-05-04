@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/blocs/review/review_bloc.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/blocs/review/review_bloc.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/screens/components/components.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int Id;

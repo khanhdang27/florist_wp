@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/wishlist_item_repository.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/wishlist_item_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'wishlist_item_event.dart';

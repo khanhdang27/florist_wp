@@ -1,10 +1,11 @@
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/screens/components/components.dart';
+import 'package:florist/screens/wishlist/header_wishlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
-import 'package:gut7/screens/wishlist/header_wishlist.dart';
 
 class WishListScreen extends StatefulWidget {
   @override
@@ -29,6 +30,7 @@ class WishListScreenState extends State<WishListScreen> {
                     name: e.product.name,
                     image: e.product.image,
                     id: e.id,
+                    productId: e.product.id,
                     review: e.product.rating + '分 (${e.product.countRate})',
                     price: '\$${e.product.price}',
                     quantity: e.quantity,
@@ -189,6 +191,7 @@ class WishList extends StatefulWidget {
   final String review;
   final String price;
   final int quantity;
+  final int productId;
 
   const WishList(
       {Key key,
@@ -197,7 +200,8 @@ class WishList extends StatefulWidget {
       this.id,
       this.review,
       this.price,
-      this.quantity})
+      this.quantity,
+      this.productId})
       : super(key: key);
 
   @override
@@ -271,12 +275,20 @@ class _WishList extends State<WishList> {
                                 height: 20,
                               ),
                               SizedBox(width: 10),
-                              Text(
-                                AppLocalizations.t(context, 'addToCart'),
-                                style: TextStyle(
-                                    color: AppColor.greenMain,
-                                    fontWeight: AppFont.wRegular,
-                                    fontSize: 14),
+                              GestureDetector(
+                                onTap: () {
+                                  AppBloc.bagItemBloc.add(AddBagItem(
+                                      bag_id: SharedPrefs.getBagId(),
+                                      product_id: widget.productId,
+                                      quantity: widget.quantity));
+                                },
+                                child: Text(
+                                  AppLocalizations.t(context, 'addToCart'),
+                                  style: TextStyle(
+                                      color: AppColor.greenMain,
+                                      fontWeight: AppFont.wRegular,
+                                      fontSize: 14),
+                                ),
                               )
                             ],
                           ),

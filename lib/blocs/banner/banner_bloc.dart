@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/banner_repository.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/banner_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'banner_event.dart';

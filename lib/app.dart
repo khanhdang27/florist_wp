@@ -1,11 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/library/shared_preferences.dart';
-import 'package:gut7/screens/screens.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/screens/screens.dart';
 
 class App extends StatefulWidget {
 
@@ -38,6 +39,7 @@ class _AppState extends State<App> {
     super.didChangeDependencies();
   }
 
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/screens/components/components.dart';
 
 class PurchaseDetailScreen extends StatelessWidget{
   @override

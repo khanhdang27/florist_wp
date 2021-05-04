@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/configs/app_route.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/library/shared_preferences.dart';
-import 'package:gut7/models/language.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/app_route.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/models/language.dart';
+import 'package:florist/screens/components/components.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app.dart';

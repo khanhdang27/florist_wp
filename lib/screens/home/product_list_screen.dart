@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gut7/blocs/app_bloc.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
-import 'package:gut7/screens/home/banner_header_bar.dart';
-import 'package:gut7/screens/home/product_widget.dart';
+import 'package:florist/blocs/app_bloc.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/screens/components/components.dart';
+import 'package:florist/screens/home/banner_header_bar.dart';
+import 'package:florist/screens/home/product_widget.dart';
 
 class ProductListScreen extends StatelessWidget {
   final int categoryId;

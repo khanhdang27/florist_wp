@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gut7/configs/configs.dart';
+import 'package:florist/configs/configs.dart';
 
 class headerCredit extends StatelessWidget with PreferredSizeWidget{
   @override

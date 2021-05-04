@@ -1,17 +1,18 @@
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/screens/components/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/library/shared_preferences.dart';
-import 'package:gut7/screens/components/components.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen() {
     AppBloc.categoryBloc.add(CategoryGetAll());
     AppBloc.productBloc.add(ProductGetRecom());
     AppBloc.bannerBloc.add(BannerGetAll());
+    AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
   }
 
   @override
@@ -30,10 +31,12 @@ class HomeScreen extends StatelessWidget {
               if (state is BannerGetAllSuccess) {
                 List bannerList = state.items.map((e) {
                   return GestureDetector(
-                    child: _buildBanner(context, Globals().urlImage + e.image, e.name, e.description),
-                    onTap: (){
+                    child: _buildBanner(context, Globals().urlImage + e.image,
+                        e.name, e.description),
+                    onTap: () {
                       AppBloc.bannerBloc.add(BannerGetOne(Id: e.id));
-                      AppBloc.productBloc.add(ProductGetOfCate(categoryId: e.categoryId));
+                      AppBloc.productBloc
+                          .add(ProductGetOfCate(categoryId: e.categoryId));
                       Navigator.pushReplacementNamed(context, AppRoute.banner);
                     },
                   );
@@ -86,17 +89,17 @@ class HomeScreen extends StatelessWidget {
                         onTap: () {
                           AppBloc.productBloc.add(ProductGetOne(Id: e.id));
                           AppBloc.reviewBloc.add(ReviewGetAll(productId: e.id));
-                          Navigator.pushNamed(
-                              context, AppRoute.productDetail);
+                          Navigator.pushNamed(context, AppRoute.productDetail);
                         },
                         child: _buildRecom(
-                            context,
-                            e.id,
-                            e.name,
-                            Globals().urlImage + e.image,
-                            e.model,
-                            e.rating + '分 (${e.countRate})',
-                            '\$${e.price}'),
+                          id: e.id,
+                          name: e.name,
+                          image: Globals().urlImage + e.image,
+                          model: e.model,
+                          review: e.rating + '分 (${e.countRate})',
+                          price: '\$${e.price}',
+                          fav: appWishlist.appWishlistContainer.contains(e.id),
+                        ),
                       );
                     }).toList(),
                   ),
@@ -133,8 +136,10 @@ class HomeScreen extends StatelessWidget {
                     children: state.items.map((e) {
                       return GestureDetector(
                         onTap: () {
-                          AppBloc.productBloc.add(ProductGetOfCate(categoryId: e.id));
-                          Navigator.pushReplacementNamed(context, AppRoute.productList);
+                          AppBloc.productBloc
+                              .add(ProductGetOfCate(categoryId: e.id));
+                          Navigator.pushReplacementNamed(
+                              context, AppRoute.productList);
                         },
                         child: _buildCate(
                             context, Globals().urlImage + e.image, e.name),
@@ -232,7 +237,68 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecom(context, id, name, image, model, review, price) {
+  Widget _buildCate(context, image, text) {
+    return Container(
+      //width: 180,
+      margin: EdgeInsets.only(left: 10, bottom: 10),
+      decoration: BoxDecoration(
+          color: AppColor.whiteMain, borderRadius: BorderRadius.circular(35)),
+      child: Row(
+        children: [
+          Container(
+            margin: EdgeInsets.all(8),
+            height: 48,
+            width: 48,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: NetworkImage(image),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(width: 5),
+          Container(
+            width: 100,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 14, color: AppColor.black80per),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _buildRecom extends StatefulWidget {
+  final int id;
+  final String name;
+  final String image;
+  final String model;
+  final String review;
+  final String price;
+  bool fav;
+
+  _buildRecom(
+      {this.id,
+      this.name,
+      this.image,
+      this.model,
+      this.review,
+      this.price,
+      this.fav});
+
+  @override
+  __buildRecomState createState() => __buildRecomState();
+}
+
+class __buildRecomState extends State<_buildRecom> {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: 280,
       decoration: BoxDecoration(
@@ -246,7 +312,7 @@ class HomeScreen extends StatelessWidget {
             height: 202,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(image),
+                image: NetworkImage(widget.image),
                 fit: BoxFit.cover,
               ),
             ),
@@ -262,7 +328,7 @@ class HomeScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          name,
+                          widget.name,
                           style: TextStyle(
                               color: AppColor.greenMain, fontSize: 16),
                         ),
@@ -273,12 +339,20 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
-                            onTap: (){
-                              AppBloc.wishlistItemBloc.add(AddWishlist(wishlist_id: 2, product_id: id));
+                            onTap: () {
+                              setState(() {
+                                widget.fav = !widget.fav;
+                              });
+                              appWishlist.appWishlistContainer.remove(this.id);
+                              AppBloc.wishlistItemBloc.add(AddWishlist(
+                                  wishlist_id: SharedPrefs.getWishlistId(),
+                                  product_id: widget.id));
                             },
                             child: Icon(
-                              AppIcon.icon_tim,
-                              size: 24,
+                              widget.fav
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 30,
                               color: AppColor.greenMain,
                             ),
                           ),
@@ -292,7 +366,7 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      model,
+                      widget.model,
                       style: TextStyle(color: AppColor.black8F, fontSize: 12),
                     ),
                     SizedBox(width: 40),
@@ -300,7 +374,7 @@ class HomeScreen extends StatelessWidget {
                         size: 15, color: AppColor.greenMain),
                     SizedBox(width: 10),
                     Text(
-                      review,
+                      widget.review,
                       style:
                           TextStyle(color: AppColor.black272833, fontSize: 12),
                     ),
@@ -309,7 +383,7 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      price,
+                      widget.price,
                       style: TextStyle(color: AppColor.blackMain, fontSize: 16),
                     ),
                     Expanded(
@@ -349,42 +423,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCate(context, image, text) {
-    return Container(
-      //width: 180,
-      margin: EdgeInsets.only(left: 10, bottom: 10),
-      decoration: BoxDecoration(
-          color: AppColor.whiteMain, borderRadius: BorderRadius.circular(35)),
-      child: Row(
-        children: [
-          Container(
-            margin: EdgeInsets.all(8),
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: NetworkImage(image),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(width: 5),
-          Container(
-            width: 100,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Text(
-                text,
-                style: TextStyle(fontSize: 14, color: AppColor.black80per),
-              ),
-            ),
-          ),
         ],
       ),
     );

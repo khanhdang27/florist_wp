@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gut7/blocs/blocs.dart';
-import 'package:gut7/configs/configs.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/configs.dart';
 
 class counter extends StatefulWidget {
   int quantity;

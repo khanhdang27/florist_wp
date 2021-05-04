@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/wishlist_repository.dart';
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/wishlist_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'wishlist_event.dart';
@@ -18,6 +20,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   Stream<WishlistState> mapEventToState(WishlistEvent event) async* {
     if (event is WishlistGetOne) {
       Map result = await wishlistRepository.getOne(id: event.id);
+      appWishlist.appWishlistContainer = [];
       if (true) {
         yield WishlistGetOneSuccess(
           item: result['wishlist'],

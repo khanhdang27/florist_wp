@@ -1,4 +1,4 @@
-package com.example.gut7
+package com.example.florist
 
 import io.flutter.embedding.android.FlutterActivity
 

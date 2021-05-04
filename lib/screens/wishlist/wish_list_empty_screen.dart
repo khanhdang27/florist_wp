@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
-import 'package:gut7/screens/wishlist/header_wishlist.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/screens/components/components.dart';
+import 'package:florist/screens/wishlist/header_wishlist.dart';
 
 class WishListEmptyScreen extends StatelessWidget{
   @override

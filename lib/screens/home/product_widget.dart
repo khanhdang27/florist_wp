@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:gut7/configs/configs.dart';
+import 'package:florist/configs/configs.dart';
 
 class ProductWidget extends StatefulWidget{
   final String name;

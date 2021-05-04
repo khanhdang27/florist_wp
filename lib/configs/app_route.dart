@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gut7/screens/components/app_screen.dart';
-import 'package:gut7/screens/screens.dart';
+import 'package:florist/screens/components/app_screen.dart';
+import 'package:florist/screens/screens.dart';
 
 class AppRoute {
   static const String home = '/home';

@@ -1,4 +1,4 @@
-import 'package:gut7/models/models.dart';
+import 'package:florist/models/models.dart';
 
 class Wishlist {
   int id;

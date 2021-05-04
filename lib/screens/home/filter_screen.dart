@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
-import 'package:gut7/configs/app_color.dart';
-import 'package:gut7/configs/configs.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/configs/app_color.dart';
+import 'package:florist/configs/configs.dart';
+import 'package:florist/screens/components/components.dart';
 
 class FilterScreen extends StatelessWidget {
   @override

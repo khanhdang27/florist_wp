@@ -12,3 +12,6 @@ class MemberGetOneSuccess extends MemberState{
 }
 
 class MemberGetOneFailed extends MemberState{}
+
+class MemberRegisterSuccess extends MemberState{}
+class MemberRegisterFailed extends MemberState{}

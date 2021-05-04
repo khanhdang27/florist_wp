@@ -1,7 +1,6 @@
+import 'package:florist/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gut7/blocs/blocs.dart';
-
-
+import 'package:florist/blocs/blocs.dart';
 
 class AppBloc {
   static final categoryBloc = CategoryBloc();
@@ -11,6 +10,7 @@ class AppBloc {
   static final wishlistBloc = WishlistBloc();
   static final wishlistItemBloc = WishlistItemBloc();
   static final memberBloc = MemberBloc();
+  static final bagItemBloc = BagItemBloc();
 
   static final List<BlocProvider> providers = [
     BlocProvider<CategoryBloc>(
@@ -34,6 +34,9 @@ class AppBloc {
     BlocProvider<MemberBloc>(
       create: (context) => memberBloc,
     ),
+    BlocProvider<BagItemBloc>(
+      create: (context) => bagItemBloc,
+    ),
   ];
 
   static void dispose() {
@@ -44,6 +47,7 @@ class AppBloc {
     wishlistBloc.close();
     wishlistItemBloc.close();
     memberBloc.close();
+    bagItemBloc.close();
   }
 
   //Singleton factory

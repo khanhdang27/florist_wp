@@ -1,4 +1,4 @@
-import 'package:gut7/library/http_manager.dart';
+import 'package:florist/library/http_manager.dart';
 
 class Repository {
   HTTPManager httpManager = HTTPManager();

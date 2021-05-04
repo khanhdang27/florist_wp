@@ -1,26 +1,26 @@
 import 'package:florist/models/models.dart';
 
-class WishlistItem {
+class BagItem {
   int id;
-  int wishlistId;
+  int bagId;
   int productId;
   int quantity;
   String createdAt;
   String updatedAt;
   Product product;
 
-  WishlistItem(
+  BagItem(
       {this.id,
-        this.wishlistId,
+        this.bagId,
         this.productId,
         this.quantity,
         this.createdAt,
         this.updatedAt,
         this.product});
 
-  WishlistItem.fromJson(Map<String, dynamic> json) {
+  BagItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    wishlistId = json['wishlist_id'];
+    bagId = json['bag_id'];
     productId = json['product_id'];
     quantity = json['quantity'];
     createdAt = json['created_at'];
@@ -32,7 +32,7 @@ class WishlistItem {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['wishlist_id'] = this.wishlistId;
+    data['bag_id'] = this.bagId;
     data['product_id'] = this.productId;
     data['quantity'] = this.quantity;
     data['created_at'] = this.createdAt;

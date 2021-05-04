@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/repository.dart';
-import 'package:gut7/screens/components/components.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/repository.dart';
+import 'package:florist/screens/components/components.dart';
 
 class ProductRepository extends Repository{
 

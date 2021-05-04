@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gut7/configs/configs.dart';
+import 'package:florist/configs/configs.dart';
 
 class BannerHeaderBar extends StatefulWidget with PreferredSizeWidget {
   final VoidCallback press;

@@ -1,5 +1,5 @@
-import 'package:gut7/models/models.dart';
-import 'package:gut7/repositories/repository.dart';
+import 'package:florist/models/models.dart';
+import 'package:florist/repositories/repository.dart';
 
 class CategoryRepository extends Repository {
   Future<List<Category>> getAll() async {
