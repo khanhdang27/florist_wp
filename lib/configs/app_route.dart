@@ -31,6 +31,7 @@ class AppRoute {
   static const String shippingInfo = '/shippingInfo';
   static const String about = '/about';
   static const String gate = '/gate';
+  static const String existCard = '/existCard';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -114,7 +115,8 @@ class AppRoute {
       case AppRoute.checkout:
         return MaterialPageRoute(
           builder: (context) {
-            return CheckoutScreen();
+            Map arg = settings.arguments;
+            return CheckoutScreen(subtotal: arg['subtotal'], cost: arg['cost'],);
           },
           settings: settings,
         );
@@ -213,6 +215,13 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return AboutScreen();
+          },
+          settings: settings,
+        );
+        case AppRoute.existCard:
+        return MaterialPageRoute(
+          builder: (context) {
+            return ExistingCardsPage();
           },
           settings: settings,
         );

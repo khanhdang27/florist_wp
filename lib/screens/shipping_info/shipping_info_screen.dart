@@ -1,5 +1,6 @@
 import 'package:florist/blocs/blocs.dart';
 import 'package:florist/configs/configs.dart';
+import 'package:florist/library/shared_preferences.dart';
 import 'package:florist/screens/components/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,10 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
             email = state.item.email;
             phone = state.item.phone;
             address = state.item.detailAddress;
+            nameController.text = name;
+            emailController.text = email;
+            phoneController.text = phone;
+            addressController.text = address;
             return Padding(
               padding: const EdgeInsets.only(left: 30, right: 20),
               child: Column(
@@ -81,7 +86,8 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                         height: 20,
                         margin: EdgeInsets.only(right: 5),
                         child: TextFormField(
-                          initialValue: name,
+                          controller: nameController,
+                          //     initialValue: name,
                           decoration: InputDecoration(
                             hintText:
                                 AppLocalizations.t(context, 'theRecipientName'),
@@ -128,7 +134,8 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                         height: 20,
                         margin: EdgeInsets.only(right: 5),
                         child: TextFormField(
-                          initialValue: email,
+                          controller: emailController,
+                          //     initialValue: email,
                           decoration: InputDecoration(
                             hintText: AppLocalizations.t(context, 'email'),
                             hintStyle: TextStyle(
@@ -174,7 +181,8 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                         height: 20,
                         margin: EdgeInsets.only(right: 5),
                         child: TextFormField(
-                          initialValue: phone,
+                          controller: phoneController,
+                          //    initialValue: phone,
                           decoration: InputDecoration(
                             hintText:
                                 AppLocalizations.t(context, 'cellphoneNum'),
@@ -292,7 +300,8 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                         height: 100,
                         margin: EdgeInsets.only(right: 5),
                         child: TextFormField(
-                          initialValue: address,
+                          controller: addressController,
+                          //  initialValue: address,
                           maxLines: 5,
                           decoration: InputDecoration(
                             hintText:
@@ -312,21 +321,39 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                           ),
                         ),
                       )),
-                  Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.all(30),
-                      decoration: BoxDecoration(
-                        color: AppColor.greenMain,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: EdgeInsets.only(
-                          left: 20, right: 15, bottom: 18, top: 15),
-                      child: Text(
-                        AppLocalizations.t(context, 'confirm'),
-                        style: TextStyle(
-                            fontWeight: AppFont.wMedium,
-                            color: AppColor.whiteMain),
-                      )),
+                  GestureDetector(
+                    onTap: () {
+                      if (name != nameController.text ||
+                          email != emailController.text ||
+                          phone != phoneController.text ||
+                          address != addressController.text)
+                      {
+                        AppBloc.shippingBloc.add(UpdateShipping(
+                          id: SharedPrefs.getMemberId(),
+                          name: nameController.text,
+                          email: emailController.text,
+                          phone: phoneController.text,
+                          address: addressController.text,
+                        ));
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.all(30),
+                        decoration: BoxDecoration(
+                          color: AppColor.greenMain,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.only(
+                            left: 20, right: 15, bottom: 18, top: 15),
+                        child: Text(
+                          AppLocalizations.t(context, 'confirm'),
+                          style: TextStyle(
+                              fontWeight: AppFont.wMedium,
+                              color: AppColor.whiteMain),
+                        )),
+                  ),
                   SizedBox(
                     height: 70,
                   ),

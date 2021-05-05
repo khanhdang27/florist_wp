@@ -6,6 +6,7 @@ import 'package:florist/repositories/shipping_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'shipping_event.dart';
+
 part 'shipping_state.dart';
 
 class ShippingBloc extends Bloc<ShippingEvent, ShippingState> {
@@ -13,7 +14,9 @@ class ShippingBloc extends Bloc<ShippingEvent, ShippingState> {
   final ShippingRepository shippingRepository = ShippingRepository();
 
   @override
-  Stream<ShippingState> mapEventToState(ShippingEvent event,) async* {
+  Stream<ShippingState> mapEventToState(
+    ShippingEvent event,
+  ) async* {
     if (event is ShippingGetOne) {
       Shipping shipping = await shippingRepository.getOne(Id: event.Id);
       if (true) {
@@ -22,6 +25,20 @@ class ShippingBloc extends Bloc<ShippingEvent, ShippingState> {
         );
       } else {
         yield ShippingGetOneFailed();
+      }
+    }
+    if (event is UpdateShipping) {
+      int result = await shippingRepository.updateShipping(
+        id: event.id,
+        name: event.name,
+        email: event.email,
+        phone: event.phone,
+        address: event.address,
+      );
+      if (result != null) {
+        yield UpdateShippingSuccess();
+      } else {
+        yield UpdateShippingFailed();
       }
     }
   }

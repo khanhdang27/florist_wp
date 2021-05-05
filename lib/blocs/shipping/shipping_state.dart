@@ -12,3 +12,6 @@ class ShippingGetOneSuccess extends ShippingState{
 }
 
 class ShippingGetOneFailed extends ShippingState{}
+
+class UpdateShippingSuccess extends ShippingState{}
+class UpdateShippingFailed extends ShippingState{}

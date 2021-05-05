@@ -2,6 +2,7 @@ export 'about/about_screen.dart';
 export 'bag/bag_screen.dart';
 export 'bag/checkout_screen.dart';
 export 'bag/paid_screen.dart';
+export 'bag/pay_visa.dart';
 export 'components/app_screen.dart';
 export 'coupon/coupon_add_screen.dart';
 export 'coupon/coupon_screen.dart';

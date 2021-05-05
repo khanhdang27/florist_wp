@@ -287,6 +287,7 @@ class BagScreenState extends State<BagScreen> {
                           builder: (context, stateBagItem) {
                             if (stateBag is BagGetOneSuccess) {
                               if (stateBagItem is BagChangeQuantitySuccess) {
+                                total = stateBagItem.total;
                                 return Text(
                                   '\$${stateBagItem.total + shipping_cost}',
                                   style: TextStyle(
@@ -295,6 +296,7 @@ class BagScreenState extends State<BagScreen> {
                                   ),
                                 );
                               }
+                              total = stateBag.total;
                               return Text(
                                 '\$${stateBag.total + shipping_cost}',
                                 style: TextStyle(
@@ -323,7 +325,7 @@ class BagScreenState extends State<BagScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoute.checkout);
+                    Navigator.pushNamed(context, AppRoute.checkout, arguments:{'subtotal': total, 'cost':shipping_cost});
                   },
                   child: Container(
                     alignment: Alignment.center,
