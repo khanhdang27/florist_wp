@@ -140,5 +140,9 @@
   "pleasePass": "Please enter a valid password",
   "confirmPass": "Confirm password does not match",
   "couponError": "Coupon code does not exist",
-  "couponComplete": "Coupon has been added successfully"
+  "couponComplete": "Coupon has been added successfully",
+  "noCredit": "No credit card yet",
+  "pleaseValidCreditNum": "Please enter a valid credit card number",
+  "pleaseValidExpiry": "Please enter a valid expiry day",
+  "pleaseValidCVV": "Please enter a valid CVV"
 }

@@ -10,3 +10,4 @@ export 'bag_item.dart';
 export 'coupon.dart';
 export 'coupon_member.dart';
 export 'shipping.dart';
+export 'credit.dart';

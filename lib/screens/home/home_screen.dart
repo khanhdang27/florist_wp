@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Layout(
       header: headerHome(),
       child: Column(

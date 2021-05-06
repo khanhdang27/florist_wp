@@ -15,6 +15,7 @@ class AppBloc {
   static final couponBloc = CouponBloc();
   static final couponMemberBloc = CouponMemberBloc();
   static final shippingBloc = ShippingBloc();
+  static final creditBloc = CreditBloc();
 
   static final List<BlocProvider> providers = [
     BlocProvider<CategoryBloc>(
@@ -53,6 +54,9 @@ class AppBloc {
     BlocProvider<ShippingBloc>(
       create: (context) => shippingBloc,
     ),
+    BlocProvider<CreditBloc>(
+      create: (context) => creditBloc,
+    ),
   ];
 
   static void dispose() {
@@ -68,6 +72,7 @@ class AppBloc {
     couponBloc.close();
     couponMemberBloc.close();
     shippingBloc.close();
+    creditBloc.close();
   }
 
   //Singleton factory

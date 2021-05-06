@@ -328,6 +328,8 @@ class SettingScreenState extends State<SettingScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          AppBloc.creditBloc.add(CreditGetOne(Id: SharedPrefs.getMemberId()));
+                  //        Navigator.pushNamed(context, AppRoute.creditEditCard);
                           Navigator.pushNamed(context, AppRoute.creditCard);
                         },
                         child: Container(

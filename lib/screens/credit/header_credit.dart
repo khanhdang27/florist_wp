@@ -17,7 +17,7 @@ class headerCredit extends StatelessWidget with PreferredSizeWidget{
             IconButton(
                 icon: Icon(Icons.arrow_back_ios, size: 28,),
                 onPressed: (){
-                  Navigator.pushNamed(context, AppRoute.setting);
+                  Navigator.pop(context);
                 }
             ),
             Text(

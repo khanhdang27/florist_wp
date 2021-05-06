@@ -140,5 +140,9 @@
   "pleasePass" : "请输入有效密码",
   "confirmPass" : "确认密码不匹配",
   "couponError": "优惠券代码不存在",
-  "couponComplete": "优惠券已成功添加"
+  "couponComplete": "优惠券已成功添加",
+  "noCredit": "还没有信用卡",
+  "pleaseValidCreditNum": "请输入一个有效的信用卡号码",
+  "pleaseValidExpiry": "请输入有效的到期日",
+  "pleaseValidCVV": "请输入有效的 CVV"
 }

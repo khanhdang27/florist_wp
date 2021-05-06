@@ -21,7 +21,7 @@ class StripeService {
     StripePayment.setOptions(
         StripeOptions(
             publishableKey: "pk_test_51Ing2qIPKsvzjHeZbMZrLTdVKaVx5NCaqR9ITeopjLonNnlqR7bXtuO6D7Ur0QwHaDsndhLnRy0MnJvj45HdZzQ000iuZ2DJzi",
-            merchantId: "Test",
+            merchantId: "acct_1Ing2qIPKsvzjHeZ",
             androidPayMode: 'test'
         )
     );
@@ -29,6 +29,7 @@ class StripeService {
 
   static Future<StripeTransactionResponse> payViaExistingCard({String amount, String currency, CreditCard card}) async{
     try {
+
       var paymentMethod = await StripePayment.createPaymentMethod(
           PaymentMethodRequest(card: card)
       );
@@ -42,7 +43,7 @@ class StripeService {
               paymentMethodId: paymentMethod.id
           )
       );
-      if (response.status == 'successed') {
+      if (response.status == 'succeeded') {
         return new StripeTransactionResponse(
             message: 'Transaction successful',
             success: true
@@ -78,7 +79,7 @@ class StripeService {
               paymentMethodId: paymentMethod.id
           )
       );
-      if (response.status == 'successed') {
+      if (response.status == 'succeeded') {
         return new StripeTransactionResponse(
             message: 'Transaction successful',
             success: true

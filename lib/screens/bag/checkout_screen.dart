@@ -5,6 +5,7 @@ import 'package:florist/configs/configs.dart';
 import 'package:florist/library/shared_preferences.dart';
 import 'package:florist/screens/bag/checkout_header.dart';
 import 'package:florist/screens/components/components.dart';
+import 'package:florist/services/payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,10 +37,12 @@ class CheckoutScreenState extends State<CheckoutScreen> {
   @override
   void initState() {
     super.initState();
-    StripePayment.setOptions(StripeOptions(
-      publishableKey:
-          'pk_test_51Ing2qIPKsvzjHeZbMZrLTdVKaVx5NCaqR9ITeopjLonNnlqR7bXtuO6D7Ur0QwHaDsndhLnRy0MnJvj45HdZzQ000iuZ2DJzi',
-    ));
+
+    StripeService.init();
+    // StripePayment.setOptions(StripeOptions(
+    //   publishableKey:
+    //       'pk_test_51Ing2qIPKsvzjHeZbMZrLTdVKaVx5NCaqR9ITeopjLonNnlqR7bXtuO6D7Ur0QwHaDsndhLnRy0MnJvj45HdZzQ000iuZ2DJzi',
+    // ));
   }
 
   @override
@@ -661,8 +664,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    //  Navigator.pushNamed(context, AppRoute.existCard);
-                    startPayment();
+                      Navigator.pushNamed(context, AppRoute.existCard);
+                    //startPayment();
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -690,7 +693,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  Future<void> startPayment() async {
+ /* Future<void> startPayment() async {
     StripePayment.setStripeAccount(null);
 
     amount = (10 * 100).toInt();
@@ -731,7 +734,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         });
       }
     }
-  }
+  }*/
 }
 
 class Item {
