@@ -42,7 +42,7 @@ class ExistingCardsPageState extends State<ExistingCardsPage> {
     );
     var response = await StripeService.payViaExistingCard(
         amount: '2500',
-        currency: 'USD',
+        currency: 'HKD',
         card: stripeCard
     );
     await dialog.hide();

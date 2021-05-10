@@ -144,5 +144,10 @@
   "noCredit": "还没有信用卡",
   "pleaseValidCreditNum": "请输入一个有效的信用卡号码",
   "pleaseValidExpiry": "请输入有效的到期日",
-  "pleaseValidCVV": "请输入有效的 CVV"
+  "pleaseValidCVV": "请输入有效的 CVV",
+  "pleaseAddCard": "请添加送货信息和信用卡",
+  "waitConfirm": "等待确认",
+  "delivered": "发表",
+  "completed": "完全的",
+  "cancelled": "取消"
 }

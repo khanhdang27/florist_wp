@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:florist/blocs/blocs.dart';
+import 'package:florist/library/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
 
 class PaidScreen extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
     return LayoutWhite(
@@ -47,8 +52,10 @@ class PaidScreen extends StatelessWidget{
             ),
           ),
           GestureDetector(
-            onTap: (){
-              Navigator.pushNamed(context, AppRoute.paid);
+            onTap: () {
+              AppBloc.orderBloc.add(OrderGetAll(memberId: SharedPrefs.getMemberId()));
+              Navigator.pushNamed(
+                  context, AppRoute.purchaseHistory);
             },
             child: Container(
               margin: EdgeInsets.only(left: 30, right: 30, top: 100, bottom: 20),
@@ -70,7 +77,7 @@ class PaidScreen extends StatelessWidget{
           ),
           GestureDetector(
             onTap: (){
-              Navigator.pushNamed(context, AppRoute.paid);
+              Navigator.pushNamed(context, AppRoute.home);
             },
             child: Text(
               AppLocalizations.t(context, 'skip'),

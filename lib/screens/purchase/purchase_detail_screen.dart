@@ -1,247 +1,281 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'dart:ffi';
+
+import 'package:florist/blocs/blocs.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
-class PurchaseDetailScreen extends StatelessWidget{
+class PurchaseDetailScreen extends StatelessWidget {
+  int order_id;
+
+  PurchaseDetailScreen({this.order_id});
+
   @override
   Widget build(BuildContext context) {
     return LayoutWhite(
       header: headerPurchaseDetail(),
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(left: 30),
-            padding: EdgeInsets.only(bottom: 10,top:15),
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: AppColor.black10per, width: 1))
-            ),
-            child: Column(
+      child: BlocBuilder(
+        bloc: AppBloc.orderBloc,
+        builder: (context, state) {
+          if (state is OrderGetOneSuccess) {
+            return Column(
               children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 60,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          AppLocalizations.t(context, 'orderDate'),
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: AppFont.fAvenir
+                Container(
+                  margin: EdgeInsets.only(left: 30),
+                  padding: EdgeInsets.only(bottom: 10, top: 15),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: AppColor.black10per, width: 1))),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                AppLocalizations.t(context, 'orderDate'),
+                                style: TextStyle(
+                                    fontSize: 12, fontFamily: AppFont.fAvenir),
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            DateFormat("yyyy-MM-dd hh:mm")
+                                .format(DateTime.parse(state.item.createdAt)),
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: AppFont.fAvenir,
+                                color: AppColor.black50per),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(width: 20,),
-                    Text(
-                      '2022-3-12 11:53',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: AppFont.fAvenir,
-                        color: AppColor.black50per
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ],
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 60,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                AppLocalizations.t(context, 'shippingAddress'),
+                                style: TextStyle(
+                                    fontSize: 12, fontFamily: AppFont.fAvenir),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Flexible(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 50),
+                              child: Text(
+                                state.item.bag.shipAddress,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: AppFont.fAvenir,
+                                    color: AppColor.black50per),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                AppLocalizations.t(context, 'paymentMethod'),
+                                style: TextStyle(
+                                    fontSize: 12, fontFamily: AppFont.fAvenir),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'VISA',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: AppFont.fAvenir,
+                                color: AppColor.black50per),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                AppLocalizations.t(context, 'schedule'),
+                                style: TextStyle(
+                                    fontSize: 12, fontFamily: AppFont.fAvenir),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            AppLocalizations.t(
+                                context, state.item.status.acronym),
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: AppFont.fAvenir,
+                                color: AppColor.greenMain),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 10,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 60,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          AppLocalizations.t(context, 'shippingAddress'),
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: AppFont.fAvenir
+                Column(
+                  children: state.item.bag.bagItem.map((e) {
+                    return GestureDetector(
+                        onTap: () {
+                          AppBloc.productBloc
+                              .add(ProductGetOne(Id: e.productId));
+                          AppBloc.reviewBloc
+                              .add(ReviewGetAll(productId: e.productId));
+                          Navigator.pushNamed(context, AppRoute.productDetail);
+                        },
+                        child: productDetail(
+                            name: e.product.name,
+                            image: e.product.image,
+                            id: e.product.model,
+                            count: e.quantity.toString(),
+                            price: '\$' + e.product.price.toString()));
+                  }).toList(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 30, top: 20, right: 30),
+                  padding: EdgeInsets.only(bottom: 10, top: 15),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              color: AppColor.black10per, width: 1))),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocalizations.t(context, 'subtotal'),
+                            style: TextStyle(
+                              fontFamily: AppFont.fAvenir,
+                            ),
                           ),
-                        ),
+                          Text(
+                            'HKD '+state.item.subtotal,
+                            style: TextStyle(fontWeight: AppFont.wMedium),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(width: 20,),
-                    Flexible(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 50),
-                        child: Text(
-                          'Room 1905, 19/F, Ho Lik Center,62-66 Sha Tsui Road, Tsuen Wan,New Territories, Hong Kong',
-                          style: TextStyle(
-
-                            fontSize: 12,
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocalizations.t(context, 'shipping'),
+                            style: TextStyle(
+                              fontFamily: AppFont.fAvenir,
+                            ),
+                          ),
+                          Text(
+                            '\$'+(double.parse(state.item.total)-double.parse(state.item.subtotal)).toInt().toString(),
+                            style: TextStyle(
+                                fontWeight: AppFont.wMedium,
+                                color: AppColor.black50per),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocalizations.t(context, 'coupon'),
+                            style: TextStyle(
+                              fontFamily: AppFont.fAvenir,
+                            ),
+                          ),
+                          Text(
+                            '-\$0',
+                            style: TextStyle(
+                                fontWeight: AppFont.wMedium,
+                                color: AppColor.black50per),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 30, top: 20, right: 30),
+                  padding: EdgeInsets.only(bottom: 10, top: 15),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              color: AppColor.black10per, width: 1))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.t(context, 'total'),
+                        style: TextStyle(
                             fontFamily: AppFont.fAvenir,
-                            color: AppColor.black50per
-                          ),
-                        ),
+                            fontWeight: AppFont.wMedium,
+                            fontSize: 20),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Row(
-                  children: [
-                    Container(
-                      width: 60,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          AppLocalizations.t(context, 'paymentMethod'),
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: AppFont.fAvenir
-                          ),
-                        ),
+                      Text(
+                        'HKD '+state.item.total,
+                        style: TextStyle(
+                            fontWeight: AppFont.wSemiBold, fontSize: 20),
                       ),
-                    ),
-                    SizedBox(width: 20,),
-                    Text(
-                      'VISA',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: AppFont.fAvenir,
-                          color: AppColor.black50per
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Row(
-                  children: [
-                    Container(
-                      width: 60,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          AppLocalizations.t(context, 'schedule'),
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: AppFont.fAvenir
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 20,),
-                    Text(
-                      AppLocalizations.t(context, 'inDelivery'),
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: AppFont.fAvenir,
-                          color: AppColor.greenMain
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          productDetail(name:'求婚花束 生日花束', image: AppAsset.bong, id:'BO102',count: '1', price:'\$400'),
-          productDetail(name:'求婚花束 生日花束', image: AppAsset.bong2, id:'BO123',count: '1', price:'\$400'),
-
-
-          Container(
-            margin: EdgeInsets.only(left: 30,top: 20,right: 30),
-            padding: EdgeInsets.only(bottom: 10,top:15),
-            decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: AppColor.black10per, width: 1))
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.t(context, 'subtotal'),
-                      style: TextStyle(
-                        fontFamily: AppFont.fAvenir,
-                      ),
-                    ),
-                    Text(
-                      'HKD 800',
-                      style: TextStyle(
-                        fontWeight: AppFont.wMedium
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.t(context, 'shipping'),
-                      style: TextStyle(
-                        fontFamily: AppFont.fAvenir,
-                      ),
-                    ),
-                    Text(
-                      '\$100',
-                      style: TextStyle(
-                        fontWeight: AppFont.wMedium,
-                        color: AppColor.black50per
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.t(context, 'coupon'),
-                      style: TextStyle(
-                        fontFamily: AppFont.fAvenir,
-                      ),
-                    ),
-                    Text(
-                      '-\$50',
-                      style: TextStyle(
-                        fontWeight: AppFont.wMedium,
-                        color: AppColor.black50per
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 30,top: 20,right: 30),
-            padding: EdgeInsets.only(bottom: 10,top:15),
-            decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: AppColor.black10per, width: 1))
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  AppLocalizations.t(context, 'total'),
-                  style: TextStyle(
-                    fontFamily: AppFont.fAvenir,
-                    fontWeight: AppFont.wMedium,
-                      fontSize: 20
+                    ],
                   ),
                 ),
-                Text(
-                  'HKD 850',
-                  style: TextStyle(
-                    fontWeight: AppFont.wSemiBold,
-                    fontSize: 20
-                  ),
-                ),
+                SizedBox(
+                  height: 20,
+                )
               ],
-            ),
-          ),
-          SizedBox(height: 20,)
-        ],
+            );
+          }
+          return CircularProgressIndicator();
+        },
       ),
     );
   }
 }
 
-class headerPurchaseDetail extends StatefulWidget with PreferredSizeWidget{
-
+class headerPurchaseDetail extends StatefulWidget with PreferredSizeWidget {
   @override
   headerPurchaseDetailState createState() => headerPurchaseDetailState();
 
@@ -249,49 +283,66 @@ class headerPurchaseDetail extends StatefulWidget with PreferredSizeWidget{
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }
 
-class headerPurchaseDetailState extends State<headerPurchaseDetail>{
+class headerPurchaseDetailState extends State<headerPurchaseDetail> {
   final int dayAgo = 10;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 10,),
+        SizedBox(
+          width: 10,
+        ),
         IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 25,),
-            onPressed: (){
-              Navigator.pushNamed(context, AppRoute.setting);
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: 25,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        Text(
+          AppLocalizations.t(context, 'purchaseHistory') + ': ',
+          style: TextStyle(fontSize: 25, fontWeight: AppFont.wMedium),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        BlocBuilder(
+          bloc: AppBloc.orderBloc,
+          buildWhen: (previous, current) {
+            return current is OrderGetOneSuccess;
+          },
+          builder: (context, state) {
+            if (state is OrderGetOneSuccess) {
+              return Text(
+                '#' + state.item.id.toString(),
+                style: TextStyle(fontSize: 25, fontWeight: AppFont.wMedium),
+              );
             }
-        ),
-        Text(
-          AppLocalizations.t(context, 'purchaseHistory')+':',
-          style: TextStyle(
-              fontSize: 25,
-              fontWeight: AppFont.wMedium
-          ),
-        ),
-        SizedBox(width: 10,),
-        Text(
-          '#16273881',
-          style: TextStyle(
-              fontSize: 25,
-              fontWeight: AppFont.wMedium
-          ),
+            return Text(
+              '#',
+              style: TextStyle(fontSize: 25, fontWeight: AppFont.wMedium),
+            );
+          },
         ),
       ],
-    ) ;
+    );
   }
 }
 
-class productDetail extends StatelessWidget{
+class productDetail extends StatelessWidget {
   final String name;
   final String image;
   final String id;
   final String count;
   final String price;
 
-const productDetail({Key key, this.name, this.image, this.id, this.count, this.price}) : super(key: key);
+  const productDetail(
+      {Key key, this.name, this.image, this.id, this.count, this.price})
+      : super(key: key);
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 120,
@@ -314,60 +365,67 @@ const productDetail({Key key, this.name, this.image, this.id, this.count, this.p
             flex: 3,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
+                borderRadius:
+                    BorderRadius.horizontal(left: Radius.circular(10)),
                 image: DecorationImage(
-                    image: AssetImage(image),fit: BoxFit.fill),
+                    image: NetworkImage(image), fit: BoxFit.fill),
               ),
             ),
           ),
           Expanded(
-            flex: 7,
-            child:     Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 135,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        name,
-                        style: TextStyle(
-                            color: AppColor.greenMain, fontSize: 16,fontWeight: AppFont.wMedium),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    id,
-                    style: TextStyle(color: AppColor.black8F, fontSize: 12,fontWeight: AppFont.wMedium),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    price,
-                    style: TextStyle(color: AppColor.blackMain, fontSize: 16),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30),
+              flex: 7,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 135,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
                         child: Text(
-                          'X'+count,
-                          style: TextStyle(color: AppColor.blackMain, fontSize: 20, fontWeight: AppFont.wSemiBold),
+                          name,
+                          style: TextStyle(
+                              color: AppColor.greenMain,
+                              fontSize: 16,
+                              fontWeight: AppFont.wMedium),
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
-            )
-          ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      id,
+                      style: TextStyle(
+                          color: AppColor.black8F,
+                          fontSize: 12,
+                          fontWeight: AppFont.wMedium),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      price,
+                      style: TextStyle(color: AppColor.blackMain, fontSize: 16),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: Text(
+                            'X' + count,
+                            style: TextStyle(
+                                color: AppColor.blackMain,
+                                fontSize: 20,
+                                fontWeight: AppFont.wSemiBold),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )),
         ],
       ),
     );
   }
 }
-

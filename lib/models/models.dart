@@ -11,3 +11,5 @@ export 'coupon.dart';
 export 'coupon_member.dart';
 export 'shipping.dart';
 export 'credit.dart';
+export 'status.dart';
+export 'order.dart';

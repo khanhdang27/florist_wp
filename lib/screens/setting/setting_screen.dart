@@ -134,6 +134,7 @@ class SettingScreenState extends State<SettingScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          AppBloc.orderBloc.add(OrderGetAll(memberId: SharedPrefs.getMemberId()));
                           Navigator.pushNamed(
                               context, AppRoute.purchaseHistory);
                         },

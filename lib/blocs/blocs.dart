@@ -12,4 +12,5 @@ export 'package:florist/blocs/coupon/coupon_bloc.dart';
 export 'package:florist/blocs/coupon_member/coupon_member_bloc.dart';
 export 'package:florist/blocs/shipping/shipping_bloc.dart';
 export 'package:florist/blocs/credit/credit_bloc.dart';
+export 'package:florist/blocs/order/order_bloc.dart';
 

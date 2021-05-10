@@ -23,3 +23,12 @@ class BagGetOneFailed extends BagState {
   @override
   List<Object> get props => [];
 }
+
+class UpdateBagSuccess extends BagState{
+  @override
+  List<Object> get props => [];
+}
+class UpdateBagFailed extends BagState{
+  @override
+  List<Object> get props => [];
+}

@@ -75,7 +75,7 @@ class ProductListScreen extends StatelessWidget {
                             image: Globals().urlImage + e.image,
                             id: e.id,
                             model: e.model,
-                            review: e.rating + '分 (${e.countRate})',
+                            review: e.rating + AppLocalizations.t(context, 'point')+' (${e.countRate})',
                             price: '\$${e.price}'));
                   }).toList(),
                 );

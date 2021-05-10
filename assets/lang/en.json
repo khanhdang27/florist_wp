@@ -144,5 +144,10 @@
   "noCredit": "No credit card yet",
   "pleaseValidCreditNum": "Please enter a valid credit card number",
   "pleaseValidExpiry": "Please enter a valid expiry day",
-  "pleaseValidCVV": "Please enter a valid CVV"
+  "pleaseValidCVV": "Please enter a valid CVV",
+  "pleaseAddCard": "Please add delivery information and credit card",
+  "waitConfirm": "Wait Confirm",
+  "delivered": "Delivered",
+  "completed": "Completed",
+  "cancelled": "Cancelled"
 }

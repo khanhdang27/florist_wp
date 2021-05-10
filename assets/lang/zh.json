@@ -144,5 +144,10 @@
   "noCredit": "還沒有信用卡",
   "pleaseValidCreditNum": "請輸入一個有效的信用卡號碼",
   "pleaseValidExpiry": "請輸入有效的到期日",
-  "pleaseValidCVV": "請輸入有效的 CVV"
+  "pleaseValidCVV": "請輸入有效的 CVV",
+  "pleaseAddCard": "請添加送貨信息和信用卡",
+  "waitConfirm": "等待確認",
+  "delivered": "發表",
+  "completed": "完全的",
+  "cancelled": "取消"
 }

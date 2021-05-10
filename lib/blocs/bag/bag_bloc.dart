@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:florist/library/shared_preferences.dart';
 import 'package:florist/models/models.dart';
 import 'package:florist/repositories/bag_repository.dart';
 import 'package:meta/meta.dart';
@@ -37,6 +38,20 @@ class BagBloc extends Bloc<BagEvent, BagState> {
           total: event.total,
           diff: event.id,
         );
+      }
+    }
+    if (event is UpdateBag) {
+      int result = await bagRepository.updateBag(
+        id: event.id,
+        name: event.name,
+        phone: event.phone,
+        address: event.address,
+        pay: event.pay,
+      );
+      if (result != null) {
+        yield UpdateBagSuccess();
+      } else {
+        yield UpdateBagFailed();
       }
     }
   }
