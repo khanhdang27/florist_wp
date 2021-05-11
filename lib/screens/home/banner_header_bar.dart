@@ -1,3 +1,4 @@
+import 'package:florist/library/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:florist/configs/configs.dart';
@@ -57,7 +58,7 @@ class _BannerHeaderBar extends State<BannerHeaderBar> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: AssetImage(AppAsset.avatar),
+                    image: NetworkImage(SharedPrefs.getAvatar()),
                     fit: BoxFit.cover,
                   ),
                 ),

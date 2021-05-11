@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as Dio;
+import 'package:florist/screens/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:florist/library/shared_preferences.dart';
 import 'package:florist/models/models.dart';
@@ -29,6 +30,7 @@ class Auth extends ChangeNotifier{
       await SharedPrefs.setMemberId(member.id);
       await SharedPrefs.setWishlistId(wishlist_id);
       await SharedPrefs.setBagId(bag_id);
+      await SharedPrefs.setAvatar(Globals().urlImage + member.avatar);
 
  //     this.tryToken(token: token);
       return token;

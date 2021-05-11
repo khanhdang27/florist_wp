@@ -149,5 +149,7 @@
   "waitConfirm": "等待确认",
   "delivered": "发表",
   "completed": "完全的",
-  "cancelled": "取消"
+  "cancelled": "取消",
+  "loginFailed": "帐户或密码不正确",
+  "cardEmpty": "你的购物车是空的"
 }

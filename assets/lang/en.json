@@ -149,5 +149,7 @@
   "waitConfirm": "Wait Confirm",
   "delivered": "Delivered",
   "completed": "Completed",
-  "cancelled": "Cancelled"
+  "cancelled": "Cancelled",
+  "loginFailed": "Account or password is incorrect",
+  "cardEmpty": "Your shopping cart is empty"
 }

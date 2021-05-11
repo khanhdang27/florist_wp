@@ -6,7 +6,7 @@ Dio dio(){
   //ios
   //dio.options.baseUrl = "http://localhost:8000/api";
   //android
-//  dio.options.baseUrl = "http://10.0.2.2:8000/api";
+ // dio.options.baseUrl = "http://10.0.2.2:8000/api";
   dio.options.baseUrl = "http://nirondemo.tk/florist/public/api";
 
   dio.options.headers['accept'] = 'Application/Json';

@@ -10,7 +10,9 @@ import 'package:florist/screens/login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+// import 'package:international_phone_input/international_phone_input.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -41,11 +43,15 @@ class RegisterScreenState extends State<RegisterScreen> {
       new TextEditingController();
   final TextEditingController otpController = new TextEditingController();
 
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+
   var isLoading = false;
   var isRegisterScreen = true;
   var verificationCode = '';
 
   String pass;
+  String phone;
 
   @override
   void initState() {
@@ -127,7 +133,9 @@ class RegisterScreenState extends State<RegisterScreen> {
                 controller: emailController,
                 enabled: !isLoading,
                 validator: (value) {
-                  if (value == null || value.isEmpty || !EmailValidator.validate(value)) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      !EmailValidator.validate(value)) {
                     return AppLocalizations.t(context, 'pleaseValidEmail');
                   }
                   return null;
@@ -146,6 +154,40 @@ class RegisterScreenState extends State<RegisterScreen> {
             SizedBox(
               height: 18,
             ),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              margin: EdgeInsets.symmetric(horizontal: 30),
+              decoration: BoxDecoration(
+                color: AppColor.blackF852per,
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              ),
+              child: InternationalPhoneNumberInput(
+                onInputChanged: (PhoneNumber number) {
+                  phone = number.phoneNumber;
+                },
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.disabled,
+                selectorTextStyle: TextStyle(color: Colors.black),
+                textFieldController: phoneController,
+                formatInput: false,
+                keyboardType:
+                TextInputType.numberWithOptions(signed: true, decimal: true),
+                inputBorder: InputBorder.none,
+                validator: (value) {
+                  if (alreadyPhone) {
+                    return AppLocalizations.t(context, 'pleasePhone');
+                  }
+                  if (value == null || value.isEmpty) {
+                    return AppLocalizations.t(context, 'pleasePhone');
+                  }
+                  return null;
+                },
+              ),
+            ),
+/*
             Container(
               height: 50,
               margin: EdgeInsets.symmetric(horizontal: 30),
@@ -176,6 +218,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
+*/
             SizedBox(
               height: 18,
             ),
@@ -195,7 +238,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.t(context, 'pleasePass');
                   }
-                  if (value.length<6) {
+                  if (value.length < 6) {
                     return AppLocalizations.t(context, 'password6');
                   }
                   return null;
@@ -229,10 +272,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.t(context, 'pleasePass');
                   }
-                  if (value.length<6) {
+                  if (value.length < 6) {
                     return AppLocalizations.t(context, 'password6');
                   }
-                  if(value != pass){
+                  if (value != pass) {
                     return AppLocalizations.t(context, 'confirmPass');
                   }
                   return null;
@@ -299,7 +342,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       startTimer();
       resend = false;
     }
-    String sdt = phoneController.text.trim();
+    String sdt = phone;
     String lastPhone = sdt.substring(sdt.length - 4, sdt.length);
 
     return LayoutWhiteNotMenu(
@@ -391,7 +434,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                                           .set({
                                         'name': usernameController.text.trim(),
                                         'phonenumber':
-                                            phoneController.text.trim(),
+                                            phone,
                                         'email': emailController.text.trim()
                                       }, SetOptions(merge: true)).then(
                                               (value) => {
@@ -406,7 +449,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                                       }),
                                       AppBloc.memberBloc.add(MemberRegister(
                                         name: usernameController.text.trim(),
-                                        phone: phoneController.text.trim(),
+                                        phone: phone,
                                         email: emailController.text.trim(),
                                         pass: passwordController.text.trim(),
                                       )),
@@ -521,7 +564,7 @@ class RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       isLoading = true;
     });
-    var phoneNumber = phoneController.text.toString();
+    var phoneNumber = phone;
 
     var verifyPhoneNumber = _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
@@ -536,7 +579,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       .doc(_auth.currentUser.uid)
                       .set({
                         'username': usernameController.text.trim(),
-                        'phonenumber': phoneController.text.trim(),
+                        'phonenumber': phone,
                         'email': emailController.text.trim()
                       }, SetOptions(merge: true))
                       .then((value) => {
@@ -544,6 +587,12 @@ class RegisterScreenState extends State<RegisterScreen> {
                             setState(() {
                               isLoading = false;
 
+                              AppBloc.memberBloc.add(MemberRegister(
+                                name: usernameController.text.trim(),
+                                phone: phone,
+                                email: emailController.text.trim(),
+                                pass: passwordController.text.trim(),
+                              ));
                               //navigate to is
                               Navigator.pushAndRemoveUntil(
                                 context,
@@ -585,7 +634,6 @@ class RegisterScreenState extends State<RegisterScreen> {
 
     await verifyPhoneNumber;
   }
-
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);

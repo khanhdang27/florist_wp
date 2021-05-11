@@ -1,13 +1,14 @@
 import 'package:florist/blocs/app_bloc.dart';
 import 'package:florist/blocs/bag/bag_bloc.dart';
 import 'package:florist/blocs/blocs.dart';
-import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/configs/configs.dart';
 import 'package:florist/library/format_datetime.dart';
+import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/screens/components/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:florist/configs/configs.dart';
-import 'package:florist/screens/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BagScreen extends StatefulWidget {
   BagScreen() {
@@ -27,8 +28,7 @@ class BagScreenState extends State<BagScreen> {
   Widget build(BuildContext context) {
     if (SharedPrefs.getShippingType() == 2)
       shipping_cost = 50;
-    else if (SharedPrefs.getShippingType() == 3)
-      shipping_cost = 150;
+    else if (SharedPrefs.getShippingType() == 3) shipping_cost = 150;
 
     return LayoutF3(
       header: headerBag(),
@@ -325,7 +325,17 @@ class BagScreenState extends State<BagScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoute.checkout, arguments:{'subtotal': total, 'cost':shipping_cost});
+                    if (total == 0)
+                      Fluttertoast.showToast(
+                        msg: AppLocalizations.t(context, 'cardEmpty'),
+                        timeInSecForIosWeb: 2000,
+                      );
+                    else
+                      Navigator.pushNamed(context, AppRoute.checkout,
+                          arguments: {
+                            'subtotal': total,
+                            'cost': shipping_cost
+                          });
                   },
                   child: Container(
                     alignment: Alignment.center,

@@ -50,7 +50,7 @@ class BannerScreen extends StatelessWidget {
                             name: e.name,
                             image: Globals().urlImage + e.image,
                             id: e.id,
-                            review: e.rating + '分 (${e.countRate})',
+                            review: e.rating + AppLocalizations.t(context, 'point')+' (${e.countRate})',
                             model: e.model,
                             price: '\$${e.price}' ),
                         onTap: () {

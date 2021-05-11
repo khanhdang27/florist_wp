@@ -8,6 +8,7 @@ class SharedPrefs {
    static const _keyWishlistId = 'wishlist_id';
    static const _keyBagId = 'bag_id';
    static const _keyShippingType= 'shipping_type';
+   static const _keyAvatar= 'avatar';
 
   static Future init() async => _preferences = await SharedPreferences.getInstance();
 
@@ -37,5 +38,10 @@ class SharedPrefs {
       await _preferences.setInt(_keyShippingType, type);
 
   static int getShippingType() => _preferences.getInt(_keyShippingType);
+
+  static Future setAvatar(String avatar) async =>
+      await _preferences.setString(_keyAvatar, avatar);
+
+  static String getAvatar() => _preferences.getString(_keyAvatar);
 
 }

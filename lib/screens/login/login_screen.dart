@@ -182,7 +182,7 @@ class LoginScreenState extends State<LoginScreen> {
                           {Navigator.pushNamed(context, AppRoute.home)}
                         else
                           {
-                            print('Login Failed')
+                            Fluttertoast.showToast(msg: AppLocalizations.t(context, 'loginFailed'), timeInSecForIosWeb: 2000)
                           }
                       });
                 }
