@@ -38,6 +38,8 @@ dependencies:
   progress_dialog: ^1.2.2
   mask_text_input_formatter: ^1.2.1
   intl_phone_number_input: ^0.7.0+2
+  google_sign_in: ^5.0.2
+  flutter_facebook_auth: ^3.3.3+1
   #international_phone_input: ^1.0.4
 
 

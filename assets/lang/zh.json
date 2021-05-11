@@ -151,5 +151,6 @@
   "completed": "完全的",
   "cancelled": "取消",
   "loginFailed": "帳戶或密碼不正確",
-  "cardEmpty": "你的購物車是空的"
+  "cardEmpty": "你的購物車是空的",
+  "facebookNotEmail": "此Facebook帳戶未經身份驗證的電子郵件"
 }

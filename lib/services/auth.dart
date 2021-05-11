@@ -23,37 +23,36 @@ class Auth extends ChangeNotifier{
       int wishlist_id = response.data['wishlist_id'];
       int bag_id = response.data['bag'];
       Member member = Member.fromJson(response.data['member']);
-      /*SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', token);
-      prefs.setInt('member_id', member.id);*/
       await SharedPrefs.setToken(token);
       await SharedPrefs.setMemberId(member.id);
       await SharedPrefs.setWishlistId(wishlist_id);
       await SharedPrefs.setBagId(bag_id);
       await SharedPrefs.setAvatar(Globals().urlImage + member.avatar);
 
- //     this.tryToken(token: token);
       return token;
     } catch (e){
       print(e);
     }
   }
 
-  /*void tryToken({String token}) async{
-    if (token == null){
-      return;
-    }else {
-      try {
-        Dio.Response response = await dio()
-            .get('/member', options: Dio.Options(headers: {'Authorization': 'Bearer $token'}));
-        this._isLoggedIn = true;
-        this._member = Member.fromJson(response.data);
-        notifyListeners();
-      } catch (e) {
-        print(e);
-      }
+  Future<String> loginExternal({Map creds}) async{
+    try{
+      Dio.Response response = await dio().post('/login-external', data: creds);
+      String token = response.data['token'];
+      int wishlist_id = response.data['wishlist_id'];
+      int bag_id = response.data['bag'];
+      Member member = Member.fromJson(response.data['member']);
+      await SharedPrefs.setToken(token);
+      await SharedPrefs.setMemberId(member.id);
+      await SharedPrefs.setWishlistId(wishlist_id);
+      await SharedPrefs.setBagId(bag_id);
+      await SharedPrefs.setAvatar(Globals().urlImage + member.avatar);
+
+      return token;
+    } catch (e){
+      print(e);
     }
-  }*/
+  }
 
   void logout(){
     _isLoggedIn = false;

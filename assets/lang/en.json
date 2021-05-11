@@ -151,5 +151,6 @@
   "completed": "Completed",
   "cancelled": "Cancelled",
   "loginFailed": "Account or password is incorrect",
-  "cardEmpty": "Your shopping cart is empty"
+  "cardEmpty": "Your shopping cart is empty",
+  "facebookNotEmail": "This facebook account is not authenticated email"
 }

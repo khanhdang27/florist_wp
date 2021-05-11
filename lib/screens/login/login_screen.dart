@@ -4,7 +4,9 @@ import 'package:florist/screens/components/components.dart';
 import 'package:florist/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,9 +32,10 @@ class LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
   @override
   Widget build(BuildContext context) {
-
     return LayoutWhiteNotMenu(
       child: Form(
         key: _formKey,
@@ -182,7 +185,9 @@ class LoginScreenState extends State<LoginScreen> {
                           {Navigator.pushNamed(context, AppRoute.home)}
                         else
                           {
-                            Fluttertoast.showToast(msg: AppLocalizations.t(context, 'loginFailed'), timeInSecForIosWeb: 2000)
+                            Fluttertoast.showToast(
+                                msg: AppLocalizations.t(context, 'loginFailed'),
+                                timeInSecForIosWeb: 2000)
                           }
                       });
                 }
@@ -206,39 +211,49 @@ class LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 80,
             ),
-            Container(
-              alignment: Alignment.center,
-              width: 260,
-              height: 45,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  border: Border.all(color: AppColor.redMain, width: 1),
-                  color: AppColor.whiteMain),
-              child: Text(
-                AppLocalizations.t(context, 'continueGoogle'),
-                style: TextStyle(
-                    fontFamily: AppFont.fAvenir,
-                    fontSize: 14,
-                    color: AppColor.redMain),
+            GestureDetector(
+              onTap: () {
+                _loginGoogle();
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: 260,
+                height: 45,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    border: Border.all(color: AppColor.redMain, width: 1),
+                    color: AppColor.whiteMain),
+                child: Text(
+                  AppLocalizations.t(context, 'continueGoogle'),
+                  style: TextStyle(
+                      fontFamily: AppFont.fAvenir,
+                      fontSize: 14,
+                      color: AppColor.redMain),
+                ),
               ),
             ),
             SizedBox(
               height: 20,
             ),
-            Container(
-              alignment: Alignment.center,
-              width: 260,
-              height: 45,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  border: Border.all(color: AppColor.blueFB, width: 1),
-                  color: AppColor.whiteMain),
-              child: Text(
-                AppLocalizations.t(context, 'continueFace'),
-                style: TextStyle(
-                    fontFamily: AppFont.fAvenir,
-                    fontSize: 14,
-                    color: AppColor.blueFB),
+            GestureDetector(
+              onTap: () {
+                _loginFacebook();
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: 260,
+                height: 45,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    border: Border.all(color: AppColor.blueFB, width: 1),
+                    color: AppColor.whiteMain),
+                child: Text(
+                  AppLocalizations.t(context, 'continueFace'),
+                  style: TextStyle(
+                      fontFamily: AppFont.fAvenir,
+                      fontSize: 14,
+                      color: AppColor.blueFB),
+                ),
               ),
             ),
             GestureDetector(
@@ -269,5 +284,70 @@ class LoginScreenState extends State<LoginScreen> {
       return false;
     else
       return true;
+  }
+
+  _loginGoogle() async {
+    try {
+      await _googleSignIn.signIn();
+      Map creds = {
+        'email': _googleSignIn.currentUser.email,
+        'device_name': 'mobile',
+        'name': _googleSignIn.currentUser.displayName,
+      };
+      var response =
+          Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
+      response.then((value) => {
+            if (value != null)
+              {Navigator.pushNamed(context, AppRoute.home)}
+            else
+              {
+                Fluttertoast.showToast(
+                    msg: AppLocalizations.t(context, 'loginFailed'),
+                    timeInSecForIosWeb: 2000)
+              }
+          });
+    } catch (err) {
+      print(err);
+      Fluttertoast.showToast(
+          msg: AppLocalizations.t(context, 'loginFailed'),
+          timeInSecForIosWeb: 2000);
+    }
+  }
+
+  _loginFacebook() {
+    try {
+    FacebookAuth.instance
+        .login(permissions: ["public_profile", "email"]).then((value) {
+      FacebookAuth.instance.getUserData().then((value) {
+        if(value['email']!=null){
+          Map creds = {
+            'email': value['email'],
+            'device_name': 'mobile',
+            'name': value['name'],
+          };
+          var response =
+          Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
+          response.then((value) => {
+            if (value != null)
+              {Navigator.pushNamed(context, AppRoute.home)}
+            else
+              {
+                Fluttertoast.showToast(
+                    msg: AppLocalizations.t(context, 'loginFailed'),
+                    timeInSecForIosWeb: 2000)
+              }
+          });
+        }else{
+          Fluttertoast.showToast(
+              msg: AppLocalizations.t(context, 'facebookNotEmail'),
+              timeInSecForIosWeb: 2000);
+        }
+      });
+    });
+    } catch (err) {
+      Fluttertoast.showToast(
+          msg: AppLocalizations.t(context, 'loginFailed'),
+          timeInSecForIosWeb: 2000);
+    }
   }
 }
