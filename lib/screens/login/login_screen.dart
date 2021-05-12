@@ -180,16 +180,17 @@ class LoginScreenState extends State<LoginScreen> {
                 if (_formKey.currentState.validate()) {
                   var response = Provider.of<Auth>(context, listen: false)
                       .login(creds: creds);
-                  response.then((value) => {
-                        if (value != null)
-                          {Navigator.pushNamed(context, AppRoute.home)}
-                        else
-                          {
-                            Fluttertoast.showToast(
-                                msg: AppLocalizations.t(context, 'loginFailed'),
-                                timeInSecForIosWeb: 2000)
-                          }
-                      });
+                  response.then((value) =>
+                  {
+                    if (value != null)
+                      {Navigator.pushNamed(context, AppRoute.home)}
+                    else
+                      {
+                        Fluttertoast.showToast(
+                            msg: AppLocalizations.t(context, 'loginFailed'),
+                            timeInSecForIosWeb: 2000)
+                      }
+                  });
                 }
               },
               child: Container(
@@ -295,17 +296,17 @@ class LoginScreenState extends State<LoginScreen> {
         'name': _googleSignIn.currentUser.displayName,
       };
       var response =
-          Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
-      response.then((value) => {
-            if (value != null)
-              {Navigator.pushNamed(context, AppRoute.home)}
-            else
-              {
-                Fluttertoast.showToast(
-                    msg: AppLocalizations.t(context, 'loginFailed'),
-                    timeInSecForIosWeb: 2000)
-              }
-          });
+      Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
+      response.then((value) {
+        if (value != null) {
+          Navigator.pushNamed(context, AppRoute.home);
+        }
+        else {
+          Fluttertoast.showToast(
+              msg: AppLocalizations.t(context, 'loginFailed'),
+              timeInSecForIosWeb: 2000);
+        }
+      });
     } catch (err) {
       print(err);
       Fluttertoast.showToast(
@@ -316,34 +317,38 @@ class LoginScreenState extends State<LoginScreen> {
 
   _loginFacebook() {
     try {
-    FacebookAuth.instance
-        .login(permissions: ["public_profile", "email"]).then((value) {
-      FacebookAuth.instance.getUserData().then((value) {
-        if(value['email']!=null){
-          Map creds = {
-            'email': value['email'],
-            'device_name': 'mobile',
-            'name': value['name'],
-          };
-          var response =
-          Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
-          response.then((value) => {
-            if (value != null)
-              {Navigator.pushNamed(context, AppRoute.home)}
-            else
-              {
-                Fluttertoast.showToast(
-                    msg: AppLocalizations.t(context, 'loginFailed'),
-                    timeInSecForIosWeb: 2000)
-              }
-          });
-        }else{
-          Fluttertoast.showToast(
-              msg: AppLocalizations.t(context, 'facebookNotEmail'),
-              timeInSecForIosWeb: 2000);
-        }
+      FacebookAuth.instance
+          .login(permissions: ["public_profile","email"]).then((value) {
+        FacebookAuth.instance.getUserData().then((value) {
+          if (value['email'] != null) {
+            Map creds = {
+              'email': value['email'],
+              'device_name': 'mobile',
+              // 'name': value['email'].toString().substring(
+              //     0, value['email'].toString().indexOf('@')),
+              'name': value['name'],
+            };
+            var response =
+            Provider.of<Auth>(context, listen: false).loginExternal(
+                creds: creds);
+            response.then((value) =>
+            {
+              if (value != null)
+                {Navigator.pushNamed(context, AppRoute.home)}
+              else
+                {
+                  Fluttertoast.showToast(
+                      msg: AppLocalizations.t(context, 'loginFailed'),
+                      timeInSecForIosWeb: 2000)
+                }
+            });
+          } else {
+            Fluttertoast.showToast(
+                msg: AppLocalizations.t(context, 'facebookNotEmail'),
+                timeInSecForIosWeb: 2000);
+          }
+        });
       });
-    });
     } catch (err) {
       Fluttertoast.showToast(
           msg: AppLocalizations.t(context, 'loginFailed'),

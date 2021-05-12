@@ -9,6 +9,7 @@ class SharedPrefs {
    static const _keyBagId = 'bag_id';
    static const _keyShippingType= 'shipping_type';
    static const _keyAvatar= 'avatar';
+   static const _keyLogin= 'login_type';
 
   static Future init() async => _preferences = await SharedPreferences.getInstance();
 
@@ -43,5 +44,10 @@ class SharedPrefs {
       await _preferences.setString(_keyAvatar, avatar);
 
   static String getAvatar() => _preferences.getString(_keyAvatar);
+
+  static Future setLoginType(String loginType) async =>
+      await _preferences.setString(_keyLogin, loginType);
+
+  static String getLoginType() => _preferences.getString(_keyLogin);
 
 }

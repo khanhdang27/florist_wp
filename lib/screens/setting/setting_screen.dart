@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:florist/blocs/blocs.dart';
 import 'package:florist/configs/app_route.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/library/shared_preferences.dart';
 import 'package:florist/models/language.dart';
 import 'package:florist/screens/components/components.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app.dart';
@@ -20,6 +22,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class SettingScreenState extends State<SettingScreen> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
   void _changeLanguage(Language language) async {
     Locale _temp = await setLocale(language);
 
@@ -134,7 +138,8 @@ class SettingScreenState extends State<SettingScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          AppBloc.orderBloc.add(OrderGetAll(memberId: SharedPrefs.getMemberId()));
+                          AppBloc.orderBloc.add(
+                              OrderGetAll(memberId: SharedPrefs.getMemberId()));
                           Navigator.pushNamed(
                               context, AppRoute.purchaseHistory);
                         },
@@ -329,8 +334,9 @@ class SettingScreenState extends State<SettingScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          AppBloc.creditBloc.add(CreditGetOne(Id: SharedPrefs.getMemberId()));
-                  //        Navigator.pushNamed(context, AppRoute.creditEditCard);
+                          AppBloc.creditBloc
+                              .add(CreditGetOne(Id: SharedPrefs.getMemberId()));
+                          //        Navigator.pushNamed(context, AppRoute.creditEditCard);
                           Navigator.pushNamed(context, AppRoute.creditCard);
                         },
                         child: Container(
@@ -362,7 +368,8 @@ class SettingScreenState extends State<SettingScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          AppBloc.shippingBloc.add(ShippingGetOne(Id: SharedPrefs.getMemberId()));
+                          AppBloc.shippingBloc.add(
+                              ShippingGetOne(Id: SharedPrefs.getMemberId()));
                           Navigator.pushNamed(context, AppRoute.shippingInfo);
                         },
                         child: Container(
@@ -451,6 +458,8 @@ class SettingScreenState extends State<SettingScreen> {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                           prefs.remove('token');
+                          FacebookAuth.instance.logOut().then((value) {});
+                          _googleSignIn.signOut();
                           Navigator.pushNamed(context, AppRoute.login);
                         },
                         child: Container(
@@ -485,7 +494,15 @@ class SettingScreenState extends State<SettingScreen> {
               ],
             );
           }
-          return CircularProgressIndicator();
+          return Center(
+            child: FloatingActionButton(
+              child: Text('Loagout'),
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove('token');
+              },
+            ),
+          );
         },
         bloc: AppBloc.memberBloc,
         buildWhen: (previous, current) {
