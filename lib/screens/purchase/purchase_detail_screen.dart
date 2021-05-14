@@ -164,8 +164,8 @@ class PurchaseDetailScreen extends StatelessWidget {
                         },
                         child: productDetail(
                             name: e.product.name,
-                            image: e.product.image,
-                            id: e.product.model,
+                   //         image: e.product.image,
+                            id: e.product.slug,
                             count: e.quantity.toString(),
                             price: '\$' + e.product.price.toString()));
                   }).toList(),
@@ -268,7 +268,7 @@ class PurchaseDetailScreen extends StatelessWidget {
               ],
             );
           }
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );

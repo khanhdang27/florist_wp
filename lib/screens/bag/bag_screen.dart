@@ -40,8 +40,8 @@ class BagScreenState extends State<BagScreen> {
                 List<BagProduct> bag_item = state.item.bagItem.map((e) {
                   return BagProduct(
                     name: e.product.name,
-                    image: e.product.image,
-                    model: e.product.model,
+
+                    model: e.product.slug,
                     id: e.id,
                     productId: e.product.id,
                     price: '\$${e.product.price}',
@@ -53,7 +53,7 @@ class BagScreenState extends State<BagScreen> {
                   children: bag_item,
                 );
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
             bloc: AppBloc.bagBloc,
             buildWhen: (previous, current) {

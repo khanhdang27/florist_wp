@@ -16,7 +16,6 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
   @override
   Stream<CouponState> mapEventToState(CouponEvent event,) async* {
     if (event is CouponGetAll) {
-      print('kjsdalfkjklasdfklasdf');
       List<Coupon> coupons = await couponRepository.getAll();
 
       appCoupon.appCouponContainer.clear();

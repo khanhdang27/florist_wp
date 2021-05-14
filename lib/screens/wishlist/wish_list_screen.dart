@@ -28,10 +28,10 @@ class WishListScreenState extends State<WishListScreen> {
                     stateWl.item.wishListItem.map((e) {
                   return WishList(
                     name: e.product.name,
-                    image: e.product.image,
+       //            image: e.product.image,
                     id: e.id,
                     productId: e.product.id,
-                    review: e.product.rating + '分 (${e.product.countRate})',
+                    review: e.product.averageRating + '分 (${e.product.ratingCount})',
                     price: '\$${e.product.price}',
                     quantity: e.quantity,
                   );
@@ -41,7 +41,7 @@ class WishListScreenState extends State<WishListScreen> {
                   children: wishlist_item,
                 );
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
             bloc: AppBloc.wishlistBloc,
             buildWhen: (previous, current) {

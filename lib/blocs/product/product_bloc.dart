@@ -15,6 +15,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   @override
   Stream<ProductState> mapEventToState(ProductEvent event) async* {
+    if(event is ProductReset){
+      yield ProductInitial();
+    }
+
     if (event is ProductGetRecom) {
       List<Product> products = await productRepository.getRecom();
       if (true) {

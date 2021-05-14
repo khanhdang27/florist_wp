@@ -3,7 +3,7 @@ import 'package:florist/library/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:florist/configs/configs.dart';
 
-class ProductWidget extends StatefulWidget{
+class ProductWidget extends StatefulWidget {
   final String name;
   final String image;
   final int id;
@@ -11,7 +11,9 @@ class ProductWidget extends StatefulWidget{
   final String price;
   final String model;
 
-  const ProductWidget({Key key, this.name, this.image, this.id, this.review, this.price, this.model}) : super(key: key);
+  const ProductWidget(
+      {Key key, this.name, this.image, this.id, this.review, this.price, this.model})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +21,7 @@ class ProductWidget extends StatefulWidget{
   }
 }
 
-class _ProductWidget extends State<ProductWidget>{
+class _ProductWidget extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,15 +37,18 @@ class _ProductWidget extends State<ProductWidget>{
             flex: 4,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
+                borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(10)),
                 image: DecorationImage(
-                    image: NetworkImage(widget.image),fit: BoxFit.fill),
+                  image: widget.image != null ? NetworkImage(widget.image):
+                  AssetImage(AppAsset.bong),
+                  fit: BoxFit.fill,),
               ),
             ),
           ),
           Expanded(
               flex: 6,
-              child:     Container(
+              child: Container(
                 padding: EdgeInsets.all(10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +62,9 @@ class _ProductWidget extends State<ProductWidget>{
                             child: Text(
                               widget.name,
                               style: TextStyle(
-                                  color: AppColor.greenMain, fontSize: 16,fontWeight: AppFont.wMedium),
+                                  color: AppColor.greenMain,
+                                  fontSize: 16,
+                                  fontWeight: AppFont.wMedium),
                             ),
                           ),
                         ),
@@ -65,8 +72,9 @@ class _ProductWidget extends State<ProductWidget>{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Icon(AppIcon.icon_tim, size: 22, color: AppColor.greenMain,),
-                              SizedBox(width:5)
+                              Icon(AppIcon.icon_tim, size: 22,
+                                color: AppColor.greenMain,),
+                              SizedBox(width: 5)
                             ],
                           ),
                         ),
@@ -77,10 +85,12 @@ class _ProductWidget extends State<ProductWidget>{
                       children: [
                         Text(
                           widget.model,
-                          style: TextStyle(color: AppColor.black8F, fontSize: 12),
+                          style: TextStyle(
+                              color: AppColor.black8F, fontSize: 12),
                         ),
                         SizedBox(width: 40),
-                        Icon(AppIcon.icon_star, size: 15, color: AppColor.greenMain,),
+                        Icon(AppIcon.icon_star, size: 15,
+                          color: AppColor.greenMain,),
                         SizedBox(width: 10),
                         Text(
                           widget.review,
@@ -93,7 +103,8 @@ class _ProductWidget extends State<ProductWidget>{
                       children: [
                         Text(
                           widget.price,
-                          style: TextStyle(color: AppColor.blackMain, fontSize: 16),
+                          style: TextStyle(
+                              color: AppColor.blackMain, fontSize: 16),
                         ),
                         Expanded(
                           child: Row(
@@ -109,15 +120,17 @@ class _ProductWidget extends State<ProductWidget>{
                                     ),
                                     SizedBox(width: 10),
                                     GestureDetector(
-                                      onTap: (){
+                                      onTap: () {
                                         AppBloc.bagItemBloc.add(AddBagItem(
                                             bag_id: SharedPrefs.getBagId(),
                                             product_id: widget.id,
                                             quantity: 1));
-                                        Navigator.pushReplacementNamed(context, AppRoute.bag);
+                                        Navigator.pushReplacementNamed(
+                                            context, AppRoute.bag);
                                       },
                                       child: Text(
-                                        AppLocalizations.t(context, 'addToCart'),
+                                        AppLocalizations.t(
+                                            context, 'addToCart'),
                                         style: TextStyle(
                                             color: AppColor.greenMain,
                                             fontWeight: AppFont.wRegular,

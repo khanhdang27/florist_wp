@@ -1,4 +1,5 @@
 import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,7 @@ import 'package:florist/screens/components/components.dart';
 
 class ProductDetailScreen extends StatefulWidget {
 
-  ProductDetailScreen(){
+  ProductDetailScreen() {
     AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
   }
 
@@ -41,7 +42,9 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
     return LayoutWhite(
       child: BlocBuilder(
         builder: (context, state) {
+          AppBloc.productBloc.add(ProductReset());
           if (state is ProductGetOneSuccess) {
+            List<Images> images = state.item.images;
             fav = appWishlist.appWishlistContainer.contains(state.item.id);
             return Column(
               children: [
@@ -50,9 +53,13 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   alignment: Alignment.topCenter,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        alignment: Alignment.topCenter,
-                        fit: BoxFit.fill,
-                        image: NetworkImage(state.item.image)),
+                      alignment: Alignment.topCenter,
+                      fit: BoxFit.fill,
+                      image: images[0].src != null
+                          ? NetworkImage(images[0].src)
+                          : AssetImage(AppAsset.bong),
+                      ),
+                    //                    image: AssetImage(AppAsset.bong)),
                   ),
                   child: Column(
                     children: [
@@ -101,7 +108,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                         decoration: BoxDecoration(
                           color: AppColor.whiteMain,
                           borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(40)),
+                          BorderRadius.vertical(top: Radius.circular(40)),
                         ),
                         child: Row(
                           children: [
@@ -117,7 +124,8 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                 Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         color: AppColor.whiteMain,
 
@@ -140,7 +148,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                             children: [
                               Container(
                                 child: Text(
-                                  state.item.model,
+                                  state.item.slug,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: AppFont.wMedium,
@@ -151,7 +159,8 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 5),
                                 child: Text(
-                                  '\$${state.item.price}/'+AppLocalizations.t(context, 'bundle'),
+                                  '\$${state.item.price}/' +
+                                      AppLocalizations.t(context, 'bundle'),
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: AppFont.wSemiBold,
@@ -173,7 +182,9 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                '${state.item.rating} '+AppLocalizations.t(context, 'point')+'(${state.item.countRate})',
+                                '${state.item.averageRating} ' +
+                                    AppLocalizations.t(context, 'point') +
+                                    '(${state.item.ratingCount})',
                                 style: TextStyle(
                                     color: AppColor.black272833,
                                     fontSize: 12,
@@ -262,15 +273,18 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      if (fav){
-                                        appWishlist.appWishlistContainer.remove(state.item.id);
-                                      }else{
-                                        appWishlist.appWishlistContainer.add(state.item.id);
+                                      if (fav) {
+                                        appWishlist.appWishlistContainer.remove(
+                                            state.item.id);
+                                      } else {
+                                        appWishlist.appWishlistContainer.add(
+                                            state.item.id);
                                       }
                                       fav = !fav;
                                     });
                                     AppBloc.wishlistItemBloc.add(AddWishlist(
-                                        wishlist_id: SharedPrefs.getWishlistId(),
+                                        wishlist_id: SharedPrefs
+                                            .getWishlistId(),
                                         product_id: state.item.id));
                                   },
                                   child: Icon(
@@ -281,7 +295,6 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                     color: AppColor.greenMain,
                                   ),
                                 ),
-
 
 
                                 decoration: BoxDecoration(
@@ -299,15 +312,17 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                   height: 50,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    MainAxisAlignment.center,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
                                           AppBloc.bagItemBloc.add(AddBagItem(
                                               bag_id: SharedPrefs.getBagId(),
                                               product_id: state.item.id,
-                                              quantity: counterProduct().quantity));
-                                          Navigator.pushReplacementNamed(context, AppRoute.bag);
+                                              quantity: counterProduct()
+                                                  .quantity));
+                                          Navigator.pushReplacementNamed(
+                                              context, AppRoute.bag);
                                         },
                                         child: Text(
                                           AppLocalizations.t(
@@ -387,12 +402,12 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                     controller: contentController,
 
                                     onFieldSubmitted: (value) {
-                                        AppBloc.reviewBloc.add(ReviewAdd(
-                                          member_id: SharedPrefs.getMemberId(),
-                                          product_id: state.item.id,
-                                          content: value.trim(),
-                                        ));
-                                        contentController.clear();
+                                      AppBloc.reviewBloc.add(ReviewAdd(
+                                        member_id: SharedPrefs.getMemberId(),
+                                        product_id: state.item.id,
+                                        content: value.trim(),
+                                      ));
+                                      contentController.clear();
                                     },
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.t(
@@ -417,7 +432,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
               ],
             );
           }
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
         bloc: AppBloc.productBloc,
         buildWhen: (previous, current) {
@@ -543,7 +558,7 @@ class review extends StatelessWidget {
             }).toList(),
           );
         }
-        return CircularProgressIndicator();
+        return Center(child: CircularProgressIndicator());
       },
       bloc: AppBloc.reviewBloc,
       buildWhen: (previous, current) {
@@ -581,15 +596,15 @@ class _counterProduct extends State<counterProduct> {
                 padding: EdgeInsets.all(9),
                 child: widget.quantity == 1
                     ? Icon(
-                        AppIcon.icon_del,
-                        color: AppColor.greenMain,
-                        size: 16,
-                      )
+                  AppIcon.icon_del,
+                  color: AppColor.greenMain,
+                  size: 16,
+                )
                     : Icon(
-                        AppIcon.remove,
-                        color: AppColor.greenMain,
-                        size: 16,
-                      ),
+                  AppIcon.remove,
+                  color: AppColor.greenMain,
+                  size: 16,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),

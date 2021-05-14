@@ -1,3 +1,4 @@
+/*
 import 'package:florist/models/models.dart';
 
 class BannerDB{
@@ -48,6 +49,37 @@ class BannerDB{
     data['updated_at'] = this.updatedAt;
     if (this.category != null) {
       data['category'] = this.category.toJson();
+    }
+    return data;
+  }
+}*/
+import 'package:florist/models/models.dart';
+
+class BannerDB {
+  int id;
+  String name;
+  String slug;
+  String description;
+  Images image;
+
+  BannerDB({this.id, this.name, this.slug, this.description, this.image});
+
+  BannerDB.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    slug = json['slug'];
+    description = json['description'];
+    image = json['image'] != null ? new Images.fromJson(json['image']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['slug'] = this.slug;
+    data['description'] = this.description;
+    if (this.image != null) {
+      data['image'] = this.image.toJson();
     }
     return data;
   }

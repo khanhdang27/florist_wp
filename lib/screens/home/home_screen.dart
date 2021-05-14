@@ -1,6 +1,7 @@
 import 'package:florist/blocs/blocs.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/library/shared_preferences.dart';
+import 'package:florist/models/models.dart';
 import 'package:florist/screens/components/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ class HomeScreen extends StatelessWidget {
     AppBloc.bannerBloc.add(BannerGetAll());
     AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,12 @@ class HomeScreen extends StatelessWidget {
               if (state is BannerGetAllSuccess) {
                 List bannerList = state.items.map((e) {
                   return GestureDetector(
-                    child: _buildBanner(context, Globals().urlImage + e.image,
+                    child: _buildBanner(context, e.image == null ? e.image : e.image.src,
                         e.name, e.description),
                     onTap: () {
                       AppBloc.bannerBloc.add(BannerGetOne(Id: e.id));
                       AppBloc.productBloc
-                          .add(ProductGetOfCate(categoryId: e.categoryId));
+                          .add(ProductGetOfCate(categoryId: e.id));
                       Navigator.pushReplacementNamed(context, AppRoute.banner);
                     },
                   );
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
             bloc: AppBloc.bannerBloc,
             buildWhen: (previous, current) {
@@ -86,6 +86,7 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: state.items.map((e) {
+                      List<Images> images = e.images;
                       return GestureDetector(
                         onTap: () {
                           AppBloc.productBloc.add(ProductGetOne(Id: e.id));
@@ -93,20 +94,20 @@ class HomeScreen extends StatelessWidget {
                           Navigator.pushNamed(context, AppRoute.productDetail);
                         },
                         child: _buildRecom(
-                              id: e.id,
-                              name: e.name,
-                              image: Globals().urlImage + e.image,
-                              model: e.model,
-                              review: e.rating + '分 (${e.countRate})',
-                              price: '\$${e.price}',
-                              fav:  appWishlist.appWishlistContainer.contains(e.id),
-                            ),
+                          id: e.id,
+                          name: e.name,
+                          image: images[0].src,
+                          model: e.slug,
+                          review: e.averageRating + '分 (${e.ratingCount})',
+                          price: '\$${e.price}',
+                          fav: appWishlist.appWishlistContainer.contains(e.id),
+                        ),
                       );
                     }).toList(),
                   ),
                 );
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
             bloc: AppBloc.productBloc,
             buildWhen: (previous, current) {
@@ -135,20 +136,24 @@ class HomeScreen extends StatelessWidget {
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
                     children: state.items.map((e) {
+                      print(e.toJson());
                       return GestureDetector(
                         onTap: () {
                           AppBloc.productBloc
                               .add(ProductGetOfCate(categoryId: e.id));
-                          Navigator.pushReplacementNamed(
+                          Navigator.pushNamed(
                               context, AppRoute.productList);
                         },
                         child: _buildCate(
-                            context, Globals().urlImage + e.image, e.name),
+                            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            context,
+                            e.image == null ? e.image : e.image.src,
+                            e.name),
                       );
                     }).toList(),
                   );
                 }
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               },
               bloc: AppBloc.categoryBloc,
               buildWhen: (previous, current) {
@@ -202,7 +207,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                    image: NetworkImage(image), fit: BoxFit.cover),
+                    image: image != null ? NetworkImage(image): AssetImage(AppAsset.bong2), fit: BoxFit.cover),
               ),
             ),
           ),
@@ -253,7 +258,9 @@ class HomeScreen extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: NetworkImage(image),
+                image: image != null
+                    ? NetworkImage(image)
+                    : AssetImage(AppAsset.bong2),
                 fit: BoxFit.cover,
               ),
             ),
@@ -313,7 +320,9 @@ class __buildRecomState extends State<_buildRecom> {
             height: 202,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(widget.image),
+                image: widget.image != null
+                    ? NetworkImage(widget.image)
+                    : AssetImage(AppAsset.bong),
                 fit: BoxFit.cover,
               ),
             ),
@@ -342,10 +351,12 @@ class __buildRecomState extends State<_buildRecom> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                if (widget.fav){
-                                  appWishlist.appWishlistContainer.remove(this.widget.id);
-                                }else{
-                                  appWishlist.appWishlistContainer.add(this.widget.id);
+                                if (widget.fav) {
+                                  appWishlist.appWishlistContainer
+                                      .remove(this.widget.id);
+                                } else {
+                                  appWishlist.appWishlistContainer
+                                      .add(this.widget.id);
                                 }
                                 widget.fav = !widget.fav;
                               });
@@ -405,12 +416,13 @@ class __buildRecomState extends State<_buildRecom> {
                                 ),
                                 SizedBox(width: 10),
                                 GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     AppBloc.bagItemBloc.add(AddBagItem(
                                         bag_id: SharedPrefs.getBagId(),
                                         product_id: widget.id,
                                         quantity: 1));
-                                    Navigator.pushReplacementNamed(context, AppRoute.bag);
+                                    Navigator.pushReplacementNamed(
+                                        context, AppRoute.bag);
                                   },
                                   child: Text(
                                     AppLocalizations.t(context, 'addToCart'),

@@ -3,6 +3,8 @@ part of 'product_bloc.dart';
 @immutable
 abstract class ProductEvent{}
 
+class ProductReset extends ProductEvent {}
+
 class ProductGetRecom extends ProductEvent {}
 
 class ProductGetOfCate extends ProductEvent {

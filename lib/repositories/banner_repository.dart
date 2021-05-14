@@ -7,16 +7,9 @@ class BannerRepository extends Repository{
 
   Future<List<BannerDB>> getAll() async {
     var response = await httpManager.get(url: '/api/banner');
-    List data = response['data'];
+    List data = response;
     List<BannerDB> results = data.map((e) {
-      return BannerDB(
-        id: e['id'],
-        name: e['name'],
-        description: e['description'],
-        image: e['image'],
-        active: e['active'],
-        categoryId: e['category_id']
-      );
+      return BannerDB.fromJson(e);
     }).toList();
     return results;
   }
@@ -24,13 +17,7 @@ class BannerRepository extends Repository{
   Future<BannerDB> getOne({int Id}) async {
     var response = await httpManager.get(url: '/api/banner/$Id');
     var data = response;
-    BannerDB results = BannerDB(
-        id: data['id'],
-        name: data['name'],
-        description: data['description'],
-        image: Globals().urlImage+data['image'],
-        active: data['active'],
-      );
+    BannerDB results = BannerDB.fromJson(data);
     return results;
   }
 }

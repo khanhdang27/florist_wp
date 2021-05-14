@@ -620,7 +620,6 @@ class RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           isLoading = false;
           verificationCode = verificationId;
-          print(verificationCode);
         });
       },
       codeAutoRetrievalTimeout: (String verificationId) {

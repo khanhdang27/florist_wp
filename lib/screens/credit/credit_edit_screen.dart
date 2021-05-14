@@ -350,7 +350,7 @@ class _CreditEditScreenState extends State<CreditEditScreen> {
                 ),
               );
             }
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           },
           bloc: AppBloc.creditBloc,
 

@@ -1,3 +1,4 @@
+/*
 class Category {
   int id;
   String name;
@@ -31,6 +32,34 @@ class Category {
     data['active'] = this.active;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}*/
+import 'package:florist/models/models.dart';
+
+class Category {
+  int id;
+  String name;
+  String slug;
+  Images image;
+
+  Category({this.id, this.name, this.slug, this.image});
+
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    slug = json['slug'];
+    image = json['image'] != null ? new Images.fromJson(json['image']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['slug'] = this.slug;
+    if (this.image != null) {
+      data['image'] = this.image.toJson();
+    }
     return data;
   }
 }

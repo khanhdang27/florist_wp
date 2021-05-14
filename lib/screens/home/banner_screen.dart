@@ -30,13 +30,13 @@ class BannerScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state is BannerGetOneSuccess) {
                   return _Banner(
-                    image: state.item.image,
+                    image: state.item.image == null ? state.item.image : state.item.image.src,
                     title: state.item.name,
                     content: state.item.description,
                   );
                 }
 
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               },
               bloc: AppBloc.bannerBloc,
             ),
@@ -48,10 +48,10 @@ class BannerScreen extends StatelessWidget {
                       return GestureDetector(
                         child: ProductWidget(
                             name: e.name,
-                            image: Globals().urlImage + e.image,
+                      //      image: Globals().urlImage + e.image,
                             id: e.id,
-                            review: e.rating + AppLocalizations.t(context, 'point')+' (${e.countRate})',
-                            model: e.model,
+                            review: e.averageRating + AppLocalizations.t(context, 'point')+' (${e.ratingCount})',
+                            model: e.slug,
                             price: '\$${e.price}' ),
                         onTap: () {
                           AppBloc.productBloc.add(ProductGetOne(Id: e.id));
@@ -63,7 +63,7 @@ class BannerScreen extends StatelessWidget {
                     }).toList(),
                   );
                 }
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               },
               bloc: AppBloc.productBloc,
               buildWhen: (previous, current) {

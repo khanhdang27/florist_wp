@@ -65,7 +65,6 @@ class PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
               if (state is OrderGetAllSuccess) {
                 return Column(
                   children: state.items.map((e) {
-                    print(e.toJson());
                     List<BagItem> bagItems = e.bag.bagItem;
                     String p1 = '';
                     int q1 = 0 ;
@@ -101,7 +100,7 @@ class PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                   }).toList(),
                 );
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
             bloc: AppBloc.orderBloc,
           ),

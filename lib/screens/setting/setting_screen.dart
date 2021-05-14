@@ -496,7 +496,7 @@ class SettingScreenState extends State<SettingScreen> {
           }
           return Center(
             child: FloatingActionButton(
-              child: Text('Loagout'),
+              child: Text('Logout'),
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.remove('token');

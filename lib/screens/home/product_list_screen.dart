@@ -1,3 +1,4 @@
+import 'package:florist/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,9 +62,11 @@ class ProductListScreen extends StatelessWidget {
           ),
           BlocBuilder(
             builder: (context, state) {
+              AppBloc.productBloc.add(ProductReset());
               if (state is ProductGetOfCateSuccess) {
                 return Column(
                   children: state.items.map((e) {
+                    List<Images> images = e.images;
                     return GestureDetector(
                         onTap: () {
                           AppBloc.productBloc.add(ProductGetOne(Id: e.id));
@@ -72,16 +75,16 @@ class ProductListScreen extends StatelessWidget {
                         },
                         child: ProductWidget(
                             name: e.name,
-                            image: Globals().urlImage + e.image,
+                            image: images[0].src,
                             id: e.id,
-                            model: e.model,
-                            review: e.rating + AppLocalizations.t(context, 'point')+' (${e.countRate})',
+                            model: e.slug,
+                            review: e.averageRating + AppLocalizations.t(context, 'point')+' (${e.ratingCount})',
                             price: '\$${e.price}'));
                   }).toList(),
                 );
               }
-              print(state);
-              return CircularProgressIndicator();
+
+              return Center(child: CircularProgressIndicator());
             },
             bloc: AppBloc.productBloc,
             buildWhen: (previous, current) {
