@@ -40,7 +40,6 @@ class BagScreenState extends State<BagScreen> {
                 List<BagProduct> bag_item = state.item.bagItem.map((e) {
                   return BagProduct(
                     name: e.product.name,
-
                     model: e.product.slug,
                     id: e.id,
                     productId: e.product.id,

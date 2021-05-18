@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
     AppBloc.bannerBloc.add(BannerGetAll());
     AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
   }
-
   @override
   Widget build(BuildContext context) {
     return Layout(
@@ -136,7 +135,6 @@ class HomeScreen extends StatelessWidget {
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
                     children: state.items.map((e) {
-                      print(e.toJson());
                       return GestureDetector(
                         onTap: () {
                           AppBloc.productBloc

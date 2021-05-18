@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
 
-class ForgotPassScreen extends StatelessWidget{
-  @override
+class ForgotPassScreen extends StatelessWidget {
+ @override
   Widget build(BuildContext context) {
+
     return LayoutWhiteNotMenu(
       child: Column(
         children: [

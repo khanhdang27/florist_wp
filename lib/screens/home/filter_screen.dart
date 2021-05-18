@@ -1,15 +1,26 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:florist/configs/app_color.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_xlider/flutter_xlider.dart';
 
-class FilterScreen extends StatelessWidget {
+class FilterScreen extends StatefulWidget {
+  const FilterScreen({Key key}) : super(key: key);
+
+  @override
+  _FilterScreenState createState() => _FilterScreenState();
+}
+
+class _FilterScreenState extends State<FilterScreen> {
+  String sort = 'price';
+  double _lowerValue = 10;
+  double _upperValue = 250;
+
   @override
   Widget build(BuildContext context) {
     return LayoutWhite(
-      header: headerFilter(),
+        header: headerFilter(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -27,9 +38,12 @@ class FilterScreen extends StatelessWidget {
                 ),
               ),
             ),
-            _builtBtnSort(props: 'price', type: 'lth'),
-            _builtBtnSort(props: 'score', type: 'lth'),
-            _builtBtnSort(props: 'leaveComment', type: 'ltm'),
+            // _builtBtnSort(props: 'price', type: 'lth'),
+            // _builtBtnSort(props: 'score', type: 'lth'),
+            // _builtBtnSort(props: 'leaveComment', type: 'ltm'),
+            _builtBtnSort(context: context, props: 'price', type: 'lth'),
+            _builtBtnSort(context: context, props: 'score', type: 'lth'),
+            _builtBtnSort(context: context, props: 'leaveComment', type: 'ltm'),
             SizedBox(
               height: 50,
             ),
@@ -50,19 +64,27 @@ class FilterScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            RangeCustom(),
+            RangeCustom(context),
             SizedBox(
               height: 50,
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {
+                print(sort);
+                print(_lowerValue);
+                print(_upperValue);
+              },
               child: _builtBtn(
                   btnColor: AppColor.greenMain,
                   contColor: AppColor.whiteMain,
                   content: 'perform'),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {
+                setState(() {
+                  sort = '';
+                });
+              },
               child: _builtBtn(
                   btnColor: AppColor.black7C16,
                   contColor: AppColor.black7C,
@@ -72,26 +94,13 @@ class FilterScreen extends StatelessWidget {
           ],
         ));
   }
-}
 
-
-class _builtBtnSort extends StatefulWidget {
-  final String props;
-  final String type;
-  int _isActive = 0;
-
-  _builtBtnSort({Key key, this.props, this.type}) : super(key: key);
-  @override
-  __builtBtnSortState createState() => __builtBtnSortState();
-}
-
-class __builtBtnSortState extends State<_builtBtnSort> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _builtBtnSort({context, props, type}) {
     String type_2 = 'htl';
-    if (widget.type == 'ltm') {
+    if (type == 'ltm') {
       type_2 = 'mtl';
     }
+    String props2 = props + '_d';
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Row(
@@ -104,7 +113,7 @@ class __builtBtnSortState extends State<_builtBtnSort> {
             flex: 1,
             child: Container(
               child: Text(
-                AppLocalizations.t(context, widget.props),
+                AppLocalizations.t(context, props),
                 style: TextStyle(
                   fontSize: 14,
                   fontFamily: AppFont.fAvenir,
@@ -117,14 +126,14 @@ class __builtBtnSortState extends State<_builtBtnSort> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  widget._isActive == 1 ? widget._isActive = 0 : widget._isActive = 1;
+                  sort == props ? sort = '' : sort = props;
                 });
               },
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: widget._isActive == 1 ? AppColor.greenMain : AppColor.blackF7,
+                  color: sort == props ? AppColor.greenMain : AppColor.blackF7,
                 ),
                 margin: EdgeInsets.only(left: 10),
                 padding: EdgeInsets.all(10),
@@ -136,13 +145,17 @@ class __builtBtnSortState extends State<_builtBtnSort> {
                       Icon(
                         Icons.arrow_upward,
                         size: 20,
-                        color: widget._isActive == 1? AppColor.whiteMain: AppColor.blackMain,
+                        color: sort == props
+                            ? AppColor.whiteMain
+                            : AppColor.blackMain,
                       ),
                       Text(
-                        AppLocalizations.t(context, widget.type),
+                        AppLocalizations.t(context, type),
                         style: TextStyle(
                           fontFamily: AppFont.fAvenir,
-                          color: widget._isActive == 1? AppColor.whiteMain: AppColor.blackMain,
+                          color: sort == props
+                              ? AppColor.whiteMain
+                              : AppColor.blackMain,
                         ),
                       ),
                     ],
@@ -156,14 +169,14 @@ class __builtBtnSortState extends State<_builtBtnSort> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  widget._isActive == 2 ? widget._isActive = 0 : widget._isActive = 2;
+                  sort == props2 ? sort = '' : sort = props2;
                 });
               },
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: widget._isActive == 2 ? AppColor.greenMain : AppColor.blackF7,
+                  color: sort == props2 ? AppColor.greenMain : AppColor.blackF7,
                 ),
                 margin: EdgeInsets.only(left: 10),
                 padding: EdgeInsets.all(10),
@@ -175,13 +188,17 @@ class __builtBtnSortState extends State<_builtBtnSort> {
                       Icon(
                         Icons.arrow_downward,
                         size: 20,
-                        color: widget._isActive == 2? AppColor.whiteMain: AppColor.blackMain,
+                        color: sort == props2
+                            ? AppColor.whiteMain
+                            : AppColor.blackMain,
                       ),
                       Text(
                         AppLocalizations.t(context, type_2),
                         style: TextStyle(
                           fontFamily: AppFont.fAvenir,
-                          color: widget._isActive == 2? AppColor.whiteMain: AppColor.blackMain,
+                          color: sort == props2
+                              ? AppColor.whiteMain
+                              : AppColor.blackMain,
                         ),
                       ),
                     ],
@@ -198,53 +215,8 @@ class __builtBtnSortState extends State<_builtBtnSort> {
       ),
     );
   }
-}
 
-
-class _builtBtn extends StatelessWidget {
-  final Color btnColor;
-  final Color contColor;
-  final String content;
-
-  const _builtBtn({Key key, this.btnColor, this.contColor, this.content})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(15),
-          margin: EdgeInsets.only(bottom: 30),
-          width: 240,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: btnColor,
-          ),
-          child: Text(
-            AppLocalizations.t(context, content),
-            style: TextStyle(
-                fontFamily: AppFont.fAvenir, color: contColor, fontSize: 15),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class RangeCustom extends StatefulWidget {
-  @override
-  _RangeCustom createState() => _RangeCustom();
-}
-
-class _RangeCustom extends State<RangeCustom> {
-  double _lowerValue = 10;
-  double _upperValue = 250;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget RangeCustom(context) {
     return Container(
         margin: EdgeInsets.only(top: 50, left: 20, right: 20),
         alignment: Alignment.centerLeft,
@@ -333,9 +305,44 @@ class _RangeCustom extends State<RangeCustom> {
         ));
   }
 }
-class headerFilter extends StatelessWidget with PreferredSizeWidget{
+
+class _builtBtn extends StatelessWidget {
+  final Color btnColor;
+  final Color contColor;
+  final String content;
+
+  const _builtBtn({Key key, this.btnColor, this.contColor, this.content})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(15),
+          margin: EdgeInsets.only(bottom: 30),
+          width: 240,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: btnColor,
+          ),
+          child: Text(
+            AppLocalizations.t(context, content),
+            style: TextStyle(
+                fontFamily: AppFont.fAvenir, color: contColor, fontSize: 15),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class headerFilter extends StatelessWidget with PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -375,6 +382,4 @@ class headerFilter extends StatelessWidget with PreferredSizeWidget{
       ],
     );
   }
-
-
 }

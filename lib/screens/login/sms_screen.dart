@@ -79,8 +79,6 @@ class SMSScreenState extends State<SMSScreen>{
                 ),
                 onCompleted: (value){
                   if(value == requiredNumber){
-                    print("<====Hello may cung====>");
-                    print(value);
                     print('valid pin');
                   }else{
                     print('invalid pin');

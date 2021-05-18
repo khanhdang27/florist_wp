@@ -1,6 +1,6 @@
+import 'package:florist/configs/configs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:florist/configs/configs.dart';
 
 class BottomMenu extends StatelessWidget {
   @override

@@ -259,9 +259,15 @@ class headerPurchaseState extends State<headerPurchase> {
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.setting);
                 }),
-            Text(
-              AppLocalizations.t(context, 'purchaseHistory'),
-              style: TextStyle(fontSize: 25, fontWeight: AppFont.wMedium),
+            Container(
+              width: 170,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  AppLocalizations.t(context, 'purchaseHistory'),
+                  style: TextStyle(fontSize: 25, fontWeight: AppFont.wMedium),
+                ),
+              ),
             ),
           ],
         ),
