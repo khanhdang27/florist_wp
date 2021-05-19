@@ -6,6 +6,7 @@ import 'package:florist/repositories/member_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'member_event.dart';
+
 part 'member_state.dart';
 
 class MemberBloc extends Bloc<MemberEvent, MemberState> {
@@ -13,7 +14,9 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
   final MemberRepository memberRepository = MemberRepository();
 
   @override
-  Stream<MemberState> mapEventToState(MemberEvent event,) async* {
+  Stream<MemberState> mapEventToState(
+    MemberEvent event,
+  ) async* {
     if (event is MemberGetOne) {
       Member member = await memberRepository.getOne(Id: event.Id);
       if (true) {
@@ -35,6 +38,29 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
         yield MemberRegisterSuccess();
       } else {
         yield MemberRegisterFailed();
+      }
+    }
+
+    if (event is ForgotPass) {
+      Map result = await memberRepository.forgotPass(email: event.email);
+      if (result['code'] != 'error') {
+        yield ForgotPassSuccess(
+          code: result['code'],
+          id: result['id'],
+        );
+      } else {
+        yield ForgotPassFailed();
+      }
+    }
+
+    if (event is ResetPass) {
+      int result = await memberRepository.resetPass(pass: event.pass,id: event.id);
+      if (result == 1) {
+        print('ksjdhf');
+        yield ForgotPassSuccess();
+      } else {
+        print('sdfsdfsdfsdfsf');
+        yield ForgotPassFailed();
       }
     }
   }

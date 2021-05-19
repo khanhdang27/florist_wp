@@ -15,3 +15,14 @@ class MemberGetOneFailed extends MemberState{}
 
 class MemberRegisterSuccess extends MemberState{}
 class MemberRegisterFailed extends MemberState{}
+
+class ResetPassSuccess extends MemberState{}
+class ResetPassFailed extends MemberState{}
+
+class ForgotPassSuccess extends MemberState{
+  final int id;
+  final String code;
+
+  ForgotPassSuccess({this.id,this.code});
+}
+class ForgotPassFailed extends MemberState{}

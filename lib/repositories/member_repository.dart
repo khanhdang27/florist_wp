@@ -33,4 +33,27 @@ class MemberRepository extends Repository{
     });
     return 1;
   }
+
+  Future<Map> forgotPass({String email}) async {
+    var response = await httpManager.post(url: '/api/member/forgotPass', data: {
+      'email': email,
+    });
+
+    var data = response;
+    String code = response['code'] ?? 'error';
+    int id = response['id'] ?? 0;
+    Map results = {
+      'id': id,
+      'code': code,
+    };
+
+    return results;
+  }
+
+  Future<int> resetPass({int id, String pass}) async {
+    var response = await httpManager.put(url: '/api/member/resetPass/$id', data: {
+      'pass': pass,
+    });
+    return 1;
+  }
 }

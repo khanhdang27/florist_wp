@@ -276,7 +276,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     return AppLocalizations.t(context, 'password6');
                   }
                   if (value != pass) {
-                    return AppLocalizations.t(context, 'confirmPass');
+                    return AppLocalizations.t(context, 'confirmPassError');
                   }
                   return null;
                 },

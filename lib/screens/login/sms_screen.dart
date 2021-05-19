@@ -6,6 +6,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'dart:async';
 
 class SMSScreen extends StatefulWidget{
+  String phone;
+
+  SMSScreen({this.phone});
+
   SMSScreenState createState() => SMSScreenState();
 }
 

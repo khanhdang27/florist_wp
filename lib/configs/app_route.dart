@@ -32,6 +32,8 @@ class AppRoute {
   static const String about = '/about';
   static const String gate = '/gate';
   static const String existCard = '/existCard';
+  static const String email = '/email';
+  static const String resetPass = '/resetPass';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -144,7 +146,8 @@ class AppRoute {
       case AppRoute.sms:
         return MaterialPageRoute(
           builder: (context) {
-            return SMSScreen();
+            Map arg = settings.arguments;
+            return SMSScreen(phone: arg['phone'],);
           },
           settings: settings,
         );
@@ -218,10 +221,26 @@ class AppRoute {
           },
           settings: settings,
         );
-        case AppRoute.existCard:
+      case AppRoute.existCard:
         return MaterialPageRoute(
           builder: (context) {
             return ExistingCardsPage();
+          },
+          settings: settings,
+        );
+      case AppRoute.resetPass:
+        return MaterialPageRoute(
+          builder: (context) {
+            Map arg = settings.arguments;
+            return ResetPassScreen(id: arg['id'],);
+          },
+          settings: settings,
+        );
+      case AppRoute.email:
+        return MaterialPageRoute(
+          builder: (context) {
+            Map arg = settings.arguments;
+            return EmailScreen(email: arg['email'],);
           },
           settings: settings,
         );

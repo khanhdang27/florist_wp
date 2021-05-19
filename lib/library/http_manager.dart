@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HTTPManager {
   BaseOptions baseOptions = BaseOptions(
    baseUrl: 'http://10.0.2.2:8000',
-    // baseUrl: 'http://nirondemo.tk/florist/public',
+   //  baseUrl: 'http://nirondemo.tk/florist/public',
     connectTimeout: 10000,
     receiveTimeout: 10000,
     responseType: ResponseType.json,

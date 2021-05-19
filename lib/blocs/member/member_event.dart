@@ -17,3 +17,16 @@ class MemberRegister extends MemberEvent {
 
   MemberRegister({this.name, this.phone, this.email, this.pass});
 }
+
+class ForgotPass extends MemberEvent {
+  final String email;
+
+  ForgotPass({this.email});
+}
+
+class ResetPass extends MemberEvent {
+  final int id;
+  final String pass;
+
+  ResetPass({this.id, this.pass});
+}
