@@ -10,6 +10,7 @@ import 'package:florist/screens/login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:international_phone_input/international_phone_input.dart';
@@ -26,10 +27,9 @@ class RegisterScreenState extends State<RegisterScreen> {
   Timer _timer;
   int _start = 59;
   bool resend = true;
-  final String requiredNumber = '120698';
 
-  bool alreadyPhone = false;
-  bool alreadyEmail = false;
+  String statusEmail = '';
+  String statusPhone = '';
 
   //OTP Screen
 
@@ -138,6 +138,9 @@ class RegisterScreenState extends State<RegisterScreen> {
                       !EmailValidator.validate(value)) {
                     return AppLocalizations.t(context, 'pleaseValidEmail');
                   }
+                  if (statusEmail == 'already') {
+                    return AppLocalizations.t(context, 'emailAlready');
+                  }
                   return null;
                 },
                 decoration: InputDecoration(
@@ -173,12 +176,12 @@ class RegisterScreenState extends State<RegisterScreen> {
                 selectorTextStyle: TextStyle(color: Colors.black),
                 textFieldController: phoneController,
                 formatInput: false,
-                keyboardType:
-                TextInputType.numberWithOptions(signed: true, decimal: true),
+                keyboardType: TextInputType.numberWithOptions(
+                    signed: true, decimal: true),
                 inputBorder: InputBorder.none,
                 validator: (value) {
-                  if (alreadyPhone) {
-                    return AppLocalizations.t(context, 'pleasePhone');
+                  if (statusPhone == 'already') {
+                    return AppLocalizations.t(context, 'phoneAlready');
                   }
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.t(context, 'pleasePhone');
@@ -294,11 +297,14 @@ class RegisterScreenState extends State<RegisterScreen> {
             SizedBox(
               height: 50,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
+                statusEmail = 'ok';
+                statusPhone = 'ok';
                 if (!isLoading) {
                   if (_formKey.currentState.validate()) {
-                    // If the form is valid, we want to show a loading Snackbar
+                    AppBloc.memberBloc.add(
+                        CheckExist(email: emailController.text, phone: phone));
                     setState(() {
                       signUp();
                       isRegisterScreen = false;
@@ -322,6 +328,17 @@ class RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
+            BlocListener(
+              listener: (context, state) {
+                if (state is CheckExistSuccess) {
+                  statusEmail = state.statusEmail;
+                  statusPhone = state.statusPhone;
+                  _formKey.currentState.validate();
+                }
+              },
+              bloc: AppBloc.memberBloc,
+              child: SizedBox(),
+            )
           ],
         ),
       ),
@@ -433,8 +450,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                                           .doc(_auth.currentUser.uid)
                                           .set({
                                         'name': usernameController.text.trim(),
-                                        'phonenumber':
-                                            phone,
+                                        'phonenumber': phone,
                                         'email': emailController.text.trim()
                                       }, SetOptions(merge: true)).then(
                                               (value) => {

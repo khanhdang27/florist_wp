@@ -30,3 +30,10 @@ class ResetPass extends MemberEvent {
 
   ResetPass({this.id, this.pass});
 }
+
+class CheckExist extends MemberEvent {
+  final String email;
+  final String phone;
+
+  CheckExist({this.email, this.phone});
+}

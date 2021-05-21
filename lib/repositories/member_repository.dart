@@ -50,6 +50,22 @@ class MemberRepository extends Repository{
     return results;
   }
 
+  Future<Map> checkExist({String email, String phone}) async {
+    var response = await httpManager.post(url: '/api/member/checkExist', data: {
+      'email': email,
+      'phone': phone,
+    });
+
+    String statusEmail = response['status_email'];
+    String statusPhone = response['status_phone'];
+    Map results = {
+      'status_email': statusEmail,
+      'status_phone': statusPhone,
+    };
+
+    return results;
+  }
+
   Future<int> resetPass({int id, String pass}) async {
     var response = await httpManager.put(url: '/api/member/resetPass/$id', data: {
       'pass': pass,

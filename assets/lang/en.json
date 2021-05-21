@@ -154,5 +154,7 @@
   "facebookNotEmail": "This facebook account is not authenticated email",
   "codeEmail": "Verification code has been sent to email:",
   "codeIncorrect": "Incorrect code!!!",
-  "resetPass": "Reset Password"
+  "resetPass": "Reset Password",
+  "emailAlready": "Email already exists",
+  "phoneAlready": "Phone already exists"
 }

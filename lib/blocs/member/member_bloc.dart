@@ -63,5 +63,18 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
         yield ForgotPassFailed();
       }
     }
+
+    if (event is CheckExist) {
+      yield MemberInitial();
+      Map result = await memberRepository.checkExist(email: event.email, phone: event.phone);
+      if (result['status_email']!=null) {
+        yield CheckExistSuccess(
+          statusEmail: result['status_email'],
+          statusPhone: result['status_phone'],
+        );
+      } else {
+        yield CheckExistFailed();
+      }
+    }
   }
 }

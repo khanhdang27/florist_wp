@@ -26,3 +26,11 @@ class ForgotPassSuccess extends MemberState{
   ForgotPassSuccess({this.id,this.code});
 }
 class ForgotPassFailed extends MemberState{}
+
+class CheckExistSuccess extends MemberState{
+  final String statusEmail;
+  final String statusPhone;
+
+  CheckExistSuccess({this.statusEmail,this.statusPhone});
+}
+class CheckExistFailed extends MemberState{}

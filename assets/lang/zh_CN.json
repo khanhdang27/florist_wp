@@ -154,5 +154,7 @@
   "facebookNotEmail": "此Facebook帐户未经身份验证的电子邮件",
   "codeEmail": "验证码已发送至电子邮件：",
   "codeIncorrect": "不正确的代码!!!",
-  "resetPass": "重置密码"
+  "resetPass": "重置密码",
+  "emailAlready": "電子郵件已經存在",
+  "phoneAlready": "手機已經存在"
 }
