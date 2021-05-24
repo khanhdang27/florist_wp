@@ -42,6 +42,7 @@ dependencies:
   flutter_facebook_auth: ^3.3.3+1
   #international_phone_input: ^1.0.4
   flutter_rating_bar: ^4.0.0
+  flutter_html: ^2.0.0
 
 
 dev_dependencies:

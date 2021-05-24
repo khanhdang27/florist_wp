@@ -7,9 +7,9 @@ import 'package:florist/blocs/blocs.dart';
 import 'package:florist/blocs/review/review_bloc.dart';
 import 'package:florist/configs/configs.dart';
 import 'package:florist/screens/components/components.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-
   ProductDetailScreen() {
     AppBloc.wishlistBloc.add(WishlistGetOne(id: SharedPrefs.getMemberId()));
   }
@@ -44,6 +44,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
         builder: (context, state) {
           AppBloc.productBloc.add(ProductReset());
           if (state is ProductGetOneSuccess) {
+            List<Category> categories = state.item.categories;
             List<Images> images = state.item.images;
             fav = appWishlist.appWishlistContainer.contains(state.item.id);
             return Column(
@@ -58,7 +59,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                       image: images[0].src != null
                           ? NetworkImage(images[0].src)
                           : AssetImage(AppAsset.bong),
-                      ),
+                    ),
                     //                    image: AssetImage(AppAsset.bong)),
                   ),
                   child: Column(
@@ -108,7 +109,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                         decoration: BoxDecoration(
                           color: AppColor.whiteMain,
                           borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(40)),
+                              BorderRadius.vertical(top: Radius.circular(40)),
                         ),
                         child: Row(
                           children: [
@@ -124,11 +125,10 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                 Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 30),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         color: AppColor.whiteMain,
-
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,50 +194,30 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: AppColor.black70_20per,
-                                      )),
-                                  child: Text(
-                                    '紅玫瑰',
-                                    style: TextStyle(
-                                      fontFamily: AppFont.fAvenir,
-                                    ),
-                                  ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: AppColor.black70_20per,
+                                  )),
+                              child: Text(
+                                categories[0].name ?? '',
+                                style: TextStyle(
+                                  fontFamily: AppFont.fAvenir,
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: AppColor.black70_20per,
-                                      )),
-                                  child: Text(
-                                    '紅玫瑰',
-                                    style: TextStyle(
-                                      fontFamily: AppFont.fAvenir,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                          Text(
-                            state.item.description,
-                            style: TextStyle(
-                              fontFamily: AppFont.fAvenir,
-                              color: AppColor.black90per,
-                            ),
+                          Html(
+                            data: state.item.description,
+                            style: {
+                              "p": Style(
+                                fontFamily: AppFont.fAvenir,
+                                color: AppColor.black90per,
+                              ),
+                            },
                           ),
                           SizedBox(
                             height: 10,
@@ -268,23 +248,21 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                 width: 50,
                                 height: 50,
                                 margin: EdgeInsets.only(right: 10),
-                                child:
-
-                                GestureDetector(
+                                child: GestureDetector(
                                   onTap: () {
                                     setState(() {
                                       if (fav) {
-                                        appWishlist.appWishlistContainer.remove(
-                                            state.item.id);
+                                        appWishlist.appWishlistContainer
+                                            .remove(state.item.id);
                                       } else {
-                                        appWishlist.appWishlistContainer.add(
-                                            state.item.id);
+                                        appWishlist.appWishlistContainer
+                                            .add(state.item.id);
                                       }
                                       fav = !fav;
                                     });
                                     AppBloc.wishlistItemBloc.add(AddWishlist(
-                                        wishlist_id: SharedPrefs
-                                            .getWishlistId(),
+                                        wishlist_id:
+                                            SharedPrefs.getWishlistId(),
                                         product_id: state.item.id));
                                   },
                                   child: Icon(
@@ -295,8 +273,6 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                     color: AppColor.greenMain,
                                   ),
                                 ),
-
-
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(15),
@@ -311,16 +287,15 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                 child: Container(
                                   height: 50,
                                   child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
                                           AppBloc.bagItemBloc.add(AddBagItem(
                                               bag_id: SharedPrefs.getBagId(),
                                               product_id: state.item.id,
-                                              quantity: counterProduct()
-                                                  .quantity));
+                                              quantity:
+                                                  counterProduct().quantity));
                                           Navigator.pushReplacementNamed(
                                               context, AppRoute.bag);
                                         },
@@ -390,8 +365,8 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                         color: Colors.grey.withOpacity(0.5),
                                         spreadRadius: 2,
                                         blurRadius: 5,
-                                        offset: Offset(0,
-                                            3), // changes position of shadow
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
                                       ),
                                     ],
                                     borderRadius: BorderRadius.circular(10),
@@ -400,7 +375,6 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                                       vertical: 5, horizontal: 15),
                                   child: TextFormField(
                                     controller: contentController,
-
                                     onFieldSubmitted: (value) {
                                       AppBloc.reviewBloc.add(ReviewAdd(
                                         member_id: SharedPrefs.getMemberId(),
@@ -596,15 +570,15 @@ class _counterProduct extends State<counterProduct> {
                 padding: EdgeInsets.all(9),
                 child: widget.quantity == 1
                     ? Icon(
-                  AppIcon.icon_del,
-                  color: AppColor.greenMain,
-                  size: 16,
-                )
+                        AppIcon.icon_del,
+                        color: AppColor.greenMain,
+                        size: 16,
+                      )
                     : Icon(
-                  AppIcon.remove,
-                  color: AppColor.greenMain,
-                  size: 16,
-                ),
+                        AppIcon.remove,
+                        color: AppColor.greenMain,
+                        size: 16,
+                      ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
@@ -658,7 +632,9 @@ class _counterProduct extends State<counterProduct> {
             children: [
               Container(
                 child: Text(
-                  '\$' + (widget.state.item.price * widget.quantity).toString(),
+                  '\$' +
+                      (int.parse(widget.state.item.price) * widget.quantity)
+                          .toString(),
                   style: TextStyle(
                     fontSize: 31,
                     fontWeight: AppFont.wSuperBold,

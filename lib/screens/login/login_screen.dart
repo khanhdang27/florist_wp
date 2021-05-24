@@ -176,21 +176,23 @@ class LoginScreenState extends State<LoginScreen> {
                   'phone': _emailOrPhoneController.text,
                   'pass': _passwordController.text,
                   'device_name': 'mobile',
+                  'remember_me': _isRembemerMe,
                 };
                 if (_formKey.currentState.validate()) {
                   var response = Provider.of<Auth>(context, listen: false)
                       .login(creds: creds);
-                  response.then((value) =>
-                  {
-                    if (value != null)
-                      {Navigator.pushNamed(context, AppRoute.home)}
-                    else
-                      {
-                        Fluttertoast.showToast(
-                            msg: AppLocalizations.t(context, 'loginFailed'),
-                            timeInSecForIosWeb: 2000)
-                      }
-                  });
+                  response.then((value) => {
+                        if (value != null)
+                          {
+                            Navigator.pushNamed(context, AppRoute.home)
+                          }
+                        else
+                          {
+                            Fluttertoast.showToast(
+                                msg: AppLocalizations.t(context, 'loginFailed'),
+                                timeInSecForIosWeb: 2000)
+                          }
+                      });
                 }
               },
               child: Container(
@@ -279,7 +281,6 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   bool validatePhone(String value) {
-    Pattern pattern = '';
     RegExp regex = new RegExp("^[+][0-9]*\$");
     if (!regex.hasMatch(value))
       return false;
@@ -296,12 +297,11 @@ class LoginScreenState extends State<LoginScreen> {
         'name': _googleSignIn.currentUser.displayName,
       };
       var response =
-      Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
+          Provider.of<Auth>(context, listen: false).loginExternal(creds: creds);
       response.then((value) {
         if (value != null) {
           Navigator.pushNamed(context, AppRoute.home);
-        }
-        else {
+        } else {
           Fluttertoast.showToast(
               msg: AppLocalizations.t(context, 'loginFailed'),
               timeInSecForIosWeb: 2000);
@@ -318,7 +318,7 @@ class LoginScreenState extends State<LoginScreen> {
   _loginFacebook() {
     try {
       FacebookAuth.instance
-          .login(permissions: ["public_profile","email"]).then((value) {
+          .login(permissions: ["public_profile", "email"]).then((value) {
         FacebookAuth.instance.getUserData().then((value) {
           if (value['email'] != null) {
             Map creds = {
@@ -328,20 +328,18 @@ class LoginScreenState extends State<LoginScreen> {
               //     0, value['email'].toString().indexOf('@')),
               'name': value['name'],
             };
-            var response =
-            Provider.of<Auth>(context, listen: false).loginExternal(
-                creds: creds);
-            response.then((value) =>
-            {
-              if (value != null)
-                {Navigator.pushNamed(context, AppRoute.home)}
-              else
-                {
-                  Fluttertoast.showToast(
-                      msg: AppLocalizations.t(context, 'loginFailed'),
-                      timeInSecForIosWeb: 2000)
-                }
-            });
+            var response = Provider.of<Auth>(context, listen: false)
+                .loginExternal(creds: creds);
+            response.then((value) => {
+                  if (value != null)
+                    {Navigator.pushNamed(context, AppRoute.home)}
+                  else
+                    {
+                      Fluttertoast.showToast(
+                          msg: AppLocalizations.t(context, 'loginFailed'),
+                          timeInSecForIosWeb: 2000)
+                    }
+                });
           } else {
             Fluttertoast.showToast(
                 msg: AppLocalizations.t(context, 'facebookNotEmail'),

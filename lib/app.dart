@@ -21,6 +21,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   String token = SharedPrefs.getToken() ?? '';
+  bool rememberMe = SharedPrefs.getRememberMe() ?? false;
   Locale _locale;
 
   void setLocale(Locale locale){
@@ -49,7 +50,7 @@ class _AppState extends State<App> {
           debugShowCheckedModeBanner: false,
           title: 'James Wong Florist',
           theme: ThemeData(fontFamily: AppFont.fPingFangSC),
-          home: token == '' ? LoginScreen() : HomeScreen(),
+          home: token != '' && rememberMe? HomeScreen() : LoginScreen(),
           onGenerateRoute: AppRoute().generateRoute,
           locale: _locale,
           localizationsDelegates: [

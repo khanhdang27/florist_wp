@@ -10,6 +10,7 @@ class SharedPrefs {
    static const _keyShippingType= 'shipping_type';
    static const _keyAvatar= 'avatar';
    static const _keyLogin= 'login_type';
+   static const _keyRemember= 'remember_me';
 
   static Future init() async => _preferences = await SharedPreferences.getInstance();
 
@@ -49,5 +50,10 @@ class SharedPrefs {
       await _preferences.setString(_keyLogin, loginType);
 
   static String getLoginType() => _preferences.getString(_keyLogin);
+
+  static Future setRememberMe(bool rememberMe) async =>
+      await _preferences.setBool(_keyRemember, rememberMe);
+
+  static bool getRememberMe() => _preferences.getBool(_keyRemember);
 
 }

@@ -9,7 +9,6 @@ import 'dio.dart';
 class Auth extends ChangeNotifier {
   bool _isLoggedIn = false;
   Member _member;
-  String _token;
 
   bool get authenticated => _isLoggedIn;
 
@@ -27,7 +26,7 @@ class Auth extends ChangeNotifier {
       await SharedPrefs.setWishlistId(wishlist_id);
       await SharedPrefs.setBagId(bag_id);
       await SharedPrefs.setAvatar(Globals().urlImage + member.avatar);
-
+      await SharedPrefs.setRememberMe(creds['remember_me']);
       return token;
     } catch (e) {
       print(e);
@@ -38,7 +37,6 @@ class Auth extends ChangeNotifier {
 
     try {
       Dio.Response response = await dio().post('/login-external', data: creds);
-
       String token = response.data['token'];
       int wishlist_id = response.data['wishlist_id'];
       int bag_id = response.data['bag'];
@@ -48,6 +46,7 @@ class Auth extends ChangeNotifier {
       await SharedPrefs.setWishlistId(wishlist_id);
       await SharedPrefs.setBagId(bag_id);
       await SharedPrefs.setAvatar(Globals().urlImage + member.avatar);
+      await SharedPrefs.setRememberMe(true);
       return token;
     } catch (e) {
       throw e;
