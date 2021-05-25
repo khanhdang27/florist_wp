@@ -8,3 +8,4 @@ export 'counter.dart';
 export 'counter_bag.dart';
 export 'globals.dart';
 export 'layout_white_notmenu.dart';
+export 'circular.dart';

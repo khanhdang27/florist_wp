@@ -52,7 +52,7 @@ class BagScreenState extends State<BagScreen> {
                   children: bag_item,
                 );
               }
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Circular());
             },
             bloc: AppBloc.bagBloc,
             buildWhen: (previous, current) {

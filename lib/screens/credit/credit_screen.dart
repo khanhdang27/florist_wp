@@ -133,7 +133,7 @@ class _CreditScreenState extends State<CreditScreen> {
                 ],
               );
             }
-            return Center(child: CircularProgressIndicator());
+            return Center(child: Circular());
           },
         ),
       ),

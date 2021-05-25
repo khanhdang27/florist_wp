@@ -406,7 +406,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
               ],
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: Circular());
         },
         bloc: AppBloc.productBloc,
         buildWhen: (previous, current) {
@@ -532,7 +532,7 @@ class review extends StatelessWidget {
             }).toList(),
           );
         }
-        return Center(child: CircularProgressIndicator());
+        return Center(child: Circular());
       },
       bloc: AppBloc.reviewBloc,
       buildWhen: (previous, current) {

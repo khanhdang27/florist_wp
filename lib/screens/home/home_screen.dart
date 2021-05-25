@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               }
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Circular());
             },
             bloc: AppBloc.bannerBloc,
             buildWhen: (previous, current) {
@@ -106,7 +106,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               }
-              return Center(child: CircularProgressIndicator());
+             // return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColor.greenMain),));
+              return Center(child: Circular());
             },
             bloc: AppBloc.productBloc,
             buildWhen: (previous, current) {
@@ -151,7 +152,7 @@ class HomeScreen extends StatelessWidget {
                     }).toList(),
                   );
                 }
-                return Center(child: CircularProgressIndicator());
+                return Center(child: Circular());
               },
               bloc: AppBloc.categoryBloc,
               buildWhen: (previous, current) {

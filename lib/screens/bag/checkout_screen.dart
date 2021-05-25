@@ -796,7 +796,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
       expYear: int.parse(expiryArr[1]),
     );
     var response = await StripeService.payViaExistingCard(
-        amount: (widget.subtotal + widget.cost).toString(),
+        amount: ((widget.subtotal + widget.cost)*100).toString(),  // nhân 100 bởi vì Stripe thích vậy
         currency: 'HKD',
         card: stripeCard);
     await dialog.hide();

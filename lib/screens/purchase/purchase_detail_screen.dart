@@ -268,7 +268,7 @@ class PurchaseDetailScreen extends StatelessWidget {
               ],
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: Circular());
         },
       ),
     );

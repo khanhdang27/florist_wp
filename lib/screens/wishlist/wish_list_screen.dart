@@ -41,7 +41,7 @@ class WishListScreenState extends State<WishListScreen> {
                   children: wishlist_item,
                 );
               }
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Circular());
             },
             bloc: AppBloc.wishlistBloc,
             buildWhen: (previous, current) {

@@ -84,7 +84,7 @@ class ProductListScreen extends StatelessWidget {
                 );
               }
 
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Circular());
             },
             bloc: AppBloc.productBloc,
             buildWhen: (previous, current) {

@@ -100,7 +100,7 @@ class PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                   }).toList(),
                 );
               }
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Circular());
             },
             bloc: AppBloc.orderBloc,
           ),

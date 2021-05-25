@@ -361,7 +361,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
               ),
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: Circular());
         },
         bloc: AppBloc.shippingBloc,
       ),

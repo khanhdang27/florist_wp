@@ -31,7 +31,7 @@ class _CouponScreenState extends State<CouponScreen> {
             }
             return ShowCoupon();
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: Circular());
         },
         bloc: AppBloc.couponMemberBloc,
         buildWhen: (previous, current) {
@@ -132,7 +132,7 @@ class ShowCoupon extends StatelessWidget {
                     }).toList(),
                   );
                 }
-                return Center(child: CircularProgressIndicator());
+                return Center(child: Circular());
               },
               bloc: AppBloc.couponMemberBloc,
               buildWhen: (previous, current) {

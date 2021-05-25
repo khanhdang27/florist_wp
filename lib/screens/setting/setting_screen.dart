@@ -494,7 +494,8 @@ class SettingScreenState extends State<SettingScreen> {
               ],
             );
           }
-          return Center(
+          return Center(child: Circular(),);
+          /*return Center(
             child: FloatingActionButton(
               child: Text('Logout'),
               onPressed: () async {
@@ -502,7 +503,7 @@ class SettingScreenState extends State<SettingScreen> {
                 prefs.remove('token');
               },
             ),
-          );
+          );*/
         },
         bloc: AppBloc.memberBloc,
         buildWhen: (previous, current) {

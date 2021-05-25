@@ -36,7 +36,7 @@ class BannerScreen extends StatelessWidget {
                   );
                 }
 
-                return Center(child: CircularProgressIndicator());
+                return Center(child: Circular());
               },
               bloc: AppBloc.bannerBloc,
             ),
@@ -63,7 +63,7 @@ class BannerScreen extends StatelessWidget {
                     }).toList(),
                   );
                 }
-                return Center(child: CircularProgressIndicator());
+                return Center(child: Circular());
               },
               bloc: AppBloc.productBloc,
               buildWhen: (previous, current) {
