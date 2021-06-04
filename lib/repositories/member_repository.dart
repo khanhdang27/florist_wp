@@ -1,8 +1,11 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:florist/models/models.dart';
 import 'package:florist/repositories/repository.dart';
 import 'package:florist/screens/components/components.dart';
 
-class MemberRepository extends Repository{
+class MemberRepository extends Repository {
   Future<Member> getOne({int Id}) async {
     var response = await httpManager.get(url: '/api/member/getOne/$Id');
     var data = response;
@@ -14,7 +17,7 @@ class MemberRepository extends Repository{
       phone: data['phone'],
       email: data['email'],
       pass: data['pass'],
-      avatar: Globals().urlImage+data['avatar'],
+      avatar: Globals().urlImage + data['avatar'],
       rating: data['rating'],
       countRate: data['count_rate'],
       active: data['active'],
@@ -24,14 +27,19 @@ class MemberRepository extends Repository{
     return results;
   }
 
-  Future<int> memberRegister({String name, String phone, String email, String pass}) async {
-    var response = await httpManager.post(url: '/api/member', data: {
-      'name': name,
-      'phone': phone,
+  Future<int> memberRegister({String name, String email, String pass}) async {
+    FormData formData = FormData.fromMap({
+      'username': name,
       'email': email,
-      'pass': pass,
+      'password': pass,
     });
-    return 1;
+    var response = await httpManager.post(
+      url: 'wp-content/themes/porto/api/register.php',
+      data: formData,
+    );
+    Map responseMap = jsonDecode(response);
+    int status = responseMap['code'] ?? responseMap['status'];
+    return status;
   }
 
   Future<Map> forgotPass({String email}) async {
@@ -67,7 +75,8 @@ class MemberRepository extends Repository{
   }
 
   Future<int> resetPass({int id, String pass}) async {
-    var response = await httpManager.put(url: '/api/member/resetPass/$id', data: {
+    var response =
+        await httpManager.put(url: '/api/member/resetPass/$id', data: {
       'pass': pass,
     });
     return 1;

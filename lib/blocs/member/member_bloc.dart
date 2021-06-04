@@ -29,12 +29,12 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
     }
 
     if (event is MemberRegister) {
-      int stt = await memberRepository.memberRegister(
+      int status = await memberRepository.memberRegister(
           name: event.name,
-          phone: event.phone,
           email: event.email,
           pass: event.pass);
-      if (stt == 1) {
+      print(status);
+      if (status == 1) {
         yield MemberRegisterSuccess();
       } else {
         yield MemberRegisterFailed();

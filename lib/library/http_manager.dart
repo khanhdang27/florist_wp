@@ -3,17 +3,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HTTPManager {
   BaseOptions baseOptions = BaseOptions(
-   baseUrl: 'http://10.0.2.2:8000',
-   //  baseUrl: 'http://nirondemo.tk/florist/public',
-    connectTimeout: 10000,
-    receiveTimeout: 10000,
+    //baseUrl: 'http://10.0.2.2:8000',
+    //  baseUrl: 'http://nirondemo.tk/florist/public',
+    baseUrl: 'https://hkdemo.xunchaokeji.com/',
+    connectTimeout: 30000,
+    receiveTimeout: 30000,
     responseType: ResponseType.json,
   );
 
   Future<BaseOptions> exportOption() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token')??'';
+    String token = prefs.getString('token') ?? '';
 
     final Map<String, dynamic> header = {};
     baseOptions.headers.addAll(header);
@@ -26,7 +26,7 @@ class HTTPManager {
 
   Future<dynamic> post({
     String url,
-    Map<String, dynamic> data,
+    dynamic data,
     Options options,
   }) async {
     Dio dio = new Dio(await exportOption());
@@ -38,6 +38,8 @@ class HTTPManager {
       );
       return response.data;
     } on DioError catch (error) {
+      throw error;
+    } catch (error) {
       throw error;
     }
   }
@@ -57,6 +59,8 @@ class HTTPManager {
       return response.data;
     } on DioError catch (error) {
       throw error;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -73,7 +77,11 @@ class HTTPManager {
         options: options,
       );
       return response.data;
-    } on DioError catch (error) {}
+    } on DioError catch (error) {
+      throw error;
+    } catch (error) {
+      throw error;
+    }
   }
 
   Future<dynamic> delete({
@@ -89,7 +97,11 @@ class HTTPManager {
         options: options,
       );
       return response.data;
-    } on DioError catch (error) {}
+    } on DioError catch (error) {
+      throw error;
+    } catch (error) {
+      throw error;
+    }
   }
 
   //Singleton

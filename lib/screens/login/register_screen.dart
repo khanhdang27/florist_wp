@@ -27,9 +27,9 @@ class RegisterScreenState extends State<RegisterScreen> {
   Timer _timer;
   int _start = 59;
   bool resend = true;
-
+/*
   String statusEmail = '';
-  String statusPhone = '';
+  String statusPhone = '';*/
 
   //OTP Screen
 
@@ -138,9 +138,9 @@ class RegisterScreenState extends State<RegisterScreen> {
                       !EmailValidator.validate(value)) {
                     return AppLocalizations.t(context, 'pleaseValidEmail');
                   }
-                  if (statusEmail == 'already') {
+                /*  if (statusEmail == 'already') {
                     return AppLocalizations.t(context, 'emailAlready');
-                  }
+                  }*/
                   return null;
                 },
                 decoration: InputDecoration(
@@ -180,9 +180,9 @@ class RegisterScreenState extends State<RegisterScreen> {
                     signed: true, decimal: true),
                 inputBorder: InputBorder.none,
                 validator: (value) {
-                  if (statusPhone == 'already') {
+                 /* if (statusPhone == 'already') {
                     return AppLocalizations.t(context, 'phoneAlready');
-                  }
+                  }*/
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.t(context, 'pleasePhone');
                   }
@@ -299,16 +299,25 @@ class RegisterScreenState extends State<RegisterScreen> {
             ),
             InkWell(
               onTap: () {
-                statusEmail = 'ok';
-                statusPhone = 'ok';
+                /*statusEmail = 'ok';
+                statusPhone = 'ok';*/
                 if (!isLoading) {
                   if (_formKey.currentState.validate()) {
-                    AppBloc.memberBloc.add(
-                        CheckExist(email: emailController.text, phone: phone));
-                    setState(() {
+               /*     AppBloc.memberBloc.add(
+                        CheckExist(email: emailController.text, phone: phone));*/
+
+                    /*setState(() {
                       signUp();
                       isRegisterScreen = false;
-                    });
+                    });*/
+
+                    AppBloc.memberBloc.add(MemberRegister(
+                      name: usernameController.text.trim(),
+                      phone: phone,
+                      email: emailController.text.trim(),
+                      pass: passwordController.text.trim(),
+                    ));
+
                   }
                 }
               },
@@ -328,7 +337,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-            BlocListener(
+         /*   BlocListener(
               listener: (context, state) {
                 if (state is CheckExistSuccess) {
                   statusEmail = state.statusEmail;
@@ -338,7 +347,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               },
               bloc: AppBloc.memberBloc,
               child: SizedBox(),
-            )
+            )*/
           ],
         ),
       ),
